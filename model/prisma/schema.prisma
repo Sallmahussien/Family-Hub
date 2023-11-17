@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Circles {
+  id         String        @id @default(uuid())
+  name       String
+  coverPhoto String
+  createdAt  DateTime      @default(now())
+  deleted    Boolean       @default(false)
+  users      Users[]
+  contacts   ContactBooks[]
+  feeds      Feeds[]
+}
+
+model Users {
+  id           String    @id @default(uuid())
+  circleId     String
+  firstName    String
+  lastName     String
+  role         Role      @default(MEMEBER)
+  email        String
+  password     String
+  profilePhoto String?
+  birthdate    DateTime
+  position     Position?
+  deleted      Boolean   @default(false)
+  feeds        Feeds[]
+  circle       Circles    @relation(fields: [circleId], references: [id], onDelete: NoAction)
+  Comment      Comments[]
+  Like         Likes[]
+}
+
+model ContactBooks {
+  id           String  @id @default(uuid())
+  circleId     String
+  firstName    String
+  lastName     String
+  email        String?
+  phoneNumber  String
+  profilePhoto String?
+  type         String?
+  note         String? @db.VarChar(1024)
+  deleted      Boolean @default(false)
+  circle       Circles  @relation(fields: [circleId], references: [id], onDelete: NoAction)
+}
+
+model Feeds {
+  id        String    @id @default(uuid())
+  circleId  String
+  userId    String
+  type      FeedType  @default(POST)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deleted   Boolean   @default(false)
+  photo     Gallery?
+  event     Events?
+  list      Lists?
+  Post      Posts?
+  Comment   Comments[]
+  Like      Likes[]
+  circle    Circles    @relation(fields: [circleId], references: [id], onDelete: NoAction)
+  user      Users     @relation(fields: [userId], references: [id], onDelete: NoAction)
+}
+
+model Gallery {
+  id      String  @id @default(uuid())
+  feedId  String  @unique
+  photo   String
+  caption String  @db.VarChar(1024)
+  deleted Boolean @default(false)
+  feed    Feeds    @relation(fields: [feedId], references: [id], onDelete: NoAction)
+}
+
+model Events {
+  id          String    @id @default(uuid())
+  feedId      String    @unique
+  title       String
+  startDate   DateTime
+  endDate     DateTime
+  reminder    DateTime?
+  description String?   @db.VarChar(1024)
+  deleted     Boolean   @default(false)
+  feed        Feeds      @relation(fields: [feedId], references: [id], onDelete: NoAction)
+}
+
+model Lists {
+  id        String     @id @default(uuid())
+  feedId    String     @unique
+  name      String
+  deleted   Boolean    @default(false)
+  listItems ListItems[]
+  feed      Feeds       @relation(fields: [feedId], references: [id], onDelete: NoAction)
+}
+
+model ListItems {
+  id      String  @id @default(uuid())
+  listId  String  @unique
+  name    String
+  deleted Boolean @default(false)
+  list    Lists    @relation(fields: [listId], references: [id], onDelete: NoAction)
+}
+
+model Posts {
+  id      String  @id @default(uuid())
+  feedId  String  @unique
+  content String  @db.VarChar(1024)
+  deleted Boolean @default(false)
+  feed    Feeds    @relation(fields: [feedId], references: [id], onDelete: NoAction)
+}
+
+model Comments {
+  id        String   @id @default(uuid())
+  feedId    String
+  userId    String
+  content   String   @db.VarChar(256)
+  createdAt DateTime
+  deleted   Boolean  @default(false)
+  feed      Feeds     @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  user      Users    @relation(fields: [userId], references: [id], onDelete: NoAction)
+}
+
+model Likes {
+  id        String   @id @default(uuid())
+  feedId    String
+  userId    String
+  createdAt DateTime
+  deleted   Boolean  @default(false)
+  feed      Feeds     @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  user      Users     @relation(fields: [userId], references: [id], onDelete: NoAction)
+}
+
+enum Role {
+  CREATOR
+  MEMEBER
+}
+
+enum Position {
+  FATHER
+  MOTHER
+  SON
+  DAUGHTER
+}
+
+enum FeedType {
+  POST
+  PHOTO
+  EVENT
+  LIST
+}
