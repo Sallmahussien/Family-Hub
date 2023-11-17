@@ -8,28 +8,28 @@ datasource db {
 }
 
 model Circles {
-  id         String        @id @default(uuid())
+  id         String         @id @default(uuid())
   name       String
   coverPhoto String
-  createdAt  DateTime      @default(now())
-  deleted    Boolean       @default(false)
+  createdAt  DateTime       @default(now())
+  deleted    Boolean        @default(false)
   users      Users[]
   contacts   ContactBooks[]
   feeds      Feeds[]
 }
 
 model Users {
-  id           String    @id @default(uuid())
+  id           String     @id @default(uuid())
   circleId     String
   firstName    String
   lastName     String
-  role         Role      @default(MEMEBER)
+  role         Role       @default(MEMEBER)
   email        String
   password     String
   profilePhoto String?
   birthdate    DateTime
   position     Position?
-  deleted      Boolean   @default(false)
+  deleted      Boolean    @default(false)
   feeds        Feeds[]
   circle       Circles    @relation(fields: [circleId], references: [id], onDelete: NoAction)
   Comment      Comments[]
@@ -47,17 +47,17 @@ model ContactBooks {
   type         String?
   note         String? @db.VarChar(1024)
   deleted      Boolean @default(false)
-  circle       Circles  @relation(fields: [circleId], references: [id], onDelete: NoAction)
+  circle       Circles @relation(fields: [circleId], references: [id], onDelete: NoAction)
 }
 
 model Feeds {
-  id        String    @id @default(uuid())
+  id        String     @id @default(uuid())
   circleId  String
   userId    String
-  type      FeedType  @default(POST)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deleted   Boolean   @default(false)
+  type      FeedType   @default(POST)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  deleted   Boolean    @default(false)
   photo     Gallery?
   event     Events?
   list      Lists?
@@ -65,7 +65,7 @@ model Feeds {
   Comment   Comments[]
   Like      Likes[]
   circle    Circles    @relation(fields: [circleId], references: [id], onDelete: NoAction)
-  user      Users     @relation(fields: [userId], references: [id], onDelete: NoAction)
+  user      Users      @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
 model Gallery {
@@ -74,7 +74,7 @@ model Gallery {
   photo   String
   caption String  @db.VarChar(1024)
   deleted Boolean @default(false)
-  feed    Feeds    @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  feed    Feeds   @relation(fields: [feedId], references: [id], onDelete: NoAction)
 }
 
 model Events {
@@ -86,14 +86,14 @@ model Events {
   reminder    DateTime?
   description String?   @db.VarChar(1024)
   deleted     Boolean   @default(false)
-  feed        Feeds      @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  feed        Feeds     @relation(fields: [feedId], references: [id], onDelete: NoAction)
 }
 
 model Lists {
-  id        String     @id @default(uuid())
-  feedId    String     @unique
+  id        String      @id @default(uuid())
+  feedId    String      @unique
   name      String
-  deleted   Boolean    @default(false)
+  deleted   Boolean     @default(false)
   listItems ListItems[]
   feed      Feeds       @relation(fields: [feedId], references: [id], onDelete: NoAction)
 }
@@ -103,7 +103,7 @@ model ListItems {
   listId  String  @unique
   name    String
   deleted Boolean @default(false)
-  list    Lists    @relation(fields: [listId], references: [id], onDelete: NoAction)
+  list    Lists   @relation(fields: [listId], references: [id], onDelete: NoAction)
 }
 
 model Posts {
@@ -111,7 +111,7 @@ model Posts {
   feedId  String  @unique
   content String  @db.VarChar(1024)
   deleted Boolean @default(false)
-  feed    Feeds    @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  feed    Feeds   @relation(fields: [feedId], references: [id], onDelete: NoAction)
 }
 
 model Comments {
@@ -121,7 +121,7 @@ model Comments {
   content   String   @db.VarChar(256)
   createdAt DateTime
   deleted   Boolean  @default(false)
-  feed      Feeds     @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  feed      Feeds    @relation(fields: [feedId], references: [id], onDelete: NoAction)
   user      Users    @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
@@ -131,8 +131,8 @@ model Likes {
   userId    String
   createdAt DateTime
   deleted   Boolean  @default(false)
-  feed      Feeds     @relation(fields: [feedId], references: [id], onDelete: NoAction)
-  user      Users     @relation(fields: [userId], references: [id], onDelete: NoAction)
+  feed      Feeds    @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  user      Users    @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
 enum Role {
