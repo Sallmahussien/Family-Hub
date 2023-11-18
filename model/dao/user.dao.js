@@ -17,6 +17,7 @@ class UsersDao {
                 deleted: false
             }
         });
+
         return users;
     }
 
@@ -81,7 +82,8 @@ class UsersDao {
             where: {
                 id: {
                     in: likesIds
-                }
+                },
+                deleted: false
             },
             data: {
                 deleted: true
@@ -92,7 +94,8 @@ class UsersDao {
             where: {
                 id: {
                     in: commentsIds
-                }
+                },
+                deleted: false
             },
             data: {
                 deleted: true
@@ -103,7 +106,8 @@ class UsersDao {
             where: {
                 id: {
                     in: feedsIds
-                }
+                },
+                deleted: false
             },
             data: {
                 deleted: true

@@ -61,9 +61,9 @@ model Feeds {
   photo     Gallery?
   event     Events?
   list      Lists?
-  Post      Posts?
-  Comment   Comments[]
-  Like      Likes[]
+  post      Posts?
+  comments   Comments[]
+  likes      Likes[]
   circle    Circles    @relation(fields: [circleId], references: [id], onDelete: NoAction)
   user      Users      @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
