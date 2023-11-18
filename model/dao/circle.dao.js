@@ -28,7 +28,8 @@ class CirclesDao {
 
         await prisma.circles.update({
             where: {
-                id: circleId
+                id: circleId,
+                deleted: false
             },
             data: updateCircleDto
         });
@@ -37,7 +38,8 @@ class CirclesDao {
     async deleteCircle (circleId) {
         await prisma.circles.update({
             where: {
-                id: circleId
+                id: circleId,
+                deleted: false
             },
             data: {
                 deleted: true
@@ -47,6 +49,7 @@ class CirclesDao {
         await prisma.users.updateMany({
             where: {
                 circleId: circleId,
+                deleted: false
             },
             data: {
                 deleted: true
@@ -55,7 +58,8 @@ class CirclesDao {
 
         await prisma.feeds.updateMany({
             where: {
-                circleId: circleId
+                circleId: circleId,
+                deleted: false
             },
             data: {
                 deleted: true
@@ -64,7 +68,8 @@ class CirclesDao {
 
         await prisma.contactBooks.updateMany({
             where: {
-                circleId: circleId
+                circleId: circleId,
+                deleted: false
             },
             data: {
                 deleted: true
@@ -74,6 +79,7 @@ class CirclesDao {
         const users = await prisma.users.findMany({
             where: {
                 circleId: circleId,
+                deleted: false
             },
             include: {
                 likes: true,
@@ -98,7 +104,8 @@ class CirclesDao {
             where: {
                 id: {
                     in: likesIds
-                }
+                },
+                deleted: false
             },
             data: {
                 deleted: true
@@ -109,7 +116,8 @@ class CirclesDao {
             where: {
                 id: {
                     in: commentsIds
-                }
+                },
+                deleted: false
             },
             data: {
                 deleted: true
