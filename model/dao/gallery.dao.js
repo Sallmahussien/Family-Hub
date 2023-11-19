@@ -29,7 +29,7 @@ class GalleriesDao {
 
         feeds.forEach(feed =>{
             if (feed.userId === userId) photosForUser.push(feed);
-        })
+        });
 
         return photosForUser;
     }
@@ -39,8 +39,7 @@ class GalleriesDao {
             where: {
                 id: photoId
             }
-        })
-        console.log(photo)
+        });
         return photo;
     }
 
