@@ -34,7 +34,15 @@ class GalleriesDao {
         return photosForUser;
     }
 
-
+    async getPhotoById (photoId) {
+        const photo = await prisma.gallery.findUnique({
+            where: {
+                id: photoId
+            }
+        })
+        console.log(photo)
+        return photo;
+    }
 
     async updatePhotoById (photoId, updatePhotoDTO) {
         await prisma.gallery.update({
