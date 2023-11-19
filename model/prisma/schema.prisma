@@ -32,8 +32,8 @@ model Users {
   deleted      Boolean    @default(false)
   feeds        Feeds[]
   circle       Circles    @relation(fields: [circleId], references: [id], onDelete: NoAction)
-  comments      Comments[]
-  likes         Likes[]
+  comments     Comments[]
+  likes        Likes[]
 }
 
 model ContactBooks {
@@ -62,8 +62,8 @@ model Feeds {
   event     Events?
   list      Lists?
   post      Posts?
-  comments   Comments[]
-  likes      Likes[]
+  comments  Comments[]
+  likes     Likes[]
   circle    Circles    @relation(fields: [circleId], references: [id], onDelete: NoAction)
   user      Users      @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
@@ -72,7 +72,7 @@ model Gallery {
   id      String  @id @default(uuid())
   feedId  String  @unique
   photo   String
-  caption String?  @db.VarChar(1024)
+  caption String? @db.VarChar(1024)
   feed    Feeds   @relation(fields: [feedId], references: [id], onDelete: NoAction)
 }
 
@@ -97,17 +97,17 @@ model Lists {
 
 model ListItems {
   id      String  @id @default(uuid())
-  listId  String  
+  listId  String
   name    String
   deleted Boolean @default(false)
   list    Lists   @relation(fields: [listId], references: [id], onDelete: NoAction)
 }
 
 model Posts {
-  id      String  @id @default(uuid())
-  feedId  String  @unique
-  content String  @db.VarChar(1024)
-  feed    Feeds   @relation(fields: [feedId], references: [id], onDelete: NoAction)
+  id      String @id @default(uuid())
+  feedId  String @unique
+  content String @db.VarChar(1024)
+  feed    Feeds  @relation(fields: [feedId], references: [id], onDelete: NoAction)
 }
 
 model Comments {
