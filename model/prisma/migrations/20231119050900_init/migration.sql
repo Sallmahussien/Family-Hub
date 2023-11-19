@@ -1,92 +1,8 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Circle` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Comment` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `ContactBook` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Event` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Feed` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Like` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `List` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `ListItem` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Post` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE `Comment` DROP FOREIGN KEY `Comment_feedId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Comment` DROP FOREIGN KEY `Comment_userId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `ContactBook` DROP FOREIGN KEY `ContactBook_circleId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Event` DROP FOREIGN KEY `Event_feedId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Feed` DROP FOREIGN KEY `Feed_circleId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Feed` DROP FOREIGN KEY `Feed_userId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Gallery` DROP FOREIGN KEY `Gallery_feedId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Like` DROP FOREIGN KEY `Like_feedId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Like` DROP FOREIGN KEY `Like_userId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `List` DROP FOREIGN KEY `List_feedId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `ListItem` DROP FOREIGN KEY `ListItem_listId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `Post` DROP FOREIGN KEY `Post_feedId_fkey`;
-
--- DropForeignKey
-ALTER TABLE `User` DROP FOREIGN KEY `User_circleId_fkey`;
-
--- DropTable
-DROP TABLE `Circle`;
-
--- DropTable
-DROP TABLE `Comment`;
-
--- DropTable
-DROP TABLE `ContactBook`;
-
--- DropTable
-DROP TABLE `Event`;
-
--- DropTable
-DROP TABLE `Feed`;
-
--- DropTable
-DROP TABLE `Like`;
-
--- DropTable
-DROP TABLE `List`;
-
--- DropTable
-DROP TABLE `ListItem`;
-
--- DropTable
-DROP TABLE `Post`;
-
--- DropTable
-DROP TABLE `User`;
-
 -- CreateTable
 CREATE TABLE `Circles` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `coverPhoto` VARCHAR(191) NOT NULL,
+    `coverPhoto` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
@@ -107,6 +23,7 @@ CREATE TABLE `Users` (
     `position` ENUM('FATHER', 'MOTHER', 'SON', 'DAUGHTER') NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
+    UNIQUE INDEX `Users_email_key`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -140,6 +57,17 @@ CREATE TABLE `Feeds` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `Gallery` (
+    `id` VARCHAR(191) NOT NULL,
+    `feedId` VARCHAR(191) NOT NULL,
+    `photo` VARCHAR(191) NOT NULL,
+    `caption` VARCHAR(1024) NULL,
+
+    UNIQUE INDEX `Gallery_feedId_key`(`feedId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Events` (
     `id` VARCHAR(191) NOT NULL,
     `feedId` VARCHAR(191) NOT NULL,
@@ -148,7 +76,6 @@ CREATE TABLE `Events` (
     `endDate` DATETIME(3) NOT NULL,
     `reminder` DATETIME(3) NULL,
     `description` VARCHAR(1024) NULL,
-    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Events_feedId_key`(`feedId`),
     PRIMARY KEY (`id`)
@@ -159,7 +86,6 @@ CREATE TABLE `Lists` (
     `id` VARCHAR(191) NOT NULL,
     `feedId` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
-    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Lists_feedId_key`(`feedId`),
     PRIMARY KEY (`id`)
@@ -172,7 +98,6 @@ CREATE TABLE `ListItems` (
     `name` VARCHAR(191) NOT NULL,
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
-    UNIQUE INDEX `ListItems_listId_key`(`listId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -181,7 +106,6 @@ CREATE TABLE `Posts` (
     `id` VARCHAR(191) NOT NULL,
     `feedId` VARCHAR(191) NOT NULL,
     `content` VARCHAR(1024) NOT NULL,
-    `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `Posts_feedId_key`(`feedId`),
     PRIMARY KEY (`id`)
@@ -193,7 +117,7 @@ CREATE TABLE `Comments` (
     `feedId` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
     `content` VARCHAR(256) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
@@ -204,7 +128,7 @@ CREATE TABLE `Likes` (
     `id` VARCHAR(191) NOT NULL,
     `feedId` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(191) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `deleted` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
