@@ -3,9 +3,9 @@ const { prisma } = require('../client.db');
 
 class FeedsDao {
 
-    async createFeed(createFeadDto) {
+    async createFeed(createFeedDto) {
         const feed = await prisma.feeds.create({
-            data: createFeadDto
+            data: createFeedDto
         });
 
         return feed;
@@ -18,6 +18,10 @@ class FeedsDao {
                 deleted: false
             },
             include: {
+                post: true,
+                event: true,
+                list: true,
+                photo: true,
                 comments: true,
                 likes: true
             }
@@ -33,6 +37,10 @@ class FeedsDao {
                 deleted: false
             },
             include: {
+                post: true,
+                event: true,
+                list: true,
+                photo: true,
                 comments: true,
                 likes: true
             }
@@ -48,12 +56,35 @@ class FeedsDao {
                 deleted: false
             },
             include: {
-                likes: true,
-                comments: true
+                post: true,
+                event: true,
+                list: true,
+                photo: true,
+                comments: true,
+                likes: true
             }
         });
 
         return feed
+    }
+
+    async getFeedsBytype(circleId, type) {
+        const feeds = await prisma.feeds.findMany({
+            where: {
+                circleId: circleId,
+                deleted: false,
+                type: type
+            },
+            include: {
+                post: true,
+                event: true,
+                list: true,
+                photo: true,
+                comments: true,
+                likes: true
+            }
+        });
+        return feeds;
     }
 
     async deleteFeedById(feedId) {
