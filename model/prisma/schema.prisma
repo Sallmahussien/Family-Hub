@@ -72,7 +72,7 @@ model Gallery {
   id      String  @id @default(uuid())
   feedId  String  @unique
   photo   String
-  caption String  @db.VarChar(1024)
+  caption String?  @db.VarChar(1024)
   feed    Feeds   @relation(fields: [feedId], references: [id], onDelete: NoAction)
 }
 
