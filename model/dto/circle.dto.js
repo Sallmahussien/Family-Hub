@@ -7,5 +7,4 @@ class CirclesDto {
     }
 }
 
-
 module.exports = { CirclesDto };
