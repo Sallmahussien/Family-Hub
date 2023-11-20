@@ -55,7 +55,7 @@ class ContactBooksDao {
         });
     };
 
-    async deleteAllContactsByCircleId (circleId) {
+    async deleteContactsByCircleId (circleId) {
         await prisma.contactBooks.updateMany({
             where: {
                 circleId: circleId,

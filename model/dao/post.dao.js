@@ -4,34 +4,34 @@ const Feed = new FeedsDao();
 
 class PostsDao {
 
-    async createPost (createPostDto, createFeedDTO) {
-        const feed = await Feed.createFeed(createFeedDTO)
-        createPostDto.feedId = feed.id
+    async createPost(postDto, feedDto) {
+        const feed = await Feed.createFeed(feedDto)
+        postDto.feedId = feed.id
         const post = await prisma.posts.create({
-            data: createPostDto
+            data: postDto
         });
 
         return post;
     }
 
 
-    async getPostByCircleId (circleId) {
+    async getPostByCircleId(circleId) {
         const feeds = await Feed.getFeedsBytype(circleId, 'POST');
 
         return feeds;
     }
 
 
-    async updatePstById (postId, updatePostDTO) {
+    async updatePostById(postDto) {
         await prisma.posts.update({
             where: {
-                id: postId,
+                id: postDto.id,
             },
-            data: updatePostDTO
+            data: postDto
         })
     }
 
 }
 
 
-module.exports ={ PostsDao }
+module.exports = { PostsDao }

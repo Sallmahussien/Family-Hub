@@ -5,11 +5,11 @@ const Feed = new FeedsDao();
 
 class ListsDao {
 
-    async createList (createListDTO, createFeedDTO) {
-        const feed = await Feed.createFeed(createFeedDTO)
-        createListDTO.feedId = feed.id
+    async createList (listDto, feedDto) {
+        const feed = await Feed.createFeed(feedDto)
+        listDto.feedId = feed.id
         const list = await prisma.lists.create({
-            data: createListDTO
+            data: listDto
         });
         return list;
     }
@@ -31,12 +31,12 @@ class ListsDao {
         return list;
     }
 
-    async updateListById (listId, updateListDTO) {
+    async updateListById (listDto) {
         await prisma.lists.update({
             where: {
-                id: listId
+                id: listDto.id
             },
-            data: updateListDTO
+            data: listDto
         });
     }
 

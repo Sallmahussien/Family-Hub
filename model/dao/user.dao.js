@@ -1,12 +1,16 @@
 const { prisma } = require('../client.db');
+const { FeedsDao } = require('./feed.dao')
+
+const Feed = new FeedsDao();
 
 class UsersDao {
 
-    async createUser (createUserDto) {
+    async createUser (userDto) {
         const user = await prisma.users.create({
-            data: createUserDto
+            data: userDto
         });
 
+        console.log(user);
         return user;
     }
 
@@ -18,6 +22,7 @@ class UsersDao {
             }
         });
 
+        console.log(users);
         return users;
     }
 
@@ -33,24 +38,49 @@ class UsersDao {
                 likes: true
             }
         });
+        console.log(user);
 
         return user;
     }
 
-    async updateUserById (userId, updateUserDto) {
+    async updateUserById (userDto) {
         await prisma.users.update({
             where: {
-                id: userId,
+                id: userDto.id,
                 deleted: false
             },
-            data: updateUserDto
+            data: userDto
         });
     }
 
+    async deleteUsersByCircleId(circleId) {
+        const usersIds = await prisma.users.findMany({
+            select: {
+                id: true
+            },
+            where: {
+                circleId: circleId,
+                deleted: false
+            }
+        });
+
+        const usersIdsList = usersIds.map((user) => user.id);
+
+        await prisma.users.updateMany({
+            where: {
+                id: {
+                    in: usersIdsList
+                }
+            },
+            data: {
+                deleted: true
+            }
+        });
+    }
 
     async deleteUserById (userId) {
 
-        const user = await this.getUserById(userId);
+        await Feed.deleteFeedsByUserId(userId);
 
         await prisma.users.update({
             where: {
@@ -60,60 +90,7 @@ class UsersDao {
                 deleted: true
             }
         });
-
-
-        const likesIds = [];
-        const commentsIds = [];
-        const feedsIds = [];
-
-        user.likes.forEach(like => {
-            likesIds.push(like.id);
-        });
-
-        user.comments.forEach(comment => {
-            commentsIds.push(comment.id);
-        });
-
-        user.feeds.forEach(feed => {
-            feedsIds.push(feed.id);
-        });
-
-        await prisma.likes.updateMany({
-            where: {
-                id: {
-                    in: likesIds
-                },
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-
-        await prisma.comments.updateMany({
-            where: {
-                id: {
-                    in: commentsIds
-                },
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-
-        await prisma.feeds.updateMany({
-            where: {
-                id: {
-                    in: feedsIds
-                },
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-    }
+    }   
 }
 
 module.exports = { UsersDao };
