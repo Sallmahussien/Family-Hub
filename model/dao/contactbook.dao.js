@@ -2,18 +2,18 @@ const { prisma } = require('../client.db');
 
 class ContactBooksDao {
 
-    async createContactBook (CreateContactDto) {
+    async createContactBook (ContactDto) {
         const contactBook = await prisma.contactBooks.create({
-            data: CreateContactDto
+            data: ContactDto
         });
 
         return contactBook;
     };
 
-    async getContactBooksByCircleId (circleId) {
+    async getContactBooksByCircleId (ContactDto) {
         const contactbooks = await prisma.contactBooks.findMany({
             where: {
-                circleId: circleId,
+                circleId: ContactDto.circleId,
                 deleted: false
             },
         });
@@ -21,10 +21,10 @@ class ContactBooksDao {
         return contactbooks;
     };
 
-    async getContactByContactBookId (contactId) {
+    async getContactByContactBookId (ContactDto) {
         const contactbook = await prisma.contactBooks.findMany({
             where: {
-                id: contactId,
+                id: ContactDto.id,
                 deleted: false
             },
         });
@@ -33,20 +33,20 @@ class ContactBooksDao {
     };
 
 
-    async updateContactById (contactId, UpdateContactDto) {
+    async updateContactById (ContactDto) {
         await prisma.contactBooks.update({
             where: {
-                id: contactId,
+                id: ContactDto.id,
                 deleted: false
             },
-            data: UpdateContactDto
+            data: ContactDto
         });
     };
 
-    async deleteContactById (contactId) {
+    async deleteContactById (ContactDto) {
         await prisma.contactBooks.update({
             where: {
-                id: contactId,
+                id: ContactDto.id,
                 deleted: false
             },
             data: {
@@ -55,10 +55,10 @@ class ContactBooksDao {
         });
     };
 
-    async deleteContactsByCircleId (circleId) {
+    async deleteContactsByCircleId (ContactDto) {
         await prisma.contactBooks.updateMany({
             where: {
-                circleId: circleId,
+                circleId: ContactDto.circleId,
                 deleted: false
             },
             data: {
