@@ -129,6 +129,8 @@ model Likes {
   deleted   Boolean  @default(false)
   feed      Feeds    @relation(fields: [feedId], references: [id], onDelete: NoAction)
   user      Users    @relation(fields: [userId], references: [id], onDelete: NoAction)
+
+  @@unique([feedId, userId])
 }
 
 enum Role {
