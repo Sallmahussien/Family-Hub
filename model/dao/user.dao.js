@@ -5,7 +5,7 @@ const Feed = new FeedsDao();
 
 class UsersDao {
 
-    async createUser (userDto) {
+    async createUser(userDto) {
         const user = await prisma.users.create({
             data: userDto
         });
@@ -14,10 +14,10 @@ class UsersDao {
         return user;
     }
 
-    async getUsersByCircleId (circleId) {
+    async getUsersByCircleId(userDto) {
         const users = await prisma.users.findMany({
             where: {
-                circleId: circleId,
+                circleId: userDto.circleId,
                 deleted: false
             }
         });
@@ -26,10 +26,10 @@ class UsersDao {
         return users;
     }
 
-    async getUserById (userId) {
+    async getUserById(userDto) {
         const user = await prisma.users.findUnique({
             where: {
-                id: userId,
+                id: userDto.id,
                 deleted: false
             },
             include: {
@@ -43,7 +43,7 @@ class UsersDao {
         return user;
     }
 
-    async updateUserById (userDto) {
+    async updateUserById(userDto) {
         await prisma.users.update({
             where: {
                 id: userDto.id,
@@ -53,13 +53,13 @@ class UsersDao {
         });
     }
 
-    async deleteUsersByCircleId(circleId) {
+    async deleteUsersByCircleId(userDto) {
         const usersIds = await prisma.users.findMany({
             select: {
                 id: true
             },
             where: {
-                circleId: circleId,
+                circleId: userDto.circleId,
                 deleted: false
             }
         });
@@ -78,13 +78,13 @@ class UsersDao {
         });
     }
 
-    async deleteUserById (userId) {
+    async deleteUserById(userDto) {
 
-        await Feed.deleteFeedsByUserId(userId);
+        await Feed.deleteFeedsByUserId(userDto.id);
 
         await prisma.users.update({
             where: {
-                id: userId,
+                id: userDto.id,
             },
             data: {
                 deleted: true
