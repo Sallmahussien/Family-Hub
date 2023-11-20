@@ -11,26 +11,24 @@ class GalleriesDao {
         const photo = await prisma.gallery.create({
             data: photoDto
         });
-
         return photo;
     }
 
 
     async getPhotoByCircleId (circleId) {
-        const feeds = await Feed.getFeedsBytype(circleId, 'PHOTO');
-
+        const feeds = await Feed.getFeedsBytype({circleId: circleId, type:'PHOTO'});
+  
         return feeds;
     }
 
 
     async getPhotosByUserId (feedDto) {
-        const feeds = await Feed.getFeedsBytype(feedDto.circleId, 'PHOTO');
+        const feeds = await Feed.getFeedsBytype({circleId: feedDto.circleId, type:'PHOTO'});
         const photosForUser = []
 
         feeds.forEach(feed =>{
             if (feed.userId === feedDto.userId) photosForUser.push(feed);
         });
-
         return photosForUser;
     }
 
@@ -40,13 +38,14 @@ class GalleriesDao {
                 id: photoId
             }
         });
+
         return photo;
     }
 
     async updatePhotoById (photoDto) {
         await prisma.gallery.update({
             where: {
-                id: photoDto.photoId
+                id: photoDto.id
             },
             data: photoDto
         });
