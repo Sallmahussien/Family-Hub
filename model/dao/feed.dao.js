@@ -13,7 +13,6 @@ class FeedsDao {
             data: feedDto
         });
 
-        console.log(feed)
 
         return feed;
     }
@@ -34,7 +33,6 @@ class FeedsDao {
             }
         });
 
-        console.log(feeds)
 
         return feeds;
     }
@@ -55,7 +53,6 @@ class FeedsDao {
             }
         });
 
-        console.log(feed)
 
         return feed
     }
@@ -77,7 +74,6 @@ class FeedsDao {
             }
         });
 
-        console.log(feeds);
         return feeds;
     }
 
