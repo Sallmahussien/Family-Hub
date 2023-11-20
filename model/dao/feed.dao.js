@@ -8,18 +8,20 @@ const Comments = new CommentsDao();
 
 class FeedsDao {
 
-    async createFeed(createFeedDto) {
+    async createFeed(feedDto) {
         const feed = await prisma.feeds.create({
-            data: createFeedDto
+            data: feedDto
         });
+
+        console.log(feed)
 
         return feed;
     }
 
-    async getFeedsByCircleId(circleId) {
+    async getFeedsByCircleId(feedDto) {
         const feeds = await prisma.feeds.findMany({
             where: {
-                circleId: circleId,
+                circleId: feedDto.circleId,
                 deleted: false
             },
             include: {
@@ -37,10 +39,10 @@ class FeedsDao {
         return feeds;
     }
 
-    async getFeedById(feedId) {
+    async getFeedById(feedDto) {
         const feed = await prisma.feeds.findUnique({
             where: {
-                id: feedId,
+                id: feedDto.id,
                 deleted: false
             },
             include: {
@@ -58,12 +60,12 @@ class FeedsDao {
         return feed
     }
 
-    async getFeedsBytype(circleId, type) {
+    async getFeedsBytype(feedDto) {
         const feeds = await prisma.feeds.findMany({
             where: {
-                circleId: circleId,
+                circleId: feedDto.circleId,
                 deleted: false,
-                type: type
+                type: feedDto.type
             },
             include: {
                 post: true,
@@ -86,12 +88,16 @@ class FeedsDao {
 
         await prisma.feeds.update({
             where: {
-                id: feedId
+                id: feedId,
+                deleted: false
             },
-            data: true
+            data: {
+                deleted: true
+            }
         });
     }
 
+    // helper function
     async deleteFeedsByCircleId(circleId) {
         const feedsIds = await prisma.feeds.findMany({
             select: {
@@ -110,6 +116,7 @@ class FeedsDao {
         });
     }
 
+    // helper function
     async deleteFeedsByUserId(userId) {
         const feedsIds = await prisma.feeds.findMany({
             select: {

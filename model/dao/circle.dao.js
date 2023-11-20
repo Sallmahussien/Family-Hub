@@ -17,10 +17,10 @@ class CirclesDao {
         return circle;
     }
 
-    async getCirleByUserId (userId) {
+    async getCirleByUserId (circleDto) {
         const user = await prisma.users.findUnique({
             where: {
-                id: userId,
+                id: circleDto.id,
                 deleted: false
             },
             include: {
@@ -35,17 +35,17 @@ class CirclesDao {
 
         await prisma.circles.update({
             where: {
-                id: circleDto.circleId,
+                id: circleDto.id,
                 deleted: false
             },
             data: updateCircleDto
         });
     }
 
-    async deleteCircle (circleId) {
+    async deleteCircle (circleDto) {
         await prisma.circles.update({
             where: {
-                id: circleDto.circleId,
+                id: circleDto.id,
                 deleted: false
             },
             data: {
@@ -53,9 +53,9 @@ class CirclesDao {
             }
         });
 
-        await User.deleteUsersByCircleId(circleId);
-        await ContactBooks.deleteContactsByCircleId(circleId);
-        await Feed.deleteFeedsByCircleId(circleId);   
+        await User.deleteUsersByCircleId(circleDto.id);
+        await ContactBooks.deleteContactsByCircleId(circleDto.id);
+        await Feed.deleteFeedsByCircleId(circleDto.id);   
     }
 }
 
