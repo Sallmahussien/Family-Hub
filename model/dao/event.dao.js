@@ -4,9 +4,11 @@ const Feed = new FeedsDao();
 
 class EventsDao {
 
-    async createEvent (createEventDto, createFeedDTO) {
-        const feed = await Feed.createFeed(createFeedDTO)
-        createEventDto.feedId = feed.id
+    async createEvent (eventDto, feedDto) {
+        feedDto.type = 'EVENT';
+
+        const feed = await Feed.createFeed(createFeedDTO);
+        createEventDto.feedId = feed.id;
         const event = await prisma.events.create({
             data: createEventDto
         });

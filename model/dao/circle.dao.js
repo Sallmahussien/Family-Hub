@@ -1,8 +1,15 @@
 const { prisma } = require('../client.db');
+const { UsersDao } = require('./user.dao');
+const { FeedsDao } = require('./feed.dao');
+const { ContactBooksDao } = require('./contactbook.dao');
+
+const User = new UsersDao();
+const Feed = new FeedsDao();
+const ContactBooks = new ContactBooksDao();
 
 
 class CirclesDao {
-    async createCircle (createCircleDto) {
+    async createCircle (circleDto) {
         const circle = await prisma.circles.create({
             data: createCircleDto
         });
@@ -24,11 +31,11 @@ class CirclesDao {
         return user.circle;
     }
 
-    async updateCircle (circleId, updateCircleDto) {
+    async updateCircle (circleDto) {
 
         await prisma.circles.update({
             where: {
-                id: circleId,
+                id: circleDto.circleId,
                 deleted: false
             },
             data: updateCircleDto
@@ -38,7 +45,7 @@ class CirclesDao {
     async deleteCircle (circleId) {
         await prisma.circles.update({
             where: {
-                id: circleId,
+                id: circleDto.circleId,
                 deleted: false
             },
             data: {
@@ -46,83 +53,9 @@ class CirclesDao {
             }
         });
 
-        await prisma.users.updateMany({
-            where: {
-                circleId: circleId,
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-
-        await prisma.feeds.updateMany({
-            where: {
-                circleId: circleId,
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-
-        await prisma.contactBooks.updateMany({
-            where: {
-                circleId: circleId,
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-
-        const users = await prisma.users.findMany({
-            where: {
-                circleId: circleId,
-                deleted: false
-            },
-            include: {
-                likes: true,
-                comments: true
-            }
-        });
-
-        const likesIds = [];
-        const commentsIds = [];
-
-        users.forEach(user => {
-            user.likes.forEach(like => {
-                likesIds.push(like.id);
-            });
-
-            user.comments.forEach(comment => {
-                commentsIds.push(comment.id);
-            });
-        });
-
-        await prisma.likes.updateMany({
-            where: {
-                id: {
-                    in: likesIds
-                },
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-
-        await prisma.comments.updateMany({
-            where: {
-                id: {
-                    in: commentsIds
-                },
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
+        await User.deleteUsersByCircleId(circleId);
+        await ContactBooks.deleteContactsByCircleId(circleId);
+        await Feed.deleteFeedsByCircleId(circleId);   
     }
 }
 

@@ -4,9 +4,9 @@ const List = new ListsDao();
 
 class ListItemsDao {
 
-    async createListItem (createListItemsDTO) {
+    async createListItem (listItemsDto) {
         const listItem = await prisma.listItems.create({
-            data: createListItemsDTO
+            data: listItemsDto
         });
 
         return listItem;
@@ -22,13 +22,13 @@ class ListItemsDao {
         return listIems;
     }
 
-    async updateListItemById (itemIde, updateListItemDTO) {
+    async updateListItemById (listItemsDTo) {
 
         await prisma.listItems.update({
             where: {
-                id: itemIde
+                id: listItemsDTo.id
             },
-            data: updateListItemDTO
+            data: listItemsDTo
         });
     }
 

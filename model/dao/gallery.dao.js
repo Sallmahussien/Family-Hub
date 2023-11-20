@@ -4,12 +4,12 @@ const Feed = new FeedsDao();
 
 class GalleriesDao {
 
-    async createOrAddPhoto (createPhotoDTO, createFeedDTO) {
-        createFeedDTO.type = 'PHOTO';
-        const feed = await Feed.createFeed(createFeedDTO)
-        createPhotoDTO.feedId = feed.id
+    async createPhoto (photoDto, feedDto) {
+        feedDto.type = 'PHOTO';
+        const feed = await Feed.createFeed(feedDto)
+        photoDto.feedId = feed.id
         const photo = await prisma.gallery.create({
-            data: createPhotoDTO
+            data: photoDto
         });
 
         return photo;
@@ -23,12 +23,12 @@ class GalleriesDao {
     }
 
 
-    async getPhotosByUserId (userId, circleId) {
-        const feeds = await Feed.getFeedsBytype(circleId, 'PHOTO');
+    async getPhotosByUserId (feedDto) {
+        const feeds = await Feed.getFeedsBytype(feedDto.circleId, 'PHOTO');
         const photosForUser = []
 
         feeds.forEach(feed =>{
-            if (feed.userId === userId) photosForUser.push(feed);
+            if (feed.userId === feedDto.userId) photosForUser.push(feed);
         });
 
         return photosForUser;
@@ -43,12 +43,12 @@ class GalleriesDao {
         return photo;
     }
 
-    async updatePhotoById (photoId, updatePhotoDTO) {
+    async updatePhotoById (photoDto) {
         await prisma.gallery.update({
             where: {
-                id: photoId
+                id: photoDto.photoId
             },
-            data: updatePhotoDTO
+            data: photoDto
         });
     }
 

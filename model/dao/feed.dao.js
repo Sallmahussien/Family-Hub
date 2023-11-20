@@ -1,4 +1,9 @@
 const { prisma } = require('../client.db');
+const { LikesDao } = require('./like.dao');
+const { CommentsDao } = require('./comment.dao');
+
+const Likes = new LikesDao();
+const Comments = new CommentsDao();
 
 
 class FeedsDao {
@@ -27,24 +32,7 @@ class FeedsDao {
             }
         });
 
-        return feeds;
-    }
-
-    async getFeedsByUserId(userId) {
-        const feeds = await prisma.feeds.findMany({
-            where: {
-                userId: userId,
-                deleted: false
-            },
-            include: {
-                post: true,
-                event: true,
-                list: true,
-                photo: true,
-                comments: true,
-                likes: true
-            }
-        });
+        console.log(feeds)
 
         return feeds;
     }
@@ -65,6 +53,8 @@ class FeedsDao {
             }
         });
 
+        console.log(feed)
+
         return feed
     }
 
@@ -84,53 +74,57 @@ class FeedsDao {
                 likes: true
             }
         });
+
+        console.log(feeds);
         return feeds;
     }
 
     async deleteFeedById(feedId) {
-        const feed = await this.getFeedById(feedId);
-        const likesIds = [];
-        const commentsIds = [];
-
-        feed.likes.forEach(like => {
-            likesIds.push(like.id);
-        });
-
-        feed.comments.forEach(comment => {
-            commentsIds.push(comment.id);
-        });
+        
+        await Likes.deleteLikesByFeedId(feedId);
+        await Comments.deleteCommentsByFeedId(feedId);
 
         await prisma.feeds.update({
             where: {
                 id: feedId
             },
-            data: {
-                deleted: true
+            data: true
+        });
+    }
+
+    async deleteFeedsByCircleId(circleId) {
+        const feedsIds = await prisma.feeds.findMany({
+            select: {
+                id: true
+            },
+            where: {
+                circleId: circleId,
+                deleted: false
             }
         });
 
-        await prisma.likes.updateMany({
-            where: {
-                id: {
-                    in: likesIds
-                },
-                deleted: false
+        const feedsIdsList = feedsIds.map((feed) => feed.id);
+
+        feedsIdsList.forEach(async feedId => {
+            await this.deleteFeedById(feedId);
+        });
+    }
+
+    async deleteFeedsByUserId(userId) {
+        const feedsIds = await prisma.feeds.findMany({
+            select: {
+                id: true
             },
-            data: {
-                deleted: true
+            where: {
+                userId: userId,
+                deleted: false
             }
         });
 
-        await prisma.comments.updateMany({
-            where: {
-                id: {
-                    in: commentsIds
-                },
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
+        const feedsIdsList = feedsIds.map((feed) => feed.id);
+
+        feedsIdsList.forEach(async feedId => {
+            await this.deleteFeedById(feedId);
         });
     }
 
