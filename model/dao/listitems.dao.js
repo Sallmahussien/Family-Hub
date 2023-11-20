@@ -13,13 +13,12 @@ class ListItemsDao {
     }
 
     async getAllListItems (listId) {
-        const listIems = await prisma.listItems.findMany({
+        const listItems = await prisma.listItems.findMany({
             where: {
                 listId: listId
             }
         });
-
-        return listIems;
+        return listItems;
     }
 
     async updateListItemById (listItemsDTo) {
