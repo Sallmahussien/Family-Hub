@@ -16,7 +16,7 @@ class ListsDao {
 
 
     async getListsByCircleId (circleId) {
-        const feeds = await Feed.getFeedsBytype(circleId, 'LIST');
+        const feeds = await Feed.getFeedsBytype({circleId: circleId, type: 'LIST'});
 
         return feeds;
     }
