@@ -7,43 +7,38 @@ class EventsDao {
     async createEvent (eventDto, feedDto) {
         feedDto.type = 'EVENT';
 
-        const feed = await Feed.createFeed(createFeedDTO);
-        createEventDto.feedId = feed.id;
+        const feed = await Feed.createFeed(feedDto);
+        eventDto.feedId = feed.id;
         const event = await prisma.events.create({
-            data: createEventDto
+            data: eventDto
         });
 
         return event;
     }
 
     async getEventsByCircleId (circleId) {
-        const feeds = await Feed.getFeedsBytype(circleId, 'EVENT');
+        const feeds = await Feed.getFeedsBytype({circleId: circleId, type:'EVENT'});
 
         return feeds;
     }
 
-    async getEventById (eventId) {
-        const event = await prisma.feeds.findUnique({
+    async getEventById (eventId, feedId) {
+        const event = await prisma.events.findUnique({
             where: {
                 id: eventId,
-                deleted: false
-            },
-            include: {
-                event: true,
-                comments: true,
-                likes: true
+                feedId: feedId,
             }
         });
 
         return event;
     }
 
-    async updateEventById (eventId, updateEventDTO) {
+    async updateEventById (eventDto) {
         await prisma.events.update({
             where: {
-                id: eventId,
+                id: eventDto.id,
             },
-            data: updateEventDTO
+            data: eventDto
         });
     }
 
