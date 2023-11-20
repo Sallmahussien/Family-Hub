@@ -10,7 +10,6 @@ class UsersDao {
             data: userDto
         });
 
-        console.log(user);
         return user;
     }
 
@@ -22,7 +21,6 @@ class UsersDao {
             }
         });
 
-        console.log(users);
         return users;
     }
 
@@ -38,7 +36,6 @@ class UsersDao {
                 likes: true
             }
         });
-        console.log(user);
 
         return user;
     }
