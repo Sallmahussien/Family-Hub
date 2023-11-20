@@ -1,0 +1,379 @@
+PS C:\Users\sama\Desktop\Family-Hub\model\dao\tests> node .\circle.js
+{
+  id: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+  name: 'SKY-HK',
+  coverPhoto: null,
+  createdAt: 2023-11-19T05:09:20.416Z,
+  deleted: true,
+  contacts: [
+    {
+      id: '20526003-56cc-4802-b6ad-755c0455d3e7',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'husam',
+      lastName: 'mahmoud',
+      email: 'husaam@gmail.com',
+      phoneNumber: '+97522',
+      profilePhoto: 'husaaaam.png',
+      type: 'ebn 5aletna',
+      note: 'ignore',
+      deleted: true
+    },
+    {
+      id: '24a5448d-3754-4e59-9206-368ee7ce5d5b',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'yousef',
+      lastName: 'ahmed',
+      email: 'joo@gmail.com',
+      phoneNumber: '018233984',
+      profilePhoto: 'joo.png',
+      type: 'Prof',
+      note: 'Call whenever needed',
+      deleted: true
+    },
+    {
+      id: '530cb549-a265-4701-85ec-4000249a1add',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'magdy',
+      lastName: 'elemi',
+      email: 'magdi@gmail.com',
+      phoneNumber: '5672044',
+      profilePhoto: 'magdy.png',
+      type: 'Prof-Doc',
+      note: 'Call whenever support needed',
+      deleted: true
+    },
+    {
+      id: '99c727f8-45d0-47db-a769-97df3b24526d',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'husam',
+      lastName: 'mahmoud',
+      email: 'husaam@gmail.com',
+      phoneNumber: '+97522',
+      profilePhoto: 'husaaaam.png',
+      type: 'ebn 5aletna',
+      note: 'ignore',
+      deleted: true
+    },
+    {
+      id: '9e1a3733-acdd-416d-8143-a22ba0105ae1',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'yousef',
+      lastName: 'ahmed',
+      email: 'joo@gmail.com',
+      phoneNumber: '018233984',
+      profilePhoto: 'joo.png',
+      type: 'Prof',
+      note: 'Call whenever needed',
+      deleted: true
+    },
+    {
+      id: 'b65c5ddb-8be9-403d-9a78-937003d9440e',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'magdy',
+      lastName: 'elemi',
+      email: 'magdi@gmail.com',
+      phoneNumber: '5672044',
+      profilePhoto: 'magdy.png',
+      type: 'Prof-Doc',
+      note: 'Call whenever support needed',
+      deleted: true
+    }
+  ],
+  feeds: [
+    {
+      id: '',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T06:53:13.505Z,
+      updatedAt: 2023-11-20T09:15:54.022Z,
+      deleted: true
+    },
+    {
+      id: '1cef307e-fe9d-456f-a89a-37f56146f5f9',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T07:00:51.923Z,
+      updatedAt: 2023-11-20T09:15:54.030Z,
+      deleted: true
+    },
+    {
+      id: '20e0eaa3-6dad-4f27-94e9-fc396ecad943',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T08:53:07.662Z,
+      updatedAt: 2023-11-20T09:15:54.044Z,
+      deleted: true
+    },
+    {
+      id: '2bd4847b-5dc5-4905-8eef-d6c0105fb28a',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T06:38:57.186Z,
+      updatedAt: 2023-11-20T09:15:54.028Z,
+      deleted: true
+    },
+    {
+      id: '31ae26e8-e56e-44f7-86f0-459e3f6daded',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'EVENT',
+      createdAt: 2023-11-20T08:36:09.772Z,
+      updatedAt: 2023-11-20T09:15:54.046Z,
+      deleted: true
+    },
+    {
+      id: '33133487-b82a-406c-9fbd-e5972ffe3b41',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'PHOTO',
+      createdAt: 2023-11-20T06:27:05.012Z,
+      updatedAt: 2023-11-20T09:15:54.044Z,
+      deleted: true
+    },
+    {
+      id: '3b0fbd97-fff5-414e-b63c-0f9a04492a80',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T06:38:11.155Z,
+      updatedAt: 2023-11-20T09:15:54.044Z,
+      deleted: true
+    },
+    {
+      id: '438922ac-2d22-4d13-ab52-9ebd7ad9d7eb',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T07:01:41.744Z,
+      updatedAt: 2023-11-20T09:15:54.045Z,
+      deleted: true
+    },
+    {
+      id: '507fc9c5-ce42-45d5-88ce-2fd3d112231e',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T08:52:52.132Z,
+      updatedAt: 2023-11-20T09:15:54.023Z,
+      deleted: true
+    },
+    {
+      id: '5bdccac5-b021-4b03-ba54-bc6b4372fdc0',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'PHOTO',
+      createdAt: 2023-11-20T07:49:06.293Z,
+      updatedAt: 2023-11-20T09:15:54.026Z,
+      deleted: true
+    },
+    {
+      id: '63803c4d-9985-4fe9-84f5-a0ece9f8217a',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'EVENT',
+      createdAt: 2023-11-20T06:27:55.021Z,
+      updatedAt: 2023-11-20T09:15:54.023Z,
+      deleted: true
+    },
+    {
+      id: '700129a3-0013-4c9d-8d2f-94825723cf0d',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'PHOTO',
+      createdAt: 2023-11-20T06:20:47.453Z,
+      updatedAt: 2023-11-20T06:32:16.983Z,
+      deleted: true
+    },
+    {
+      id: '7611d09f-6b89-4455-af6a-8fe113055cb2',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'PHOTO',
+      createdAt: 2023-11-20T07:49:06.293Z,
+      updatedAt: 2023-11-20T09:15:54.046Z,
+      deleted: true
+    },
+    {
+      id: '902b3d0e-10d2-4dcc-aae8-cf97dbbbcd1c',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '86af6eea-c759-451c-bbe8-ffd5f66a0b15',
+      type: 'PHOTO',
+      createdAt: 2023-11-20T07:49:06.293Z,
+      updatedAt: 2023-11-20T09:15:54.030Z,
+      deleted: true
+    },
+    {
+      id: '9efaaf6a-816f-4588-9a5a-b7d44571b18d',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T06:38:55.791Z,
+      updatedAt: 2023-11-20T09:15:54.025Z,
+      deleted: true
+    },
+    {
+      id: 'a41ce74b-cb5e-44e3-98f4-5438870109b3',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'LIST',
+      createdAt: 2023-11-20T06:29:12.862Z,
+      updatedAt: 2023-11-20T09:15:54.028Z,
+      deleted: true
+    },
+    {
+      id: 'a4c52d8c-c7d4-4c45-a393-5b63fbe170f9',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'EVENT',
+      createdAt: 2023-11-20T08:35:41.826Z,
+      updatedAt: 2023-11-20T09:15:54.027Z,
+      deleted: true
+    },
+    {
+      id: 'd6030a4c-fee1-4ffd-afee-a209160b24e4',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '7a92c93d-890d-4ddd-ab2e-6963f2eca2a2',
+      type: 'LIST',
+      createdAt: 2023-11-19T05:09:47.878Z,
+      updatedAt: 2023-11-20T09:15:54.030Z,
+      deleted: true
+    },
+    {
+      id: 'fa484f4b-8dc1-48b1-92ba-77fc959873be',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T07:00:31.553Z,
+      updatedAt: 2023-11-20T09:15:54.031Z,
+      deleted: true
+    },
+    {
+      id: 'fdb8a66f-b507-4878-a537-d6c73e8c8ec5',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      userId: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      type: 'POST',
+      createdAt: 2023-11-20T06:38:57.880Z,
+      updatedAt: 2023-11-20T09:15:54.029Z,
+      deleted: true
+    }
+  ],
+  users: [
+    {
+      id: '0643010f-87a1-40d8-818a-e2d7cf73b589',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'salma',
+      lastName: 'ahmed',
+      role: 'MEMEBER',
+      email: 'sal@gmail.com',
+      password: 'sal',
+      profilePhoto: 'salma.png',
+      birthdate: 1998-11-13T00:00:00.000Z,
+      position: null,
+      deleted: true
+    },
+    {
+      id: '1a325af7-bd63-43b1-84ef-184815f1a6cb',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'Husam',
+      lastName: 'Mahmoud',
+      role: 'MEMEBER',
+      email: 'hus@gmail.com',
+      password: 'huss',
+      profilePhoto: 'husamMahmoud.png',
+      birthdate: 2002-03-12T00:00:00.000Z,
+      position: null,
+      deleted: true
+    },
+    {
+      id: '2402a0b8-04ef-4950-bc3e-fdbec74f50c4',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'Husam',
+      lastName: 'Mahmoud',
+      role: 'MEMEBER',
+      email: 'husss@gmail.com',
+      password: 'huss',
+      profilePhoto: 'husamMahmoud.png',
+      birthdate: 2002-03-12T00:00:00.000Z,
+      position: null,
+      deleted: true
+    },
+    {
+      id: '2967ed89-cd87-4911-af95-3503699b2b6a',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'salma',
+      lastName: 'ahmed',
+      role: 'MEMEBER',
+      email: 'sala@gmail.com',
+      password: 'sal',
+      profilePhoto: 'salma.png',
+      birthdate: 1998-11-13T00:00:00.000Z,
+      position: null,
+      deleted: true
+    },
+    {
+      id: '3e48ef95-09cc-4eec-adbf-c8863ab209f2',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'kholoud',
+      lastName: 'fattem',
+      role: 'MEMEBER',
+      email: 'kh@gmail.com',
+      password: 'khol',
+      profilePhoto: 'kholoud.png',
+      birthdate: 1997-01-17T00:00:00.000Z,
+      position: null,
+      deleted: true
+    },
+    {
+      id: '7a92c93d-890d-4ddd-ab2e-6963f2eca2a2',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'kholoud',
+      lastName: 'elsaedy',
+      role: 'MEMEBER',
+      email: 'kfattem@test.com',
+      password: 'xs55kh',
+      profilePhoto: null,
+      birthdate: 1997-01-17T00:00:00.000Z,
+      position: null,
+      deleted: true
+    },
+    {
+      id: '86af6eea-c759-451c-bbe8-ffd5f66a0b15',
+      circleId: '5930db61-3f63-4c76-a2d1-5250f6360bab',
+      firstName: 'kholoud',
+      lastName: 'fattem',
+      role: 'MEMEBER',
+      email: 'kholo@gmail.com',
+      password: 'khol',
+      profilePhoto: 'kholoud.png',
+      birthdate: 1997-01-17T00:00:00.000Z,
+      position: null,
+      deleted: true
+    }
+  ]
+}
+PS C:\Users\sama\Desktop\Family-Hub\model\dao\tests> node .\circle.js
+null
+PS C:\Users\sama\Desktop\Family-Hub\model\dao\tests>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
