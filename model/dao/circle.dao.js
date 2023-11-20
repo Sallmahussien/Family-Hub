@@ -11,23 +11,40 @@ const ContactBooks = new ContactBooksDao();
 class CirclesDao {
     async createCircle (circleDto) {
         const circle = await prisma.circles.create({
-            data: createCircleDto
+            data: circleDto
         });
-
+        console.log(circle)
         return circle;
     }
 
-    async getCirleByUserId (circleDto) {
+    async getCirleById (circleId){
+        const circle = await prisma.circles.findFirst({
+            where: {
+                id: circleId,
+                deleted: false
+            },
+            include:{
+                contacts: true,
+                feeds: true,
+                users: true,
+            }
+        });
+        console.log(circle)
+        return circle;
+    }
+
+
+    async getCirleByUserId (userId) {
         const user = await prisma.users.findUnique({
             where: {
-                id: circleDto.id,
+                id: userId,
                 deleted: false
             },
             include: {
                 circle: true
             }
         });
-
+        console.log(user.circle)
         return user.circle;
     }
 
@@ -42,10 +59,10 @@ class CirclesDao {
         });
     }
 
-    async deleteCircle (circleDto) {
+    async deleteCircle (circleId) {
         await prisma.circles.update({
             where: {
-                id: circleDto.id,
+                id: circleId,
                 deleted: false
             },
             data: {
@@ -53,9 +70,9 @@ class CirclesDao {
             }
         });
 
-        await User.deleteUsersByCircleId(circleDto.id);
-        await ContactBooks.deleteContactsByCircleId(circleDto.id);
-        await Feed.deleteFeedsByCircleId(circleDto.id);   
+        await User.deleteUsersByCircleId(circleId);
+        await ContactBooks.deleteContactsByCircleId(circleId);
+        await Feed.deleteFeedsByCircleId(circleId);   
     }
 }
 
