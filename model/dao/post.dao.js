@@ -10,14 +10,12 @@ class PostsDao {
         const post = await prisma.posts.create({
             data: postDto
         });
-
         return post;
     }
 
 
-    async getPostByCircleId(circleId) {
-        const feeds = await Feed.getFeedsBytype(circleId, 'POST');
-
+    async getPostByCircleId(feedDto) {
+        const feeds = await Feed.getFeedsBytype(feedDto.circleId, 'POST');
         return feeds;
     }
 
