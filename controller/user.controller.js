@@ -5,6 +5,13 @@ const { UsersDto } = require('../model/dto/user.dto');
 const { UsersValidator } = require('../validations/user.validation');
 
 class UsersController {
+
+    /**
+     * @desc create a new user
+     * @route /api/v1/circles/<circle_id>/users
+     * @method POST
+     * @access public
+     */
     static createUser = asyncHandler(async (req, res) => {
 
         const userDto = new UsersDto(req.body);
@@ -27,6 +34,12 @@ class UsersController {
         }
     });
 
+    /**
+     * @desc get users by circleId
+     * @route /api/v1/circles/<circle_id>/users
+     * @method GET
+     * @access public
+     */
     static getUsersByCircleId = asyncHandler(async (req, res) => {
         const userDto = new UsersDto(req.body);
         userDto.circleId = req.params.circleId;
@@ -38,6 +51,12 @@ class UsersController {
         res.status(200).json(users);                    
     });
 
+    /**
+     * @desc get user by Id
+     * @route /api/v1/circles/<circle_id>/users
+     * @method GET
+     * @access public
+     */
     static getUsersById = asyncHandler(async (req, res) => {
         const userDto = new UsersDto(req.body);
         userDto.circleId = req.params.circleId;
@@ -56,6 +75,12 @@ class UsersController {
         }
     });
 
+    /**
+     * @desc update user by id
+     * @route /api/v1/circles/<circle_id>/users
+     * @method PUT
+     * @access public
+     */
     static updateUserById = asyncHandler(async (req, res) => {
         const userDto = new UsersDto(req.body);
         userDto.circleId = req.params.circleId;
@@ -80,6 +105,12 @@ class UsersController {
         }
     });
 
+    /**
+     * @desc delete user by id
+     * @route /api/v1/circles/<circle_id>/users
+     * @method DELETE
+     * @access public
+     */
     static deleteUserById = asyncHandler(async (req, res) => {
         const userDto = new UsersDto(req.body);
         userDto.circleId = req.params.circleId;

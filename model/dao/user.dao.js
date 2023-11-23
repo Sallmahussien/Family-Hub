@@ -3,6 +3,7 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const { prisma } = require('../client.db');
 const { deleteFeedByFeedId } = require('./common/deleteFeedById');
+const { validateCircleId } = require('./common/validateCircleId')
 
 class UsersDao {
 
@@ -36,7 +37,7 @@ class UsersDao {
     }
 
     async getUserById(userDto) {
-        await this.validateCircleId(userDto.circleId);
+        await validateCircleId(userDto.circleId);
 
         const user = await prisma.users.findUnique({
             where: {
@@ -55,7 +56,7 @@ class UsersDao {
     }
 
     async updateUserById(userDto) {
-        await this.validateCircleId(userDto.circleId);
+        await validateCircleId(userDto.circleId);
 
         await prisma.users.update({
             where: {
@@ -68,7 +69,7 @@ class UsersDao {
     }
 
     async deleteUserById(userDto) {
-        await this.validateCircleId(userDto.circleId);
+        await validateCircleId(userDto.circleId);
         await this.deleteFeedsByUserId(userDto.id);
 
         await prisma.users.update({
@@ -99,17 +100,6 @@ class UsersDao {
         });
     }
 
-    async validateCircleId(circleId) {
-        const circle = await prisma.circles.findUnique({
-            where: {
-                id: circleId,
-            },
-        });
-    
-        if (!circle) {
-            throw new Error('Circle Id is invalid.');
-        }
-    }
 }
 
 module.exports = { UsersDao };
