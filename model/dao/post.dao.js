@@ -1,8 +1,9 @@
 const { prisma } = require('../client.db');
 const { createFeed } = require('./common/createFeed');
 const { getFeedsBytype } = require('./common/getFeedsByType');
-const { validateCircleId } = require('./common/validateCircleId')
-const { validateUserId } = require('./common/validateUserId')
+const { validateCircleId } = require('./common/validateCircleId');
+const { validateUserId } = require('./common/validateUserId');
+const { validateFeedId } = require('./common/validateFeedId');
 
 class PostsDao {
 
@@ -27,7 +28,19 @@ class PostsDao {
         return feeds;
     }
 
-    async updatePostById(postDto) {
+    async updatePostById(postDto, feedDto) {
+        await validateCircleId(feedDto.circleId);
+        await validateUserId(feedDto.circleId, feedDto.userId);
+        await validateFeedId(feedDto);
+
+        const post = await prisma.posts.findUnique({
+            where: {
+                id: postDto.id,
+            }
+        });
+
+        if (!post) throw new Error('Post Id is invalide.');
+
         await prisma.posts.update({
             where: {
                 id: postDto.id,

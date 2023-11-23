@@ -10,7 +10,7 @@ router.route('/:circleId/users/:userId/posts/')
 router.route('/:circleId/posts/')
     .get(PostsController.getPostsByCircleId)
 
-router.route('/:feedId/posts/:postId')
+router.route('/:circleId/users/:userId/feeds/:feedId/posts/:postId')
     .put(PostsController.updatePostById)
 
 

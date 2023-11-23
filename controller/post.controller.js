@@ -10,7 +10,7 @@ class PostsController {
 
     /**
      * @desc create a new post
-     * @route /api/v1/circles/:circle_id/posts
+     * @route /api/v1/circles/:circle_id/users/:userId/posts
      * @method POST
      * @access public
      */
@@ -30,9 +30,11 @@ class PostsController {
             const post = await postDao.createPost(postDto, feedDto);
             res.status(201).json(post);
         } catch (err) {
-            if (err.message) {
-                return res.status(409).json({ message: err.message });
+            const prefixes = ['Circle', 'User'];
+            if (prefixes.some(prefix => err.message.startsWith(prefix))) {
+              res.status(409).json({ message: err.message });
             }
+
             res.status(500).json({ message: 'Internal Server Error' });
         }
     });
@@ -60,30 +62,36 @@ class PostsController {
 
     /**
      * @desc update post by id
-     * @route /api/v1/circles/:circle_id/posts/:post_id
+     * @route /api/v1/circles/:circleId/users/:userId/feeds/:feedId/posts/:postId
      * @method PUT
      * @access public
      */
     static updatePostById = asyncHandler(async (req, res) => {
+        const feedDto = new FeedsDto({ 
+            id: req.params.feedId,
+            circleId: req.params.circleId,
+            userId: req.params.userId,
+        });
+
         const postDto = new PostsDto(req.body);
         postDto.feedId = req.params.feedId;
         postDto.id = req.params.postId;
-        const error = PostsValidator.updatePost(postDto);
 
+        const error = PostsValidator.updatePost(postDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
             res.status(400).json({ message: error.error.details[0].message });
         }
 
         const postDao = new PostsDao();
         try {
-            await postDao.updatePostById(postDto);
+            await postDao.updatePostById(postDto, feedDto);
             res.status(201).json({ message: 'Post updated successfully' }); ;
         } catch (err) {
-            if (err.message === 'Circle Id is invalid.') {
-                res.status(409).json({ message: err.message });
-            } else if (err.code === 'P2025' && err.meta?.cause === 'Record to update not found.') {
-                res.status(409).json({ message: 'Post Id is invalid.' });
+            const prefixes = ['Circle', 'User', 'Feed', 'Post'];
+            if (prefixes.some(prefix => err.message.startsWith(prefix))) {
+              res.status(409).json({ message: err.message });
             }
+
             res.status(500).json({ message: 'Internal Server Error' });   
         }
     });
