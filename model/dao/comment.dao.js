@@ -10,10 +10,10 @@ class CommentsDao {
         return comment;
     }
 
-    async getCommentsByFeedId (feedId) {
+    async getCommentsByFeedId (feedDto) {
         const comments = await prisma.comments.findMany({
             where: {
-                feedId: feedId,
+                feedId: feedDto.feedId,
                 deleted: false
             }
         });
@@ -21,48 +21,23 @@ class CommentsDao {
         return comments;
     }
 
-    async updateCommentById (updateCommentDto) {
+    async updateCommentById (commentDto) {
         await prisma.comments.update({
             where: {
-                id: updateCommentDto.id,
+                id: commentDto.id,
                 deleted: false
             },
-            data: updateCommentDto
+            data: commentDto
         });
     }
 
-    async deleteCommentById (commentId) {
+    async deleteCommentById (commentDto) {
         await prisma.comments.update({
             where: {
-                id: commentId,
+                id: commentDto.id,
                 deleted: false
             },
 
-            data: {
-                deleted: true
-            }
-        });
-    }
-
-    async deleteCommentsByFeedId (feedId) {
-        const commentsIds = await prisma.comments.findMany({
-            select: {
-                id: true
-            },
-            where: {
-                feedId: feedId,
-                deleted: false
-            }
-        });
-
-        const commentsIdsList = commentsIds.map((comment) => comment.id);
-
-        await prisma.comments.updateMany({
-            where: {
-                id: {
-                    in: commentsIdsList
-                }
-            },
             data: {
                 deleted: true
             }

@@ -1,56 +1,57 @@
 const { prisma } = require('../client.db');
-const { FeedsDao } = require('./feed.dao');
-const Feed = new FeedsDao();
+const { createFeed } = require('./common/createFeed');
+const { getFeedsBytype } = require('./common/getFeedsByType');
 
-class GalleriesDao {
+class GalleryDao {
 
-    async createPhoto (photoDto, feedDto) {
+    async createPhoto(galleryDto, feedDto) {
         feedDto.type = 'PHOTO';
-        const feed = await Feed.createFeed(feedDto)
-        photoDto.feedId = feed.id
+        const feed = await createFeed(feedDto)
+        galleryDto.feedId = feed.id
         const photo = await prisma.gallery.create({
-            data: photoDto
+            data: galleryDto
         });
+
         return photo;
     }
 
+    async getPhotoByCircleId(feedDto) {
+        const feeds = await getFeedsBytype({ circleId: feedDto.circleId, type: 'PHOTO' });
 
-    async getPhotoByCircleId (circleId) {
-        const feeds = await Feed.getFeedsBytype({circleId: circleId, type:'PHOTO'});
-  
         return feeds;
     }
 
 
-    async getPhotosByUserId (feedDto) {
-        const feeds = await Feed.getFeedsBytype({circleId: feedDto.circleId, type:'PHOTO'});
+    async getPhotosByUserId(feedDto) {
+        const feeds = await getFeedsBytype({ circleId: feedDto.circleId, type: 'PHOTO' });
         const photosForUser = []
 
-        feeds.forEach(feed =>{
+        feeds.forEach(feed => {
             if (feed.userId === feedDto.userId) photosForUser.push(feed);
         });
+
         return photosForUser;
     }
 
-    async getPhotoById (photoId) {
+    async getPhotoById(galleryDto) {
         const photo = await prisma.gallery.findUnique({
             where: {
-                id: photoId
+                id: galleryDto.id
             }
         });
 
         return photo;
     }
 
-    async updatePhotoById (photoDto) {
+    async updatePhotoById(galleryDto) {
         await prisma.gallery.update({
             where: {
-                id: photoDto.id
+                id: galleryDto.id
             },
-            data: photoDto
+            data: galleryDto
         });
     }
 
 }
 
-module.exports = { GalleriesDao }
+module.exports = { GalleryDao }

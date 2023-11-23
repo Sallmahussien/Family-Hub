@@ -21,19 +21,19 @@ class ContactBooksDao {
         return contactbooks;
     };
 
-    async getContactByContactBookId (ContactDto) {
-        const contactbook = await prisma.contactBooks.findMany({
+    async getContactBookById (ContactDto) {
+        const contactBook = await prisma.contactBooks.findMany({
             where: {
                 id: ContactDto.id,
                 deleted: false
             },
         });
 
-        return contactbook;
+        return contactBook;
     };
 
 
-    async updateContactById (ContactDto) {
+    async updateContactBookById (ContactDto) {
         await prisma.contactBooks.update({
             where: {
                 id: ContactDto.id,
@@ -43,7 +43,7 @@ class ContactBooksDao {
         });
     };
 
-    async deleteContactById (ContactDto) {
+    async deleteContactBookById (ContactDto) {
         await prisma.contactBooks.update({
             where: {
                 id: ContactDto.id,
@@ -55,17 +55,6 @@ class ContactBooksDao {
         });
     };
 
-    async deleteContactsByCircleId (ContactDto) {
-        await prisma.contactBooks.updateMany({
-            where: {
-                circleId: ContactDto.circleId,
-                deleted: false
-            },
-            data: {
-                deleted: true
-            }
-        });
-    };
 }
 
 
