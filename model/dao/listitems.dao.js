@@ -1,6 +1,4 @@
 const { prisma } = require('../client.db');
-const { ListsDao } = require('./list.dao');
-const List = new ListsDao();
 
 class ListItemsDao {
 
@@ -12,22 +10,34 @@ class ListItemsDao {
         return listItem;
     }
 
-    async getAllListItems (listId) {
+    async getListItemsByListId (listItemsDto) {
         const listItems = await prisma.listItems.findMany({
             where: {
-                listId: listId
+                listId: listItemsDto.listId,
+                deleted: false
             }
         });
+
         return listItems;
     }
 
     async updateListItemById (listItemsDTo) {
-
         await prisma.listItems.update({
             where: {
                 id: listItemsDTo.id
             },
             data: listItemsDTo
+        });
+    }
+
+    async deleteListItemById (listItemsDTo) {
+        await prisma.listItems.update({
+            where: {
+                id: listItemsDTo.id
+            },
+            data: {
+                deleted: true,
+            }
         });
     }
 

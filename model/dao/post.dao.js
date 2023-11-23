@@ -1,24 +1,24 @@
 const { prisma } = require('../client.db');
-const { FeedsDao } = require('./feed.dao');
-const Feed = new FeedsDao();
+const { createFeed } = require('./common/createFeed');
+const { getFeedsBytype } = require('./common/getFeedsByType');
 
 class PostsDao {
 
     async createPost(postDto, feedDto) {
-        const feed = await Feed.createFeed(feedDto)
+        const feed = await createFeed(feedDto)
         postDto.feedId = feed.id
         const post = await prisma.posts.create({
             data: postDto
         });
+
         return post;
     }
 
+    async getPostsByCircleId(feedDto) {
+        const feeds = await getFeedsBytype({ circleId: feedDto.circleId, type: 'POST' });
 
-    async getPostByCircleId(feedDto) {
-        const feeds = await Feed.getFeedsBytype(feedDto.circleId, 'POST');
         return feeds;
     }
-
 
     async updatePostById(postDto) {
         await prisma.posts.update({

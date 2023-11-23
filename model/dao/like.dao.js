@@ -43,10 +43,10 @@ class LikesDao {
         return like;
     }
 
-    async getLikesByFeedId (feedId) {
+    async getLikesByFeedId (likeDto) {
         const likes = await prisma.likes.findMany({
             where: {
-                feedId: feedId,
+                feedId: likeDto.feedId,
                 deleted: false
             }
         });
@@ -54,10 +54,10 @@ class LikesDao {
         return likes;
     }
 
-    async deleteLikeById (likeId) {
+    async deleteLikeById (likeDto) {
         await prisma.likes.update({
            where: {
-            id: likeId,
+            id: likeDto.id,
             deleted: false
            },
            data: {
@@ -65,32 +65,6 @@ class LikesDao {
            }
         });
     }
-
-    async deleteLikesByFeedId (feedId) {
-        const likesIds = await prisma.likes.findMany({
-            select: {
-                id: true
-            },
-            where: {
-                feedId: feedId,
-                deleted: false
-            }
-        });
-
-        const likesIdsList = likesIds.map((like) => like.id);
-
-        await prisma.likes.updateMany({
-            where: {
-                id: {
-                    in: likesIdsList
-                }
-            },
-            data: {
-                deleted: true
-            }
-        });
-    }
-
 }
 
 module.exports = { LikesDao };

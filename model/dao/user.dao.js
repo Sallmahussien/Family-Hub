@@ -1,11 +1,22 @@
+require('dotenv').config();
+// const { date } = require('joi');
+const bcrypt = require('bcrypt');
 const { prisma } = require('../client.db');
-const { FeedsDao } = require('./feed.dao')
-
-const Feed = new FeedsDao();
+const { deleteFeedByFeedId } = require('./common/deleteFeedById');
 
 class UsersDao {
 
     async createUser(userDto) {
+        userDto.birthdate = new Date(userDto.birthdate).toISOString();
+        userDto.password = bcrypt.hashSync(userDto.password, Number(process.env.SECRET));
+
+        const email = await prisma.users.findUnique({
+            where: {
+                email: userDto.email
+            }
+        });
+        if (email) throw new Error('Email is already in use.');
+
         const user = await prisma.users.create({
             data: userDto
         });
@@ -25,10 +36,13 @@ class UsersDao {
     }
 
     async getUserById(userDto) {
+        await this.validateCircleId(userDto.circleId);
+
         const user = await prisma.users.findUnique({
             where: {
                 id: userDto.id,
-                deleted: false
+                circleId: userDto.circleId,
+                deleted: false,
             },
             include: {
                 feeds: true,
@@ -41,43 +55,21 @@ class UsersDao {
     }
 
     async updateUserById(userDto) {
+        await this.validateCircleId(userDto.circleId);
+
         await prisma.users.update({
             where: {
                 id: userDto.id,
+                circleId: userDto.circleId,
                 deleted: false
             },
             data: userDto
         });
     }
 
-    async deleteUsersByCircleId(userDto) {
-        const usersIds = await prisma.users.findMany({
-            select: {
-                id: true
-            },
-            where: {
-                circleId: userDto.circleId,
-                deleted: false
-            }
-        });
-
-        const usersIdsList = usersIds.map((user) => user.id);
-
-        await prisma.users.updateMany({
-            where: {
-                id: {
-                    in: usersIdsList
-                }
-            },
-            data: {
-                deleted: true
-            }
-        });
-    }
-
     async deleteUserById(userDto) {
-
-        await Feed.deleteFeedsByUserId(userDto.id);
+        await this.validateCircleId(userDto.circleId);
+        await this.deleteFeedsByUserId(userDto.id);
 
         await prisma.users.update({
             where: {
@@ -87,7 +79,37 @@ class UsersDao {
                 deleted: true
             }
         });
-    }   
+    }
+
+    async deleteFeedsByUserId(userId) {
+        const feedsIds = await prisma.feeds.findMany({
+            select: {
+                id: true
+            },
+            where: {
+                userId: userId,
+                deleted: false
+            }
+        });
+
+        const feedsIdsList = feedsIds.map((feed) => feed.id);
+
+        feedsIdsList.forEach(async feedId => {
+            await deleteFeedByFeedId(feedId);
+        });
+    }
+
+    async validateCircleId(circleId) {
+        const circle = await prisma.circles.findUnique({
+            where: {
+                id: circleId,
+            },
+        });
+    
+        if (!circle) {
+            throw new Error('Circle Id is invalid.');
+        }
+    }
 }
 
 module.exports = { UsersDao };

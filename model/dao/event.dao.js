@@ -1,13 +1,13 @@
 const { prisma } = require('../client.db');
-const { FeedsDao } = require('./feed.dao');
-const Feed = new FeedsDao();
+const { createFeed } = require('./common/createFeed');
+const { getFeedsBytype } = require('./common/getFeedsByType');
 
 class EventsDao {
 
-    async createEvent (eventDto, feedDto) {
+    async createEvent(eventDto, feedDto) {
         feedDto.type = 'EVENT';
 
-        const feed = await Feed.createFeed(feedDto);
+        const feed = await createFeed(feedDto);
         eventDto.feedId = feed.id;
         const event = await prisma.events.create({
             data: eventDto
@@ -16,24 +16,24 @@ class EventsDao {
         return event;
     }
 
-    async getEventsByCircleId (circleId) {
-        const feeds = await Feed.getFeedsBytype({circleId: circleId, type:'EVENT'});
+    async getEventsByCircleId(feedDto) {
+        const feeds = await getFeedsBytype({ circleId: feedDto.circleId, type: 'EVENT' });
 
         return feeds;
     }
 
-    async getEventById (eventId, feedId) {
+    async getEventById(eventDto) {
         const event = await prisma.events.findUnique({
             where: {
-                id: eventId,
-                feedId: feedId,
+                id: eventDto.id,
+                feedId: eventDto.feedId,
             }
         });
 
         return event;
     }
 
-    async updateEventById (eventDto) {
+    async updateEventById(eventDto) {
         await prisma.events.update({
             where: {
                 id: eventDto.id,
