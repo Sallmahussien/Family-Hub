@@ -1,6 +1,8 @@
 const { prisma } = require('../client.db');
 const { createFeed } = require('./common/createFeed');
 const { getFeedsBytype } = require('./common/getFeedsByType');
+const { validateCircleId } = require('./common/validateCircleId');
+
 
 class EventsDao {
 
@@ -17,6 +19,8 @@ class EventsDao {
     }
 
     async getEventsByCircleId(feedDto) {
+        await validateCircleId(feedDto.circleId);
+        
         const feeds = await getFeedsBytype({ circleId: feedDto.circleId, type: 'EVENT' });
 
         return feeds;
