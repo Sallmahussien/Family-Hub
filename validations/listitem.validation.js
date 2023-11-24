@@ -1,6 +1,6 @@
 const joi = require('joi');
 
-class ListItem {
+class ListItemValidator {
     static createListItem (listItemDto) {
         const schema = joi.object({
             id: joi.string(),
@@ -25,4 +25,4 @@ class ListItem {
 
 }
 
-module.exports = { ListItem }
+module.exports = { ListItemValidator }

@@ -1,7 +1,7 @@
 const joi = require('joi');
 
-class ListItem {
-    static createListItem (listDto) {
+class ListsValidator {
+    static createList (listDto) {
         const schema = joi.object({
             id: joi.string(),
             feedId: joi.string(),
@@ -11,7 +11,7 @@ class ListItem {
         return schema.validate(listDto);
     }  
 
-    static updateListItem (listDto) {
+    static updateList (listDto) {
         const schema = joi.object({
             id: joi.string().required(),
             feedId: joi.string().required(),
@@ -22,4 +22,4 @@ class ListItem {
     }
 }
 
-module.exports = { ListItem }
+module.exports = { ListsValidator }
