@@ -1,4 +1,5 @@
 const { prisma } = require('../client.db');
+const { validateFeedId } = require('./common/validateFeedId');
 
 class CommentsDao {
 
@@ -11,6 +12,8 @@ class CommentsDao {
     }
 
     async getCommentsByFeedId (feedDto) {
+        await validateFeedId(feedDto);
+
         const comments = await prisma.comments.findMany({
             where: {
                 feedId: feedDto.feedId,
@@ -22,6 +25,8 @@ class CommentsDao {
     }
 
     async updateCommentById (commentDto) {
+        await this.validateCommentId(commentDto);
+
         await prisma.comments.update({
             where: {
                 id: commentDto.id,
@@ -32,6 +37,8 @@ class CommentsDao {
     }
 
     async deleteCommentById (commentDto) {
+        await this.validateCommentId(commentDto);
+
         await prisma.comments.update({
             where: {
                 id: commentDto.id,
@@ -42,6 +49,18 @@ class CommentsDao {
                 deleted: true
             }
         });
+    }
+    
+    async validateCommentId(commentDto) {
+        const comment = await prisma.comments.findUnique({
+            where: {
+                id: commentDto.id,
+            },
+        });
+    
+        if (!comment) {
+            throw new Error('Comment Id is invalid.');
+        }
     }
 }
 
