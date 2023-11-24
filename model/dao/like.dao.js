@@ -1,7 +1,8 @@
 const { prisma } = require('../client.db');
+const { validateFeedId } = require('./common/validateFeedId');
 
 class LikesDao {
-    async creatLike (likeDto) {
+    async createLike (likeDto) {
         let deleted = await prisma.likes.findFirst({
             select: {
                 deleted: true
@@ -17,16 +18,19 @@ class LikesDao {
         if (deleted) {
             await prisma.likes.update({
                 where: {
-                    feedId_userId: {
-                        feedId: likeDto.feedId,
-                        userId: likeDto.userId,
-                    },
+                    // feedId_userId: {
+                    //     feedId: likeDto.feedId,
+                    //     userId: likeDto.userId,
+                    // },
+                    id: id,
+                    feedId: likeDto.feedId,
+                    userId: likeDto.userId,
                 },
                 data: {
                     deleted: false
                 }
             });
-            
+        if (!deleted) return null
             like = await prisma.likes.findFirst({
                 where: {
                     feedId: likeDto.feedId,
@@ -43,10 +47,12 @@ class LikesDao {
         return like;
     }
 
-    async getLikesByFeedId (likeDto) {
+    async getLikesByFeedId (feedDto) {
+        await validateFeedId(feedDto);
+
         const likes = await prisma.likes.findMany({
             where: {
-                feedId: likeDto.feedId,
+                feedId: feedDto.feedId,
                 deleted: false
             }
         });
@@ -55,6 +61,8 @@ class LikesDao {
     }
 
     async deleteLikeById (likeDto) {
+        await this.validateLikeId(likeDto);
+
         await prisma.likes.update({
            where: {
             id: likeDto.id,
@@ -64,6 +72,17 @@ class LikesDao {
             deleted: true
            }
         });
+    }
+    async validateLikeId(likeDto) {
+        const like = await prisma.likes.findUnique({
+            where: {
+                id: likeDto.id,
+            },
+        });
+    
+        if (!like) {
+            throw new Error('Like Id is invalid.');
+        }
     }
 }
 
