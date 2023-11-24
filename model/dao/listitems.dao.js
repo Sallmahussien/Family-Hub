@@ -22,6 +22,8 @@ class ListItemsDao {
     }
 
     async updateListItemById (listItemsDTo) {
+        await this.validateListItem(listItemsDTo);
+
         await prisma.listItems.update({
             where: {
                 id: listItemsDTo.id
@@ -31,6 +33,8 @@ class ListItemsDao {
     }
 
     async deleteListItemById (listItemsDTo) {
+        await this.validateListItem(listItemsDTo);
+
         await prisma.listItems.update({
             where: {
                 id: listItemsDTo.id
@@ -39,6 +43,17 @@ class ListItemsDao {
                 deleted: true,
             }
         });
+    }
+
+    async validateListItem (listItemDto) {
+        const listItem = await prisma.listItems.findUnique({
+            where: {
+                id: listItemDto.id,
+                deleted: false
+            }
+        });
+
+        if (!listItem) throw Error('ListItem Id is invalid.');
     }
 
 }
