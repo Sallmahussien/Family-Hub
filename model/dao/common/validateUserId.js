@@ -4,7 +4,8 @@ async function validateUserId(circleId, userId) {
     const user = await prisma.users.findFirst({
         where: {
             id: userId,
-            circleId: circleId
+            circleId: circleId,
+            deleted: false
         },
     });
 
