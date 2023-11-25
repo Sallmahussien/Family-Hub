@@ -1,19 +1,24 @@
 const { prisma } = require('../client.db');
+const { validateCircleId } = require('./common/validateCircleId');
 
 class ContactBooksDao {
 
-    async createContactBook (ContactDto) {
+    async createContactBook(contactDto) {
+        await validateCircleId(contactDto.circleId);
+
         const contactBook = await prisma.contactBooks.create({
-            data: ContactDto
+            data: contactDto
         });
 
         return contactBook;
     };
 
-    async getContactBooksByCircleId (ContactDto) {
+    async getContactBooksByCircleId(contactDto) {
+        await validateCircleId(contactDto.circleId);
+
         const contactbooks = await prisma.contactBooks.findMany({
             where: {
-                circleId: ContactDto.circleId,
+                circleId: contactDto.circleId,
                 deleted: false
             },
         });
@@ -21,10 +26,13 @@ class ContactBooksDao {
         return contactbooks;
     };
 
-    async getContactBookById (ContactDto) {
-        const contactBook = await prisma.contactBooks.findMany({
+    async getContactBookById(contactDto) {
+        await validateCircleId(contactDto.circleId);
+        await this.validateContactBookById(contactDto);
+
+        const contactBook = await prisma.contactBooks.findUnique({
             where: {
-                id: ContactDto.id,
+                id: contactDto.id,
                 deleted: false
             },
         });
@@ -33,20 +41,26 @@ class ContactBooksDao {
     };
 
 
-    async updateContactBookById (ContactDto) {
+    async updateContactBookById(contactDto) {
+        await validateCircleId(contactDto.circleId);
+        await this.validateContactBookById(contactDto);
+
         await prisma.contactBooks.update({
             where: {
-                id: ContactDto.id,
+                id: contactDto.id,
                 deleted: false
             },
-            data: ContactDto
+            data: contactDto
         });
     };
 
-    async deleteContactBookById (ContactDto) {
+    async deleteContactBookById(contactDto) {
+        await validateCircleId(contactDto.circleId);
+        await this.validateContactBookById(contactDto);
+
         await prisma.contactBooks.update({
             where: {
-                id: ContactDto.id,
+                id: contactDto.id,
                 deleted: false
             },
             data: {
@@ -54,6 +68,18 @@ class ContactBooksDao {
             }
         });
     };
+
+    async validateContactBookById(contactDto) {
+        const contactBook = await prisma.contactBooks.findUnique({
+            where: {
+                id: contactDto.id,
+                circleId: contactDto.circleId,
+                deleted: false,
+            }
+        });
+
+        if (!contactBook) throw Error('Contact Book Id is invalid');
+    }
 
 }
 
