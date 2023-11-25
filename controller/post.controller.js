@@ -46,13 +46,13 @@ class PostsController {
      * @access public
      */
     static getPostsByCircleId = asyncHandler(async (req, res) => {
-        const postDto = new PostsDto(req.body);
-        postDto.circleId = req.params.circleId;
+        const feedDto = new FeedsDto(req.body);
+        feedDto.circleId = req.params.circleId;
 
         const postDao = new PostsDao();
 
         try {
-            const posts = await postDao.getPostsByCircleId(postDto);
+            const posts = await postDao.getPostsByCircleId(feedDto);
             res.status(200).json(posts);  
         } catch (err) {
             if (err.message === 'Circle Id is invalid.') res.status(404).json({ message: err.message});

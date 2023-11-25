@@ -15,14 +15,17 @@ class EventsController {
      * @access public
      */
     static createEvent = asyncHandler(async (req, res) => {
-
-        const feedDto =  new FeedsDto({circleId: req.params.circleId, userId: req.params.userId})
+        const feedDto =  new FeedsDto({
+            circleId: req.params.circleId,
+            userId: req.params.userId
+        });
 
         const eventDto = new EventsDto(req.body);
-        const error = EventsValidator.createEvent(eventDto);
 
+        const error = EventsValidator.createEvent(eventDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
             res.status(400).json({ message: error.error.details[0].message });
+            return;
         }
         
         const eventDao = new EventsDao();
@@ -31,7 +34,7 @@ class EventsController {
             res.status(201).json(event);
         } catch (err) {
             console.log(err)
-            const prefixes = ['Circle', 'Event'];
+            const prefixes = ['Circle', 'User'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
               res.status(409).json({ message: err.message });
             }
@@ -47,47 +50,56 @@ class EventsController {
      * @access public
      */
     static getEventsByCircleId = asyncHandler(async (req, res) => {
-        const eventDto = new EventsDto(req.body);
-        eventDto.circleId = req.params.circleId;
+        const feedDto = new FeedsDto(req.body);
+        feedDto.circleId = req.params.circleId;
 
         const eventDao = new EventsDao();
 
         try {
-            const events = await eventDao.getEventsByCircleId(eventDto);
+            const events = await eventDao.getEventsByCircleId(feedDto);
             res.status(200).json(events);  
         } catch (err) {
             if (err.message === 'Circle Id is invalid.') res.status(404).json({ message: err.message});
+
             res.status(500).json({ message: 'Internal Server Error' });
         } 
     });
 
     /**
      * @desc get event by id
-     * @route /api/v1/circles/:circleId/events/:eventId
+     * @route /api/v1/circles/:circleId/users/:userId/feeds/:feedId/events/eventId
      * @method GET
      * @access public
      */
-        static getEventById = asyncHandler(async (req, res) => {
-            const eventDto = new EventsDto(req.body);
-            eventDto.circleId = req.params.circleId;
-            eventDto.id = req.params.eventId;
-    
-            const eventDao = new EventsDao();
-    
-            try {
-                const events = await eventDao.getEventById(eventDto);
-                res.status(200).json(events);  
-            } catch (err) {
-                const prefixes = ['Circle', 'User', 'Feed', 'Event'];
-                if (prefixes.some(prefix => err.message.startsWith(prefix))) {
-                res.status(409).json({ message: err.message });
-                }
-            }
+    static getEventById = asyncHandler(async (req, res) => {
+        const feedDto =  new FeedsDto({
+            id: req.params.feedId,
+            circleId: req.params.circleId,
+            userId: req.params.userId
         });
+
+        const eventDto = new EventsDto({
+            id: req.params.eventId,
+            feedId: req.params.feedId,
+        });
+
+        const eventDao = new EventsDao();
+        try {
+            const event = await eventDao.getEventById(eventDto, feedDto);
+            res.status(200).json(event);  
+        } catch (err) {
+            const prefixes = ['Circle', 'User', 'Feed', 'Event'];
+            if (prefixes.some(prefix => err.message.startsWith(prefix))) {
+            res.status(409).json({ message: err.message });
+            }
+
+            res.status(500).json({ message: 'Internal Server Error' });   
+        }
+    });
 
     /**
      * @desc update event by id
-     * @route /api/v1/circles/:circleId/feeds/:feedId/events/:eventId
+     * @route /api/v1/circles/:circleId/users/:userId/feeds/:feedId/events/eventId
      * @method PUT
      * @access public
      */
@@ -95,6 +107,7 @@ class EventsController {
         const feedDto = new FeedsDto({ 
             id: req.params.feedId,
             circleId: req.params.circleId,
+            userId: req.params.userId
         });
 
         const eventDto = new EventsDto(req.body);
@@ -104,6 +117,7 @@ class EventsController {
         const error = EventsValidator.updateEvent(eventDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
             res.status(400).json({ message: error.error.details[0].message });
+            return;
         }
 
         const eventDao = new EventsDao();
@@ -111,12 +125,12 @@ class EventsController {
             await eventDao.updateEventById(eventDto, feedDto);
             res.status(201).json({ message: 'event updated successfully' }); ;
         } catch (err) {
-            const prefixes = ['Circle', 'User', 'Feed', 'event'];
+            const prefixes = ['Circle', 'User', 'Feed', 'Event'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
               res.status(409).json({ message: err.message });
             }
 
-            res.status(500).json({ message: 'Internal Server Error' });   
+            res.status(500).json({ message: 'Internal Server Error' });
         }
     });
 }

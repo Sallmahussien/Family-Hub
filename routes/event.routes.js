@@ -7,13 +7,10 @@ router.route('/:circleId/users/:userId/events/')
     .post(EventsController.createEvent);
 
 router.route('/:circleId/events/')
-    .get(EventsController.getEventsByCircleId)
+    .get(EventsController.getEventsByCircleId);
 
-router.route('/:circleId/events/:eventId')
-.get(EventsController.getEventById)
-
-router.route('/:circleId/feeds/:feedId/events/:eventId')
-    .put(EventsController.updateEventById)
-
+router.route('/:circleId/users/:userId/feeds/:feedId/events/:eventId')
+    .get(EventsController.getEventById)
+    .put(EventsController.updateEventById);
 
 module.exports = { router }
