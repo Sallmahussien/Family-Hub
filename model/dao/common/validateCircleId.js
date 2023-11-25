@@ -4,6 +4,7 @@ async function validateCircleId(circleId) {
     const circle = await prisma.circles.findUnique({
         where: {
             id: circleId,
+            deleted: false
         },
     });
 
