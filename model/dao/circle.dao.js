@@ -1,5 +1,6 @@
 const { prisma } = require('../client.db');
 const { deleteFeedByFeedId } = require('./common/deleteFeedById');
+const { validateCircleId } = require('./common/validateCircleId');
 
 class CirclesDao {
     async createCircle (circleDto) {
@@ -11,6 +12,8 @@ class CirclesDao {
     }
 
     async getCirleById (circleDto){
+        await validateCircleId(circleDto.id);
+
         const circle = await prisma.circles.findFirst({
             where: {
                 id: circleDto.id,
@@ -41,6 +44,8 @@ class CirclesDao {
     }
 
     async updateCircle (circleDto) {
+        await validateCircleId(circleDto.id);
+
         await prisma.circles.update({
             where: {
                 id: circleDto.id,
@@ -51,6 +56,8 @@ class CirclesDao {
     }
 
     async deleteCircleById (circleDto) {
+        await validateCircleId(circleDto.id);
+
         await prisma.circles.update({
             where: {
                 id: circleDto.id,

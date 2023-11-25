@@ -1,5 +1,7 @@
 const express = require('express');
 
+
+const { router: circleRouter } = require('./routes/circle.routes');
 const { router: contactBooksRouter } = require('./routes/contactBook.routes');
 const { router: commentsRouter } = require('./routes/comment.routes');
 const { router: eventsRouter } = require('./routes/event.routes');
@@ -15,6 +17,7 @@ const app = express();
 
 app.use(express.json());
 
+app.use('/api/v1/circles', circleRouter);
 app.use('/api/v1/circles', contactBooksRouter);
 app.use('/api/v1/circles', commentsRouter);
 app.use('/api/v1/circles', eventsRouter);
@@ -27,7 +30,7 @@ app.use('/api/v1/circles', postsRouter);
 app.use('/api/v1/circles', usersRouter);
 
 
-const port = 50000;
+const port = 5000;
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 });
