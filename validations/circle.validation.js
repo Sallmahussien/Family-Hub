@@ -7,8 +7,7 @@ class CircleValidator {
             id: joi.string(),
             name: joi.string().trim().min(3).required(),
             coverPhoto: joi.string().trim().min(3),
-            createdAt: joi.date(),
-            deleted: joi.boolean().default(false),
+            deleted: joi.boolean(),
         });
 
         return schema.validate(circleDto);
@@ -19,8 +18,7 @@ class CircleValidator {
             id: joi.string().required(),
             name: joi.string().trim().min(3),
             coverPhoto: joi.string().trim().min(3),
-            createdAt: joi.date(),
-            deleted: joi.boolean().default(false),
+            deleted: joi.boolean(),
         });
 
         return schema.validate(circleDto);
