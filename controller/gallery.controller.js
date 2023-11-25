@@ -57,8 +57,7 @@ class GalleryController {
             const photos = await photoDao.getPhotoByCircleId(feedDto);
             res.status(201).json(photos);
         } catch (err) {
-            const prefixes = ['Circle', 'User'];
-            if (prefixes.some(prefix => err.message.startsWith(prefix))) {
+            if (err.message === 'Circle Id is invalid.') {
               res.status(409).json({ message: err.message });
             }
 
