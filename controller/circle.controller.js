@@ -17,7 +17,7 @@ class CircleController {
 
         const error = CircleValidator.createCircle(circleDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
         const circleDao = new CirclesDao();
@@ -65,7 +65,7 @@ class CircleController {
 
         const error = CircleValidator.updateCircle(circleDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
         const circleDao = new CirclesDao();

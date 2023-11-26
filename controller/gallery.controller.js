@@ -24,7 +24,7 @@ class GalleryController {
 
         const error = GalleryValidator.createGallery(photoDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
         const photoDao = new GalleryDao();
@@ -142,7 +142,7 @@ class GalleryController {
 
         const error = GalleryValidator.updateGallery(photoDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
         const photoDao = new GalleryDao();

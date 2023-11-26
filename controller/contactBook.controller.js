@@ -19,8 +19,7 @@ class ContactBooksController {
 
         const error = ContactBooksValidator.createContactBook(contactDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
-            return;
+            return res.status(400).json({ message: error.error.details[0].message });
         }
   
         const contactDao = new ContactBooksDao();
@@ -98,8 +97,7 @@ class ContactBooksController {
         const error = ContactBooksValidator.updateContactBook(contactDto);
 
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
-            return;
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
         try {
