@@ -1,7 +1,7 @@
 const { prisma } = require('../../client.db');
 
 async function validateUserId(circleId, userId) {
-    const user = await prisma.users.findFirst({
+    const user = await prisma.users.findUnique({
         where: {
             id: userId,
             circleId: circleId,
