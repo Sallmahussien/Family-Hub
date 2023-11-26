@@ -15,23 +15,25 @@ class CommentsController {
      */
     static createComment = asyncHandler(async (req, res) => {
 
+        const feedDto = new FeedsDto({
+            circleId: req.params.circleId,
+            id: req.params.feedId
+        });
         const commentDto = new CommentsDto(req.body);
         commentDto.feedId = req.params.feedId;
-        commentDto.userId = req.params.userId;
-
         const error = CommentsValidator.createComment(commentDto);
 
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
         
         const commentDao = new CommentsDao();
         try {
-            const comment = await commentDao.createComment(commentDto);
+            const comment = await commentDao.createComment(commentDto, feedDto);
             res.status(201).json(comment);
         } catch (err) {
 
-            const prefixes = ['User', 'Feed', 'Comment'];
+            const prefixes = ['Circle', 'User', 'Feed', 'Comment'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
                 res.status(409).json({ message: err.message });
             }
@@ -47,8 +49,10 @@ class CommentsController {
      * @access public
      */
     static getCommentsByFeedId = asyncHandler(async (req, res) => {
-        const feedDto = new FeedsDto(req.body);
-        feedDto.id = req.params.feedId;
+        const feedDto = new FeedsDto({
+            circleId: req.params.circleId,
+            id: req.params.feedId
+        });
 
         const commentDao = new CommentsDao();
 
@@ -57,8 +61,10 @@ class CommentsController {
             res.status(200).json(comments);  
         } catch (err) {
 
-            if (err.message === 'Feed Id is invalid.') res.status(404).json({ message: err.message});
-
+            const prefixes = ['Circle', 'Feed'];
+            if (prefixes.some(prefix => err.message.startsWith(prefix))) {
+                res.status(409).json({ message: err.message });
+            }
             res.status(500).json({ message: 'Internal Server Error' });
         } 
     });
@@ -70,28 +76,31 @@ class CommentsController {
      * @access public
      */
     static updateCommentById = asyncHandler(async (req, res) => {
+        const feedDto = new FeedsDto({
+            circleId: req.params.circleId,
+            id: req.params.feedId
+        });
         const commentDto = new CommentsDto(req.body);
-        commentDto.id = req.params.commentId;
         commentDto.feedId = req.params.feedId;
-        commentDto.userId = req.params.userId;
+        commentDto.id = req.params.commentId;
 
-        const commentDao = new CommentsDao();
         const error = CommentsValidator.updateComment(commentDto);
 
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
+        const commentDao = new CommentsDao();
+
         try {
-            await commentDao.updateCommentById(commentDto);
-            res.status(201).json({ message: 'Comment updated successfully' }); ;
+            await commentDao.updateCommentById(commentDto, feedDto);
+            res.status(201).json({ message: 'Comment updated successfully' });
         } catch (err) {
-            if (err.message === 'Comment Id is invalid.') {
+            const prefixes = ['User', 'Comment', 'Circle', 'Feed'];
+            if (prefixes.some(prefix => err.message.startsWith(prefix))) {
                 res.status(409).json({ message: err.message });
-            } else if (err.code === 'P2025' && err.meta?.cause === 'Record to update not found.') {
-                res.status(409).json({ message: 'Comment Id is invalid.' });
             }
-            res.status(500).json({ message: 'Internal Server Error' });   
+            res.status(500).json({ message: 'Internal Server Error' });
         }
     });
 
@@ -102,22 +111,24 @@ class CommentsController {
      * @access public
      */
     static deleteCommentById = asyncHandler(async (req, res) => {
+        const feedDto = new FeedsDto({
+            circleId: req.params.circleId,
+            id: req.params.feedId
+        });
         const commentDto = new CommentsDto(req.body);
-        commentDto.id = req.params.commentId;
         commentDto.feedId = req.params.feedId;
-        commentDto.userId = req.params.userId;
+        commentDto.id = req.params.commentId;
 
         const commentDao = new CommentsDao();
         try {
-            await commentDao.deleteCommentById(commentDto);
-            res.status(201).json({ message: 'Comment deleted successfully' }); ;
+            await commentDao.deleteCommentById(commentDto, feedDto);
+            res.status(201).json({ message: 'Comment deleted successfully' });
         } catch (err) {
-            if (err.message === 'Comment Id is invalid.') {
+            const prefixes = ['User', 'Comment', 'Circle', 'Feed'];
+            if (prefixes.some(prefix => err.message.startsWith(prefix))) {
                 res.status(409).json({ message: err.message });
-            } else if (err.code === 'P2025' && err.meta?.cause === 'Record to update not found.') {
-                res.status(409).json({ message: 'Comment Id is invalid.' });
             }
-            res.status(500).json({ message: 'Internal Server Error' });   
+            res.status(500).json({ message: 'Internal Server Error' });
         }
     });
 }

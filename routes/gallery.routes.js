@@ -4,14 +4,17 @@ const { GalleryController } = require('../controller/gallery.controller');
 
 const router = express.Router();
 
-router.route('/:circleId/users/:userId/photos')
+router
+    .route('/:circleId/users/:userId/photos')
     .post(GalleryController.createPhoto)
     .get(GalleryController.getPhotosByUserId);
 
-router.route('/:circleId/photos')
+router
+    .route('/:circleId/photos')
     .get(GalleryController.getPhotoByCircleId);
 
-router.route('/:circleId/users/:userId/feeds/:feedId/photos/:photoId')
+router
+    .route('/:circleId/users/:userId/feeds/:feedId/photos/:photoId')
     .get(GalleryController.getPhotoById)
     .put(GalleryController.updatePhotoById);
 

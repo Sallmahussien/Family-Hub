@@ -4,12 +4,14 @@ const express = require('express');
 
  const router = express.Router();
 
- router.route('/')
+ router
+    .route('/')
     .post(CircleController.createCircle);
 
-router.route('/:circleId')
+router
+    .route('/:circleId')
     .get(CircleController.getCirleById)
     .put(CircleController.updateCircle)
     .delete(CircleController.deleteCircleById);
 
- module.exports = { router };
+module.exports = { router };
