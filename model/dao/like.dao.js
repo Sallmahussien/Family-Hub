@@ -1,13 +1,14 @@
 const { prisma } = require('../client.db');
-const { validateFeedId } = require('./common/validateFeedId');
 const { validateCircleId } = require('./common/validateCircleId');
 const { validateUserId } = require('./common/validateUserId');
+const { validateFeedIdWithCircleId } = require('./common/validateFeedIdWithCircleId')
+
 
 class LikesDao {
     async createLike (likeDto, feedDto) {
         await validateCircleId(feedDto.circleId);
-        await validateUserId(feedDto.circleId, feedDto.userId);
-        await validateFeedId(feedDto);
+        await validateUserId(feedDto.circleId, likeDto.userId);
+        await validateFeedIdWithCircleId(feedDto);
 
         let deleted = await prisma.likes.findFirst({
             select: {
@@ -50,10 +51,9 @@ class LikesDao {
         return like;
     }
 
-    async getLikesByFeedId (feedDto) {
+    async getLikesByFeedId (feedDto, likeDto) {
         await validateCircleId(feedDto.circleId);
-        await validateUserId(feedDto.circleId, feedDto.userId);
-        await validateFeedId(feedDto);
+        await validateFeedIdWithCircleId(feedDto);
 
         const likes = await prisma.likes.findMany({
             where: {
@@ -65,18 +65,18 @@ class LikesDao {
         return likes;
     }
 
-    async deleteLikeById (feedDto) {
+    async deleteLikeById (feedDto, likeDto) {
         await validateCircleId(feedDto.circleId);
-        await validateUserId(feedDto.circleId, feedDto.userId);
-        await validateFeedId(feedDto);
+        await validateUserId(feedDto.circleId, likeDto.userId);
+        await validateFeedIdWithCircleId(feedDto);
 
         await this.validateLikeId(feedDto);
 
         await prisma.likes.update({
            where: {
             feedId_userId: {
-                feedId: feedDto.id,
-                userId: feedDto.userId,
+                feedId: likeDto.feedId,
+                userId: likeDto.userId,
             },
             deleted: false
            },
