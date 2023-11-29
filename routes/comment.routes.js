@@ -5,17 +5,12 @@ const { CommentsController } = require('../controller/comment.controller')
 
 
 router
-    .route('/feeds/:feedId/users/:userId/comments/')
-    .post(CommentsController.createComment);
-
-
-router
-    .route('/feeds/:feedId/comments/')
-    .get(CommentsController.getCommentsByFeedId)
-
+    .route('/:circleId/feeds/:feedId/comments/')
+    .post(CommentsController.createComment)
+    .get(CommentsController.getCommentsByFeedId);
 
 router
-    .route('/feeds/:feedId/users/:userId/comments/:commentId')
+    .route('/:circleId/feeds/:feedId/comments/:commentId/')
     .put(CommentsController.updateCommentById)
     .delete(CommentsController.deleteCommentById)
 

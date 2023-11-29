@@ -1,8 +1,15 @@
 const { prisma } = require('../client.db');
-const { validateFeedId } = require('./common/validateFeedId');
+const { validateCircleId } = require('./common/validateCircleId');
+const { validateUserId } = require('./common/validateUserId');
+const { validateFeedIdWithCircleId } = require('./common/validateFeedIdWithCircleId')
+
 
 class LikesDao {
-    async createLike (likeDto) {
+    async createLike (likeDto, feedDto) {
+        await validateCircleId(feedDto.circleId);
+        await validateUserId(feedDto.circleId, likeDto.userId);
+        await validateFeedIdWithCircleId(feedDto);
+
         let deleted = await prisma.likes.findFirst({
             select: {
                 deleted: true
@@ -18,19 +25,16 @@ class LikesDao {
         if (deleted) {
             await prisma.likes.update({
                 where: {
-                    // feedId_userId: {
-                    //     feedId: likeDto.feedId,
-                    //     userId: likeDto.userId,
-                    // },
-                    id: id,
-                    feedId: likeDto.feedId,
-                    userId: likeDto.userId,
+                    feedId_userId: {
+                        feedId: likeDto.feedId,
+                        userId: likeDto.userId,
+                    },
                 },
                 data: {
                     deleted: false
                 }
             });
-        if (!deleted) return null
+
             like = await prisma.likes.findFirst({
                 where: {
                     feedId: likeDto.feedId,
@@ -47,12 +51,13 @@ class LikesDao {
         return like;
     }
 
-    async getLikesByFeedId (feedDto) {
-        await validateFeedId(feedDto);
+    async getLikesByFeedId (feedDto, likeDto) {
+        await validateCircleId(feedDto.circleId);
+        await validateFeedIdWithCircleId(feedDto);
 
         const likes = await prisma.likes.findMany({
             where: {
-                feedId: feedDto.feedId,
+                feedId: feedDto.id,
                 deleted: false
             }
         });
@@ -60,12 +65,19 @@ class LikesDao {
         return likes;
     }
 
-    async deleteLikeById (likeDto) {
-        await this.validateLikeId(likeDto);
+    async deleteLikeById (feedDto, likeDto) {
+        await validateCircleId(feedDto.circleId);
+        await validateUserId(feedDto.circleId, likeDto.userId);
+        await validateFeedIdWithCircleId(feedDto);
+
+        await this.validateLikeId(feedDto);
 
         await prisma.likes.update({
            where: {
-            id: likeDto.id,
+            feedId_userId: {
+                feedId: likeDto.feedId,
+                userId: likeDto.userId,
+            },
             deleted: false
            },
            data: {
@@ -73,10 +85,13 @@ class LikesDao {
            }
         });
     }
-    async validateLikeId(likeDto) {
-        const like = await prisma.likes.findUnique({
+
+    async validateLikeId(feedDto) {
+        const like = await prisma.likes.findFirst({
             where: {
-                id: likeDto.id,
+                feedId: feedDto.id,
+                userId: feedDto.userId,
+                deleted: false
             },
         });
     

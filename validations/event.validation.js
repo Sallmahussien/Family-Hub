@@ -6,9 +6,9 @@ class EventsValidator {
             id: joi.string(),
             feedId: joi.string(),
             title: joi.string().min(2).trim().required(),
-            startDate: joi.date().required(),
-            endDate: joi.date().required(),
-            reminder: joi.date(),
+            startDate: joi.date().iso().required(),
+            endDate: joi.date().iso().required(),
+            reminder: joi.date().iso(),
             description: joi.string().min(2),
         });
         return schema.validate(eventDto)
@@ -17,10 +17,10 @@ class EventsValidator {
         const schema = joi.object({
             id: joi.string().required(),
             feedId: joi.string().required(),
-            title: joi.string().min(2).required(),
-            startDate: joi.date(),
-            endDate: joi.date(),
-            reminder: joi.date(),
+            title: joi.string().min(2),
+            startDate: joi.date().iso(),
+            endDate: joi.date().iso(),
+            reminder: joi.date().iso(),
             description: joi.string().min(2),
         });
         return schema.validate(eventDto)

@@ -1,6 +1,8 @@
 const { prisma } = require('../client.db');
 const { deleteFeedByFeedId } = require('./common/deleteFeedById');
-const { validateCircleId } = require('./common/validateCircleId')
+const { validateCircleId } = require('./common/validateCircleId');
+const { validateUserId } = require('./common/validateUserId');
+const { validateFeedId } = require('./common/validateFeedId');
 
 class FeedsDao {
 
@@ -27,8 +29,9 @@ class FeedsDao {
     }
 
     async getFeedById(feedDto) {
-
         await validateCircleId(feedDto.circleId);
+        await validateUserId(feedDto.circleId, feedDto.userId);        
+        await validateFeedId(feedDto);
 
         const feed = await prisma.feeds.findUnique({
             where: {
@@ -50,6 +53,8 @@ class FeedsDao {
 
     async deleteFeedById(feedDto) {
         await validateCircleId(feedDto.circleId);
+        await validateUserId(feedDto.circleId, feedDto.userId);        
+        await validateFeedId(feedDto);
 
         await deleteFeedByFeedId(feedDto.id);
     }

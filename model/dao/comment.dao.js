@@ -1,9 +1,15 @@
 const { prisma } = require('../client.db');
-const { validateFeedId } = require('./common/validateFeedId');
+const { validateUserId } = require('./common/validateUserId');
+const { validateCircleId } = require('./common/validateCircleId');
+const { validateFeedIdWithCircleId } = require('./common/validateFeedIdWithCircleId')
 
 class CommentsDao {
 
-    async createComment (commentDto) {
+    async createComment (commentDto, feedDto) {
+        await validateCircleId(feedDto.circleId);
+        await validateFeedIdWithCircleId(feedDto);
+        await validateUserId(feedDto.circleId, commentDto.userId);
+
         const comment = await prisma.comments.create({
             data: commentDto
         });
@@ -12,7 +18,8 @@ class CommentsDao {
     }
 
     async getCommentsByFeedId (feedDto) {
-        await validateFeedId(feedDto);
+        await validateCircleId(feedDto.circleId);
+        await validateFeedIdWithCircleId(feedDto);
 
         const comments = await prisma.comments.findMany({
             where: {
@@ -24,7 +31,10 @@ class CommentsDao {
         return comments;
     }
 
-    async updateCommentById (commentDto) {
+    async updateCommentById (commentDto, feedDto) {
+        await validateCircleId(feedDto.circleId);
+        await validateFeedIdWithCircleId(feedDto);
+        await validateUserId(feedDto.circleId, commentDto.userId);
         await this.validateCommentId(commentDto);
 
         await prisma.comments.update({
@@ -36,12 +46,16 @@ class CommentsDao {
         });
     }
 
-    async deleteCommentById (commentDto) {
+    async deleteCommentById (commentDto, feedDto) {
+        await validateCircleId(feedDto.circleId);
+        await validateFeedIdWithCircleId(feedDto);
+        await validateUserId(feedDto.circleId, commentDto.userId);
         await this.validateCommentId(commentDto);
 
         await prisma.comments.update({
             where: {
                 id: commentDto.id,
+                userId: commentDto.userId,
                 deleted: false
             },
 
@@ -55,6 +69,7 @@ class CommentsDao {
         const comment = await prisma.comments.findUnique({
             where: {
                 id: commentDto.id,
+                userId: commentDto.userId
             },
         });
     

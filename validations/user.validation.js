@@ -12,7 +12,7 @@ class UsersValidator {
             email: joi.string().email().required(),
             password: joi.string().min(6).required(),
             profilePhoto: joi.string().trim(),
-            birthdate: joi.date().required(),
+            birthdate: joi.date().iso().required(),
             position: joi.string().valid('FATHER', 'MOTHER', 'SON', 'DAUGHTER'),
             deleted: joi.boolean().default(false),
         });
@@ -30,7 +30,7 @@ class UsersValidator {
             email: joi.string().email(),
             password: joi.string().min(6),
             profilePhoto: joi.string().trim(),
-            birthdate: joi.date(),
+            birthdate: joi.date().iso(),
             position: joi.string().valid('FATHER', 'MOTHER', 'SON', 'DAUGHTER'),
             deleted: joi.boolean(),
         });

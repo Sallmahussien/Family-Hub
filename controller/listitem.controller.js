@@ -34,7 +34,7 @@ class ListItemsController {
 
         const error = ListItemValidator.createListItem(listItemDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
         const listItemsDao = new ListItemsDao();
@@ -116,7 +116,7 @@ class ListItemsController {
 
         const error = ListItemValidator.updateListItem(listItemDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
-            res.status(400).json({ message: error.error.details[0].message });
+            return res.status(400).json({ message: error.error.details[0].message });
         }
 
         const listItemsDao = new ListItemsDao();

@@ -4,13 +4,16 @@ const { PostsController } = require('../controller/post.controller')
 
 const router = express.Router()
 
-router.route('/:circleId/users/:userId/posts/')
+router
+    .route('/:circleId/users/:userId/posts/')
     .post(PostsController.createPost);
 
-router.route('/:circleId/posts/')
+router
+    .route('/:circleId/posts/')
     .get(PostsController.getPostsByCircleId)
 
-router.route('/:circleId/users/:userId/feeds/:feedId/posts/:postId')
+router
+    .route('/:circleId/users/:userId/feeds/:feedId/posts/:postId')
     .put(PostsController.updatePostById)
 
 
