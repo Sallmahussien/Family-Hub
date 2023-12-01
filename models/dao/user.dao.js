@@ -1,5 +1,4 @@
 require('dotenv').config();
-// const { date } = require('joi');
 const bcrypt = require('bcrypt');
 const { prisma } = require('../client.db');
 const { deleteFeedByFeedId } = require('./common/deleteFeedById');
@@ -21,6 +20,18 @@ class UsersDao {
         const user = await prisma.users.create({
             data: userDto
         });
+
+        return user;
+    }
+
+    async getUserByEmail(userDto) {
+        const user = await prisma.users.findUnique({
+            where: {
+                email: userDto.email,
+                deleted: false
+            }
+        });
+        if (!user) throw new Error('Invalid email or password.');
 
         return user;
     }
@@ -95,9 +106,9 @@ class UsersDao {
 
         const feedsIdsList = feedsIds.map((feed) => feed.id);
 
-        feedsIdsList.forEach(async feedId => {
+        for (const feedId of feedsIdsList) {
             await deleteFeedByFeedId(feedId);
-        });
+        }
     }
 
 }
