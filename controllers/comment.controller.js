@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
-const { CommentsDao } = require('../model/dao/comment.dao');
-const { CommentsDto } = require('../model/dto/comment.dto');
-const { FeedsDto } = require('../model/dto/feed.dto');
+const { CommentsDao } = require('../models/dao/comment.dao');
+const { CommentsDto } = require('../models/dto/comment.dto');
+const { FeedsDto } = require('../models/dto/feed.dto');
 const { CommentsValidator } = require('../validations/comment.validation');
 
 

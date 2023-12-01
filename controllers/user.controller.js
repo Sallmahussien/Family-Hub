@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
-const { UsersDao } = require('../model/dao/user.dao');
-const { UsersDto } = require('../model/dto/user.dto');
+const { UsersDao } = require('../models/dao/user.dao');
+const { UsersDto } = require('../models/dto/user.dto');
 const { UsersValidator } = require('../validations/user.validation');
 
 class UsersController {

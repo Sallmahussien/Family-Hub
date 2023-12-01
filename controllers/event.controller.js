@@ -1,8 +1,8 @@
 const asyncHandler = require('express-async-handler');
 
-const { EventsDao } = require('../model/dao/event.dao');
-const { EventsDto } = require('../model/dto/event.dto');
-const { FeedsDto } = require('../model/dto/feed.dto');
+const { EventsDao } = require('../models/dao/event.dao');
+const { EventsDto } = require('../models/dto/event.dto');
+const { FeedsDto } = require('../models/dto/feed.dto');
 const { EventsValidator } = require('../validations/event.validation')
 
 

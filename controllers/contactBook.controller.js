@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
-const { ContactBooksDao } = require('../model/dao/contactbook.dao');
-const { ContactBooksDto } = require('../model/dto/contactbook.dto');
+const { ContactBooksDao } = require('../models/dao/contactbook.dao');
+const { ContactBooksDto } = require('../models/dto/contactbook.dto');
 const { ContactBooksValidator } = require('../validations/contactBook.validation');
 
 class ContactBooksController {

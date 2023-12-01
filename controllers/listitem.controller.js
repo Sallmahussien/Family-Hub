@@ -1,15 +1,15 @@
 const asyncHandler = require('express-async-handler');
 
-const { ListItemsDao } = require('../model/dao/listitems.dao');
-const { ListItemsDto } = require('../model/dto/listitem.dto');
-const { ListsDto } = require('../model/dto/list.dto');
-const { FeedsDto } = require('../model/dto/feed.dto');
+const { ListItemsDao } = require('../models/dao/listitems.dao');
+const { ListItemsDto } = require('../models/dto/listitem.dto');
+const { ListsDto } = require('../models/dto/list.dto');
+const { FeedsDto } = require('../models/dto/feed.dto');
 const { ListItemValidator } = require('../validations/listitem.validation');
 
-const { validateCircleId } = require('../model/dao/common/validateCircleId');
-const { validateUserId } = require('../model/dao/common/validateUserId');
-const { validateFeedId } = require('../model/dao/common/validateFeedId');
-const { validateListId } = require('../model/dao/common/validateListId');
+const { validateCircleId } = require('../models/dao/common/validateCircleId');
+const { validateUserId } = require('../models/dao/common/validateUserId');
+const { validateFeedId } = require('../models/dao/common/validateFeedId');
+const { validateListId } = require('../models/dao/common/validateListId');
 
 class ListItemsController {
 
