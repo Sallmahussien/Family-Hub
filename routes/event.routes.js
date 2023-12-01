@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { EventsController } = require('../controller/event.controller')
+const { EventsController } = require('../controllers/event.controller')
 
 
 router
@@ -16,4 +16,4 @@ router
     .get(EventsController.getEventById)
     .put(EventsController.updateEventById);
 
-module.exports = { router }
+module.exports = { router };

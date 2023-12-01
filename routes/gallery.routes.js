@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { GalleryController } = require('../controller/gallery.controller');
+const { GalleryController } = require('../controllers/gallery.controller');
 
 const router = express.Router();
 

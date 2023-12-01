@@ -1,8 +1,8 @@
 const express = require('express');
 
- const { CircleController } = require('../controller/circle.controller');
+const { CircleController } = require('../controllers/circle.controller');
 
- const router = express.Router();
+const router = express.Router();
 
  router
     .route('/')

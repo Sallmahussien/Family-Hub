@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { ContactBooksController } = require('../controller/contactBook.controller');
+const { ContactBooksController } = require('../controllers/contactBook.controller');
 
 router
     .route('/:circleId/contactbooks/')

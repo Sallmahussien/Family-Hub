@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { LikesController } = require('../controller/like.controller')
+const { LikesController } = require('../controllers/like.controller')
 
 router
     .route('/:circleId/feeds/:feedId/likes')
