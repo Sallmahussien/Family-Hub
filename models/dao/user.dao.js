@@ -48,12 +48,12 @@ class UsersDao {
     }
 
     async getUserById(userDto) {
-        await validateCircleId(userDto.circleId);
+
+        if (userDto.circleId) await validateCircleId(userDto.circleId);
 
         const user = await prisma.users.findUnique({
             where: {
                 id: userDto.id,
-                circleId: userDto.circleId,
                 deleted: false,
             },
             include: {
@@ -67,17 +67,23 @@ class UsersDao {
     }
 
     async updateUserById(userDto) {
-        await validateCircleId(userDto.circleId);
+        if (userDto.circleId) {
+            await validateCircleId(userDto.circleId)
+        }
+
+        if (userDto.password) {
+            userDto.password = bcrypt.hashSync(userDto.password, Number(process.env.SECRET))
+        }
 
         await prisma.users.update({
             where: {
                 id: userDto.id,
-                circleId: userDto.circleId,
                 deleted: false
             },
             data: userDto
         });
     }
+
 
     async deleteUserById(userDto) {
         await validateCircleId(userDto.circleId);

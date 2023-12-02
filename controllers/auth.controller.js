@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
 
 const { UsersDao } = require('../models/dao/user.dao');
 const { UsersDto } = require('../models/dto/user.dto');
@@ -75,5 +76,6 @@ class AuthController {
     }
   });
 }
+
 
 module.exports = { AuthController };
