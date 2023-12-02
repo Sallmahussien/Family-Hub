@@ -1,21 +1,25 @@
-const express = require('express');
+const router = require('express').Router();
 
 const { UsersController } = require('../controllers/user.controller');
-
-const router = express.Router();
+const { InvitationController } = require('../controllers/inviteUsers.controller');
+const { verifyToken, verifyTokenAndAuthorization } = require('../middlewares/verifyToken');
 
 
 router
     .route('/:circleId/users/')
-    .get(UsersController.getUsersByCircleId)
-    .post(UsersController.createUser);
+    .get(verifyToken, UsersController.getUsersByCircleId)
+
+
+router
+    .route('/users/:userId/invite-member')
+    .post(InvitationController.inviteNewMember)
 
 
 router
     .route('/:circleId/users/:userId/')
-    .get(UsersController.getUsersById)
-    .put(UsersController.updateUserById)
-    .delete(UsersController.deleteUserById);
+    .get(verifyToken, UsersController.getUsersById)
+    .put(verifyTokenAndAuthorization, UsersController.updateUserById)
+    .delete(verifyTokenAndAuthorization, UsersController.deleteUserById);
 
 
 module.exports = { router };

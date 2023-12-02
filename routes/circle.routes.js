@@ -1,8 +1,9 @@
-const express = require('express');
+const router = require('express').Router();
+
+const { verifyTokenAndAdmin, verifyToken } = require('../middlewares/verifyToken');
 
 const { CircleController } = require('../controllers/circle.controller');
 
-const router = express.Router();
 
  router
     .route('/')
@@ -10,8 +11,8 @@ const router = express.Router();
 
 router
     .route('/:circleId')
-    .get(CircleController.getCirleById)
-    .put(CircleController.updateCircle)
-    .delete(CircleController.deleteCircleById);
+    .get(verifyToken, CircleController.getCirleById)
+    .put(verifyTokenAndAdmin, CircleController.updateCircle)
+    .delete(verifyTokenAndAdmin, CircleController.deleteCircleById);
 
 module.exports = { router };
