@@ -1,13 +1,14 @@
 const router = require('express').Router();
 
 const { GalleryController } = require('../controllers/gallery.controller');
+const { upload } = require('../middlewares/uploads');
 
 const { verifyToken,
     verifyTokenAndAuthorizationForCreator } = require('../middlewares/verifyToken');
 
 router
     .route('/:circleId/users/:userId/photos')
-    .post(verifyTokenAndAuthorizationForCreator, GalleryController.createPhoto)
+    .post(upload.single('photo') ,verifyTokenAndAuthorizationForCreator, GalleryController.createPhoto)
     .get(verifyToken, GalleryController.getPhotosByUserId);
 
 router
@@ -17,6 +18,6 @@ router
 router
     .route('/:circleId/users/:userId/feeds/:feedId/photos/:photoId')
     .get(verifyToken, GalleryController.getPhotoById)
-    .put(verifyTokenAndAuthorizationForCreator, GalleryController.updatePhotoById);
+    .put(upload.single('photo'),verifyTokenAndAuthorizationForCreator, GalleryController.updatePhotoById);
 
 module.exports = { router };

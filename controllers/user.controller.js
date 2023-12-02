@@ -1,39 +1,12 @@
 const asyncHandler = require('express-async-handler');
+const fs = require('fs').promises;
+const path = require('path');
 
 const { UsersDao } = require('../models/dao/user.dao');
 const { UsersDto } = require('../models/dto/user.dto');
 const { UsersValidator } = require('../validations/user.validation');
 
 class UsersController {
-
-    /**
-     * @desc create a new user
-     * @route /api/v1/circles/<circle_id>/users
-     * @method POST
-     * @access public
-     */
-    static createUser = asyncHandler(async (req, res) => {
-
-        const userDto = new UsersDto(req.body);
-        userDto.circleId = req.params.circleId;
-        const error = UsersValidator.createUser(userDto);
-
-        if (error && error.error && error.error.details && error.error.details[0]) {
-            return res.status(400).json({ message: error.error.details[0].message });
-        }
-        
-        const userDao = new UsersDao();
-        try {
-            const user = await userDao.createUser(userDto);
-            res.status(201).json(user);
-        } catch (err) {
-            if (err.message === 'Email is already in use.') {
-                return res.status(409).json({ message: err.message });
-            }
-            res.status(500).json({ message: 'Internal Server Error' });
-        }
-    });
-
     /**
      * @desc get users by circleId
      * @route /api/v1/circles/<circle_id>/users
@@ -87,11 +60,26 @@ class UsersController {
         userDto.id = req.params.userId;
         const error = UsersValidator.updateUser(userDto);
 
+        const userDao = new UsersDao();
+
+        if (req.file) {
+            try {
+                const user = await userDao.getUserById(userDto);
+                if (user.profilePhoto) {
+                    const filePath = path.join(__dirname, `../images/${user.profilePhoto}`);
+                    await fs.unlink(filePath);
+                }
+            } catch(err) {
+                if (err.message === 'User Id is invalid.') return res.status(404).json({ message: err.message });
+            }
+
+            userDto.profilePhoto = req.file.filename;
+        }
+
         if (error && error.error && error.error.details && error.error.details[0]) {
             return res.status(400).json({ message: error.error.details[0].message });
         }
 
-        const userDao = new UsersDao();
         try {
             await userDao.updateUserById(userDto);
             res.status(201).json({ message: 'User updated successfully' }); ;

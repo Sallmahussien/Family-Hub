@@ -4,6 +4,8 @@ const { UsersController } = require('../controllers/user.controller');
 const { InvitationController } = require('../controllers/inviteUsers.controller');
 const { verifyToken, verifyTokenAndAuthorization } = require('../middlewares/verifyToken');
 
+const { upload } = require('../middlewares/uploads');
+
 
 router
     .route('/:circleId/users/')
@@ -18,7 +20,7 @@ router
 router
     .route('/:circleId/users/:userId/')
     .get(verifyToken, UsersController.getUsersById)
-    .put(verifyTokenAndAuthorization, UsersController.updateUserById)
+    .put(upload.single('profilePhoto'), verifyTokenAndAuthorization, UsersController.updateUserById)
     .delete(verifyTokenAndAuthorization, UsersController.deleteUserById);
 
 

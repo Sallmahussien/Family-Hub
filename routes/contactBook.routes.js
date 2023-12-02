@@ -4,16 +4,18 @@ const { ContactBooksController } = require('../controllers/contactBook.controlle
 
 const { verifyToken } = require('../middlewares/verifyToken');
 
+const { upload } = require('../middlewares/uploads');
+
 router
     .route('/:circleId/contactbooks/')
     .get(verifyToken, ContactBooksController.getContactsByCircleId)
-    .post(verifyToken, ContactBooksController.createContact);
+    .post(upload.single('profilePhoto'), verifyToken, ContactBooksController.createContact);
 
 
 router
     .route('/:circleId/contactbooks/:contactId')
     .get(verifyToken, ContactBooksController.getContactById)
-    .put(verifyToken, ContactBooksController.updateContactById)
+    .put(upload.single('profilePhoto'), verifyToken, ContactBooksController.updateContactById)
     .delete(verifyToken, ContactBooksController.deleteContactById);
 
 module.exports = { router }

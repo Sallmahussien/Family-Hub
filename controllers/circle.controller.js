@@ -1,4 +1,6 @@
 const asyncHandler = require('express-async-handler');
+const fs = require('fs').promises;
+const path = require('path');
 
 const { CirclesDao } = require('../models/dao/circle.dao');
 const { CirclesDto } = require('../models/dto/circle.dto');
@@ -14,6 +16,9 @@ class CircleController {
     */
     static createCircle = asyncHandler(async (req, res) => {
         const circleDto = new CirclesDto(req.body);
+        if (req.file) {
+            circleDto.coverPhoto = req.file.filename;
+        }
 
         const error = CircleValidator.createCircle(circleDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
@@ -63,12 +68,27 @@ class CircleController {
         const circleDto = new CirclesDto(req.body);
         circleDto.id = req.params.circleId;
 
+        const circleDao = new CirclesDao();
+
+        if (req.file) {
+            try {
+                const circle = await circleDao.getCirleById(circleDto);
+                if (circle.coverPhoto) {
+                    const filePath = path.join(__dirname, `../images/${circle.coverPhoto}`);
+                    await fs.unlink(filePath);
+                }
+            } catch(err) {
+                if (err.message === 'Circle Id is invalid.') return res.status(404).json({ message: err.message });
+            }
+
+            circleDto.coverPhoto = req.file.filename;
+        }
+
         const error = CircleValidator.updateCircle(circleDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
             return res.status(400).json({ message: error.error.details[0].message });
         }
 
-        const circleDao = new CirclesDao();
         try {
             await circleDao.updateCircle(circleDto);
             res.status(200).json({ message: 'Circle is updated.'});

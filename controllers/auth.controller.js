@@ -25,6 +25,10 @@ class AuthController {
     const userDto = new UsersDto(req.body);
     const error = UsersValidator.createUser(userDto);
 
+    if (req.file) {
+      userDto.profilePhoto = req.file.filename;
+    }
+
     if (error && error.error && error.error.details && error.error.details[0]) {
       return res.status(400).json({ message: error.error.details[0].message });
     }

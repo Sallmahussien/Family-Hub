@@ -17,7 +17,7 @@ function verifyToken(req, res, next) {
 
 function verifyTokenAndAuthorization(req, res, next) {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.role === 'ADMIN') {
+    if (req.user.id === req.params.userId || req.user.role === 'CREATOR') {
       next();
     } else {
       return res.status(403).json({ message: "you are not allowed" });
@@ -27,7 +27,7 @@ function verifyTokenAndAuthorization(req, res, next) {
 
 function verifyTokenAndAuthorizationParamsFree(req, res, next) {
   verifyToken(req, res, () => {
-    if (req.user.id === req.body.id || req.user.role === 'ADMIN') {
+    if (req.user.id === req.body.userId || req.user.role === 'CREATOR') {
       next();
     } else {
       return res.status(403).json({ message: "you are not allowed" });
@@ -37,7 +37,7 @@ function verifyTokenAndAuthorizationParamsFree(req, res, next) {
 
 function verifyTokenAndAuthorizationForCreator(req, res, next) {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id) {
+    if (req.user.id === req.params.userId) {
       next();
     } else {
       return res.status(403).json({ message: "you are not allowed" });
@@ -47,7 +47,7 @@ function verifyTokenAndAuthorizationForCreator(req, res, next) {
 
 function verifyTokenAndAuthorizationForCreatorParamFree(req, res, next) {
   verifyToken(req, res, () => {
-    if (req.user.id === req.body.id) {
+    if (req.user.id === req.body.userId) {
       next();
     } else {
       return res.status(403).json({ message: "you are not allowed" });
@@ -57,7 +57,7 @@ function verifyTokenAndAuthorizationForCreatorParamFree(req, res, next) {
 
 function verifyTokenAndAdmin(req, res, next) {
   verifyToken(req, res, () => {
-    if (req.user.role === 'ADMIN') {
+    if (req.user.role === 'CREATOR') {
       next();
     } else {
       return res.status(403).json({ message: "you are not allowed, only admin allowed" });
