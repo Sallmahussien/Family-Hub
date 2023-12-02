@@ -1,4 +1,6 @@
 const asyncHandler = require('express-async-handler');
+const fs = require('fs').promises;
+const path = require('path');
 
 const { ContactBooksDao } = require('../models/dao/contactbook.dao');
 const { ContactBooksDto } = require('../models/dto/contactbook.dto');
@@ -16,6 +18,9 @@ class ContactBooksController {
 
         const contactDto = new ContactBooksDto(req.body);
         contactDto.circleId = req.params.circleId;
+        if (req.file) {
+            contactDto.profilePhoto = req.file.filename;
+        }
 
         const error = ContactBooksValidator.createContactBook(contactDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
@@ -94,6 +99,21 @@ class ContactBooksController {
         contactDto.circleId = req.params.circleId;
         contactDto.id = req.params.contactId;
         const contactDao = new ContactBooksDao();
+
+        if (req.file) {
+            try {
+                const contactBook = await contactDao.getContactById(contactDto);
+                if (contactBook.profilePhoto) {
+                    const filePath = path.join(__dirname, `../images/${contactBook.profilePhoto}`);
+                    await fs.unlink(filePath);
+                }
+            } catch(err) {
+                if (err.message === 'Contact Id is invalid.') return res.status(404).json({ message: err.message });
+            }
+
+            contactDto.profilePhoto = req.file.filename;
+        }
+
         const error = ContactBooksValidator.updateContactBook(contactDto);
 
         if (error && error.error && error.error.details && error.error.details[0]) {
