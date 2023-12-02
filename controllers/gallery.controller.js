@@ -1,4 +1,6 @@
 const asyncHandler = require('express-async-handler');
+const fs = require('fs').promises;
+const path = require('path');
 
 const { GalleryDao } = require('../models/dao/gallery.dao');
 const { GalleryDto } = require('../models/dto/gallery.dto');
@@ -21,6 +23,10 @@ class GalleryController {
         });
 
         const photoDto = new GalleryDto(req.body);
+
+        if (req.file) {
+            photoDto.photo = req.file.filename;
+        }
 
         const error = GalleryValidator.createGallery(photoDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
@@ -140,12 +146,27 @@ class GalleryController {
         photoDto.id = req.params.photoId;
         photoDto.feedId = req.params.feedId;
 
+        const photoDao = new GalleryDao();
+
+        if (req.file) {
+            try {
+                const photo = await photoDao.getPhotoById(photoDto, feedDto);
+                if (photo.photo) {
+                    const filePath = path.join(__dirname, `../images/${photo.photo}`);
+                    await fs.unlink(filePath);
+                }
+            } catch(err) {
+                if (err.message === 'Photo Id is invalid.') return res.status(404).json({ message: err.message });
+            }
+
+            photoDto.photo = req.file.filename;
+        }
+
         const error = GalleryValidator.updateGallery(photoDto);
         if (error && error.error && error.error.details && error.error.details[0]) {
             return res.status(400).json({ message: error.error.details[0].message });
         }
 
-        const photoDao = new GalleryDao();
         try {
                 await photoDao.updatePhotoById(photoDto, feedDto);
             res.status(201).json({ message: 'Photo is updated.'});
