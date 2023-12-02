@@ -1,17 +1,20 @@
-const express = require('express');
+const router = require('express').Router();
 
-const { ListItemsController } = require('../controller/listitem.controller')
+const { ListItemsController } = require('../controllers/listitem.controller');
 
-const router = express.Router();
+const { verifyToken,
+    verifyTokenAndAuthorization,
+    verifyTokenAndAuthorizationForCreator } = require('../middlewares/verifyToken');
+
 
 router
     .route('/:circleId/users/:userId/feeds/:feedId/lists/:listId/listItems')
-    .post(ListItemsController.createListItem)
-    .get(ListItemsController.getListItemsByListId);
+    .post(verifyTokenAndAuthorizationForCreator, ListItemsController.createListItem)
+    .get(verifyToken, ListItemsController.getListItemsByListId);
 
 router
     .route('/:circleId/users/:userId/feeds/:feedId/lists/:listId/listItems/:listItemId')
-    .put(ListItemsController.updateListItemById)
-    .delete(ListItemsController.deleteListItemById);
+    .put(verifyTokenAndAuthorizationForCreator, ListItemsController.updateListItemById)
+    .delete(verifyTokenAndAuthorization, ListItemsController.deleteListItemById);
 
 module.exports = { router };

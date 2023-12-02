@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
-const { LikesDao } = require('../model/dao/like.dao');
-const { LikesDto } = require('../model/dto/like.dto');
-const { FeedsDto } = require('../model/dto/feed.dto');
+const { LikesDao } = require('../models/dao/like.dao');
+const { LikesDto } = require('../models/dto/like.dto');
+const { FeedsDto } = require('../models/dto/feed.dto');
 const { LikesValidator } = require('../validations/like.validation');
 
 class LikesController {

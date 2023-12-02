@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
-const { FeedsDao } = require('../model/dao/feed.dao');
-const { FeedsDto } = require('../model/dto/feed.dto');
+const { FeedsDao } = require('../models/dao/feed.dao');
+const { FeedsDto } = require('../models/dto/feed.dto');
 
 
 class FeedsController {

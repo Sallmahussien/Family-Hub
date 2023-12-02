@@ -1,5 +1,5 @@
 const express = require('express');
-
+const path = require('path');
 
 const { router: circleRouter } = require('./routes/circle.routes');
 const { router: contactBooksRouter } = require('./routes/contactBook.routes');
@@ -13,10 +13,19 @@ const { router: likesRouter } = require('./routes/like.routes');
 const { router: listsRouter } = require('./routes/list.routes');
 const { router: listItemsRouter } = require('./routes/listitem.routes');
 
+const { router: authRouter } = require('./routes/auth.routes');
+const { router: passRouter } = require('./routes/password.routes');
+
 const app = express();
 
 app.use(express.json());
+// app.use(express.static(path.join(__dirname, "views")));
+app.use(express.urlencoded({extended: false}));
 
+app.set('view engine', 'ejs');
+
+
+// circle routes
 app.use('/api/v1/circles', circleRouter);
 app.use('/api/v1/circles', contactBooksRouter);
 app.use('/api/v1/circles', commentsRouter);
@@ -28,6 +37,10 @@ app.use('/api/v1/circles', listsRouter);
 app.use('/api/v1/circles', listItemsRouter);
 app.use('/api/v1/circles', postsRouter);
 app.use('/api/v1/circles', usersRouter);
+
+// auth routes
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/password', passRouter)
 
 
 const port = 5000;

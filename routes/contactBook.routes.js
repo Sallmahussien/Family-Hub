@@ -1,17 +1,19 @@
 const router = require('express').Router();
 
-const { ContactBooksController } = require('../controller/contactBook.controller');
+const { ContactBooksController } = require('../controllers/contactBook.controller');
+
+const { verifyToken } = require('../middlewares/verifyToken');
 
 router
     .route('/:circleId/contactbooks/')
-    .get(ContactBooksController.getContactsByCircleId)
-    .post(ContactBooksController.createContact);
+    .get(verifyToken, ContactBooksController.getContactsByCircleId)
+    .post(verifyToken, ContactBooksController.createContact);
 
 
 router
     .route('/:circleId/contactbooks/:contactId')
-    .get(ContactBooksController.getContactById)
-    .put(ContactBooksController.updateContactById)
-    .delete(ContactBooksController.deleteContactById);
+    .get(verifyToken, ContactBooksController.getContactById)
+    .put(verifyToken, ContactBooksController.updateContactById)
+    .delete(verifyToken, ContactBooksController.deleteContactById);
 
 module.exports = { router }

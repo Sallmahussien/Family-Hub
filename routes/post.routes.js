@@ -1,20 +1,21 @@
-const express = require('express');
+const router = require('express').Router();
 
-const { PostsController } = require('../controller/post.controller')
+const { PostsController } = require('../controllers/post.controller')
 
-const router = express.Router()
+const { verifyToken,
+    verifyTokenAndAuthorizationForCreator } = require('../middlewares/verifyToken');
 
 router
     .route('/:circleId/users/:userId/posts/')
-    .post(PostsController.createPost);
+    .post(verifyTokenAndAuthorizationForCreator, PostsController.createPost);
 
 router
     .route('/:circleId/posts/')
-    .get(PostsController.getPostsByCircleId)
+    .get(verifyToken, PostsController.getPostsByCircleId)
 
 router
     .route('/:circleId/users/:userId/feeds/:feedId/posts/:postId')
-    .put(PostsController.updatePostById)
+    .put(verifyTokenAndAuthorizationForCreator, PostsController.updatePostById)
 
 
 module.exports = { router }

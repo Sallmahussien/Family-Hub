@@ -1,21 +1,22 @@
-const express = require('express');
+const router = require('express').Router();
 
-const { GalleryController } = require('../controller/gallery.controller');
+const { GalleryController } = require('../controllers/gallery.controller');
 
-const router = express.Router();
+const { verifyToken,
+    verifyTokenAndAuthorizationForCreator } = require('../middlewares/verifyToken');
 
 router
     .route('/:circleId/users/:userId/photos')
-    .post(GalleryController.createPhoto)
-    .get(GalleryController.getPhotosByUserId);
+    .post(verifyTokenAndAuthorizationForCreator, GalleryController.createPhoto)
+    .get(verifyToken, GalleryController.getPhotosByUserId);
 
 router
     .route('/:circleId/photos')
-    .get(GalleryController.getPhotoByCircleId);
+    .get(verifyToken, GalleryController.getPhotoByCircleId);
 
 router
     .route('/:circleId/users/:userId/feeds/:feedId/photos/:photoId')
-    .get(GalleryController.getPhotoById)
-    .put(GalleryController.updatePhotoById);
+    .get(verifyToken, GalleryController.getPhotoById)
+    .put(verifyTokenAndAuthorizationForCreator, GalleryController.updatePhotoById);
 
 module.exports = { router };

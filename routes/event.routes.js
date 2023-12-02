@@ -1,19 +1,24 @@
 const router = require('express').Router();
 
-const { EventsController } = require('../controller/event.controller')
+const { EventsController } = require('../controllers/event.controller');
+
+const { verifyToken,
+    verifyTokenAndAuthorization,
+    verifyTokenAndAuthorizationForCreator
+    } = require('../middlewares/verifyToken');
 
 
 router
     .route('/:circleId/users/:userId/events/')
-    .post(EventsController.createEvent);
+    .post(verifyTokenAndAuthorizationForCreator, EventsController.createEvent);
 
 router
     .route('/:circleId/events/')
-    .get(EventsController.getEventsByCircleId);
+    .get(verifyToken, EventsController.getEventsByCircleId);
 
 router
     .route('/:circleId/users/:userId/feeds/:feedId/events/:eventId')
-    .get(EventsController.getEventById)
-    .put(EventsController.updateEventById);
+    .get(verifyToken, EventsController.getEventById)
+    .put(verifyTokenAndAuthorization, EventsController.updateEventById);
 
-module.exports = { router }
+module.exports = { router };

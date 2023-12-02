@@ -1,8 +1,8 @@
 const asyncHandler = require('express-async-handler');
 
-const { PostsDao } = require('../model/dao/post.dao')
-const { PostsDto } = require('../model/dto/post.dto')
-const { FeedsDto } = require('../model/dto/feed.dto');
+const { PostsDao } = require('../models/dao/post.dao')
+const { PostsDto } = require('../models/dto/post.dto')
+const { FeedsDto } = require('../models/dto/feed.dto');
 const { PostsValidator } = require('../validations/post.validation')
 
 

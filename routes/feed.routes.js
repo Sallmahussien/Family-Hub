@@ -1,16 +1,18 @@
-const express = require('express');
+const router = require('express').Router();
 
-const { FeedsController } = require('../controller/feed.controller')
+const { FeedsController } = require('../controllers/feed.controller');
 
-const router = express.Router()
+const { verifyToken,
+    verifyTokenAndAuthorization } = require('../middlewares/verifyToken');
+
 
 router
     .route('/:circleId/feeds/')
-    .get(FeedsController.getFeedsByCircleId);
+    .get(verifyToken, FeedsController.getFeedsByCircleId);
 
 router
     .route('/:circleId/users/:userId/feeds/:feedId')
-    .get(FeedsController.getFeedById)
-    .delete(FeedsController.deleteFeedById);
+    .get(verifyToken, FeedsController.getFeedById)
+    .delete(verifyTokenAndAuthorization, FeedsController.deleteFeedById);
 
 module.exports = { router }

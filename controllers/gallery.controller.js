@@ -1,8 +1,8 @@
 const asyncHandler = require('express-async-handler');
 
-const { GalleryDao } = require('../model/dao/gallery.dao');
-const { GalleryDto } = require('../model/dto/gallery.dto');
-const { FeedsDto } = require('../model/dto/feed.dto');
+const { GalleryDao } = require('../models/dao/gallery.dao');
+const { GalleryDto } = require('../models/dto/gallery.dto');
+const { FeedsDto } = require('../models/dto/feed.dto');
 const { GalleryValidator } = require('../validations/gallery.validation');
 
 class GalleryController {
@@ -125,7 +125,7 @@ class GalleryController {
 
     /**
      * @desc update photos by Id
-     * @route /api/v1/circles/:circleIdd/users/:userId/feeds/feedId/photos/photoId
+     * @route /api/v1/circles/:circleId/users/:userId/feeds/feedId/photos/photoId
      * @method PUT
      * @access public
     */

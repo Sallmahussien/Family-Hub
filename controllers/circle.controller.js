@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 
-const { CirclesDao } = require('../model/dao/circle.dao');
-const { CirclesDto } = require('../model/dto/circle.dto');
+const { CirclesDao } = require('../models/dao/circle.dao');
+const { CirclesDto } = require('../models/dto/circle.dto');
 const { CircleValidator } = require('../validations/circle.validation');
 
 class CircleController {
