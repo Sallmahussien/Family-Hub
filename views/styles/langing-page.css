@@ -1,0 +1,406 @@
+body {
+    position: relative;
+    background-color: #d4d4d43f;
+}
+
+.logo {
+    font-weight: 900;
+    font-size: 35px;
+    color: white !important;
+}
+
+.logo .hub-span {
+    font-weight: 100;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+nav .nav-item {
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+
+.btn-link {
+    color: #4da3ff;
+}
+
+.btn {
+    border-radius: 7px;
+}
+
+.landing {
+    background-image: url('../imgs/Family_Hub.png');
+    background-size: cover;
+    position: relative;
+    height: 100vh;
+}
+
+.overlay {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.text {
+    height: calc(100vh - 112px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.text h1,
+.text h3 {
+    font-family: 'Kalam', cursive;
+    color: white;
+}
+
+.text h1 {
+    font-size: 4.375em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .text h1 {
+        font-size: 3em;
+        margin-bottom: 10px;
+    }
+
+    .contents .features {
+        display: flex;
+        flex-direction: column-reverse !important;
+    }
+
+    .contents .features .photos img {
+        width: 80% !important;
+        height: 50% !important;
+    }
+
+    .contents .features .text h1 {
+        font-size: 1.2rem !important;
+        ;
+        margin-bottom: 15px;
+    }
+
+    .contents .features .text p {
+        font-size: 0.6rem !important;
+        margin-left: 10px;
+        height: 25% !important;
+        width: 100% !important;
+    }
+
+    .stPart {
+        height: 90% !important;
+        margin-top: auto !important;
+        margin-bottom: auto !important;
+    }
+
+    .stPart section {
+        width: 100% !important;
+        padding: 0px !important;
+        margin: 0px !important;
+        display: flex !important;
+        justify-content: space-between;
+    }
+
+    .stPart section div {
+        width: 25% !important;
+        margin-left: 5% !important;
+        margin-right: 5% !important;
+    }
+
+    .stPart h1 {
+        font-size: 1rem !important;
+    }
+
+    .stPart p {
+        font-size: 0.5rem !important;
+    }
+
+    .stPart img {
+        width: 75% !important;
+    }
+
+    .last .wrapper {
+        display: none;
+    }
+
+    .team {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .team .containerz {
+        width: 100% !important;
+        margin-left: 1rem !important;
+    }
+
+    .team h2 {
+        font-size: 1.8rem !important;
+    }
+
+    .team img {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .team .name {
+        font-size: 0.5rem !important;
+    }
+
+    .last {
+        display: none;
+        height: 0px !important;
+    }
+
+}
+
+.text h3 {
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .text h3 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+}
+
+
+.text .btn {
+    margin-left: 20px;
+    border: none;
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .text .btn {
+        font-size: 1em;
+        margin-left: 10px;
+    }
+}
+
+
+.stPart {
+    padding-top: 50px;
+    width: 100%;
+    margin-top: 2%;
+    height: 100vh !important;
+}
+
+.contents {
+    width: 70%;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.features {
+    display: flex;
+    flex-direction: row;
+}
+
+.features .text {
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
+    flex: 0.5 !important;
+    color: black;
+}
+
+.photos {
+    flex: 0.5 !important;
+}
+
+section.last {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photos img {
+    max-width: 80%;
+    max-height: 90%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wrapper {
+    position: relative;
+    height: 300px;
+    width: 600px;
+    margin: 50px 0;
+
+    display: flex;
+    flex-direction: row;
+
+    transition: all 200ms ease-in-out;
+}
+
+.image-wrapper {
+    height: 300px;
+    width: 450px;
+    overflow: hidden;
+    border-radius: 5px;
+    cursor: pointer;
+
+    transition: all 200ms ease-in-out;
+}
+
+img {
+    height: 300px;
+    width: 450px;
+    object-fit: cover;
+    object-position: top;
+
+    transition: all 200ms ease-in-out;
+}
+
+.book-design-image {
+    object-position: center;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    left: 380px;
+    transition: all 200ms ease-in-out;
+    overflow: hidden;
+
+}
+
+.wrapper h1 {
+    position: relative;
+    bottom: 0;
+    height: 300px;
+    color: #ccccccbe;
+    font-size: 80px;
+    font-family: Oswald;
+    text-transform: uppercase;
+
+    transition: all 200ms ease-in-out;
+}
+
+.wrapper:hover img {
+    transform: scale(2);
+}
+
+.wrapper:hover h1 {
+    bottom: 300px;
+    transform: scale(.4);
+}
+
+.wrapper:hover .image-wrapper {
+    width: 800px;
+}
+
+section.team {
+    height: 100vh;
+}
+
+.section-heading {
+    background-color: #ebe9e98a;
+    text-align: center;
+    font-size: 64px;
+    color: #4da3ff;
+    margin: 0 0 70px;
+}
+
+.containerz {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.profile {
+    position: relative;
+    width: 33%;
+    transition: all 0.3s;
+}
+
+.profile:hover {
+    transform: translateY(25px);
+}
+
+.profile img {
+    max-width: 80%;
+    border-radius: 50%;
+    border: 5px solid #f7f7f7;
+    filter: drop-shadow(-20px 0 10px rgba(0, 0, 0, 0.1));
+    cursor: pointer;
+}
+
+.profile:not(:first-child) img {
+    margin-left: -20px;
+}
+
+.profile .name {
+    position: absolute;
+    background-color: #66b0ff;
+    color: #fff;
+    font-family: "Bebas Neue", cursive;
+    padding: 15px 30px;
+    border-radius: 100px;
+    bottom: -80px;
+    left: 40%;
+    white-space: nowrap;
+    transform: translate(-50%, -50px);
+    letter-spacing: 1px;
+    font-size: 20px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.profile .name::before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ffffff;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.profile img:hover+.name {
+    opacity: 1;
+    transform: translateX(-50%);
+    box-shadow: 0 10px 20px rgba(86, 86, 198, 0.3);
+}
+
+footer {
+    width: 100%;
+    padding: 10px;
+    height: 60px;
+    color: rgba(255, 255, 255, 0.829);
+    background-color: #66b0ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
