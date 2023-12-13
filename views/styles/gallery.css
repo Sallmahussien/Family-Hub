@@ -1,0 +1,139 @@
+main .gallery-cover {
+    margin-top: 25px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.gallery-cover .user-link {
+    background-color: white;
+    box-shadow: 0 2px 15px rgb(0 0 0 / 10%);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.gallery-cover .user-link img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+
+}
+
+.gallery-cover .user-link .text {
+    padding: 20px;
+    text-align: center;
+}
+
+.gallery-cover .user-link .text h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.gallery-cover .user-link .text span {
+    margin-top: 7px;
+    color: #777;
+    font-size: 14px;
+}
+
+.gallery {
+    margin-top: 25px;
+    width: 100%;
+}
+
+.gallery h2 {
+    font-size: 28px;
+}
+
+.gallery span {
+    display: block;
+    color: #777;
+    margin-top: -12px;
+}
+
+.gallery .gallery-header i {
+    font-size: 20px;
+    padding: 20px;
+    color: #505050;
+    cursor: pointer;
+}
+
+.gallery .imgs-container {
+    width: 100%;
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.gallery .imgs-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.gallery .imgs-container img:hover {
+    transform: scale(1.08);
+}
+
+#imgModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 4;
+}
+
+#modalContent {
+    display: flex;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: hidden;
+}
+
+#modalImage {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+#closeModal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.control-button {
+    width: 35px;
+    height: 35px;
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
