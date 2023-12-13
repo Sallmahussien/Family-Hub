@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="./styles/shared.css">
+    <link rel="stylesheet" href="./styles/aside.css">
+    <link rel="stylesheet" href="./styles/home.css">
+    <title>FamilyHub Circle</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md">
+        <div class="container-fluid ">
+
+            <div class="logo-container col-md-2 d-flex justify-content-between align-items-center">
+                <a class="navbar-brand d-none d-sm-block" href="#intro">
+                    <span class="text-primary logo"> <span class="firstLetter" >F</span>amily<span class="hub-span">Hub</span></span>
+                </a>
+
+                <div class="d-sm-none">
+                    <button class="btn btn-outline-light" id="toggleSidebar">
+                        <span class="navbar-toggler-icon" style="color: white;"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="circle-name col-md-10 text-center">
+                my-circle
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="container-fluid ">
+        <div class="row">
+
+            <!-- Sidebar (Aside) -->
+            <aside class="col-12 col-md-2 d-none d-sm-block sticky-top" id="sidebar">
+                <div class="profile-container">
+
+                    <img class="cover-photo" src="./imgs/cover.png" alt="Cover Photo">
+
+                    <div class="name-container">
+                        <img class="profile-photo" src="./imgs/profilePhoto.png" alt="Profile Photo">
+
+                        <h2>Salma</h2>
+                    </div>
+                </div>
+
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <i class="fas fa-chart-line"></i> Activity
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-list"></i> Lists
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-calendar-alt"></i> Calendar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-images"></i> Gallery
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-address-book"></i> Contact Book
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-cogs"></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+
+
+            </aside>
+
+            <main class="col-12 col-md-10">
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="card main-body">
+                            <div class="card-body  feed-body">
+
+                                <!-- posting new feeds -->
+                                <div class="post_box mx-5 my-3 p-2">
+                                    <form action="" class="d-flex flex-column ">
+                                        <div class="input p-4 d-flex">
+                                            <img src="./imgs/user.webp" alt="">
+                                            <input type="text" class="ms-3 border-0 fs-6 p-3" placeholder="Let's share it together..">
+                                        </div>
+                                        <div class="feedBtns mb-2 d-flex justify-content-evenly p-auto">
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+                                                <i class="fa-solid fa-camera pt-1"></i>
+                                                <p class="ms-1 mb-1">Add Photo</p>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+                                                <i class="fa-regular fa-calendar-days pt-1"></i>
+                                                <p class="ms-1 mb-1">Add Event</p>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+                                                <i class="fa-solid fa-list-ol pt-1"></i>
+                                                <p class="ms-1 mb-1">Add List</p>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+                                                <i class="fa-regular fa-id-badge pt-1"></i>
+                                                <p class="ms-1 mb-1">Add Contact</p>
+                                            </button>
+                                        </div>
+                                        <button type="button" class="btn btn-primary ms-auto sharebtn" >Share</button>
+                                    </form>
+                                </div>
+
+
+                                    <div class="post mx-5 p-4 mt-4">
+                                        <!-- component -->
+                                        <div class="feed_header d-flex justify-content-between">
+                                            <div class="userImg d-flex ">
+                                                <img src="./imgs/user.webp" alt="">
+                                                <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
+                                            </div>
+                            
+                                            <!-- component -->
+                                            <div class="dropdown-container position-relative  d-inline-block ">
+                                                <i class="fa-solid fa-ellipsis-vertical w-25" onclick="toggleDropdown(event)"></i>
+                                                <ul class="dropdown ms-0 ps-0 list-unstyled position-absolute top-0 bg-light z-3">
+                                                    <li class="edit mb-1 w-100 text-start p-2">Edit</li>
+                                                    <li class="delete w-100 text-start p-2">Delete</li>
+                                                </ul>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="post_content w-100 mx-5 my-4">
+                                            <p> { post.content } Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                                        </div>
+                            
+                                        <!-- component -->
+                                        <div class="like_comment_component bg-body  d-flex row">
+                                            <div class="like col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto">
+                                                <i class="fa-regular fa-thumbs-up pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">like</p>
+                                            </div>
+                                            <div class="comment col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto ">
+                                                <i class="fa-solid fa-comment pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">comment</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- comment component -->
+                                        <div class="comment-component d-flex w-100 mx-auto gap-4 mt-3">
+                                            <form action=""  class="d-flex flex-grow-1 ">
+                                                <input type="text" class="w-100 p-2">
+                                            </form>
+                                            <button type="button" class="btn btn-secondary bg-light  ms-auto"><i class="fa-solid fa-paper-plane font"></i></button>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- photo goes here -->
+                            
+                                    <div class="photo mx-5 p-4 mt-4">
+            
+                                        <div class="feed_header d-flex justify-content-between">
+                                            <div class="userImg d-flex">
+                                                <img src="./imgs/user.webp" alt="">
+                                                <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
+                                            </div>
+                            
+                                            <!-- component -->
+                                            <div class="dropdown-container position-relative  d-inline-block ">
+                                                <i class="fa-solid fa-ellipsis-vertical w-25" onclick="toggleDropdown(event)"></i>
+                                                <ul class="dropdown ms-0 ps-0 list-unstyled position-absolute top-0 bg-light z-3">
+                                                    <li class="edit mb-1 w-100 text-start p-2">Edit</li>
+                                                    <li class="delete w-100 text-start p-2">Delete</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="feed_content">
+                                            <img src="./imgs/Family_Hub.png" alt="" class="w-100 mx-3 my-3 ">
+                                        </div>
+                            
+                                        <!-- component -->
+                                        <div class="like_comment_component bg-body  d-flex row">
+                                            <div class="like col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto">
+                                                <i class="fa-regular fa-thumbs-up pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">like</p>
+                                            </div>
+                                            <div class="comment col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto ">
+                                                <i class="fa-solid fa-comment pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">comment</p>
+                                            </div>
+                                        </div>
+                                        <!-- comment component -->
+                                        <div class="comment-component d-flex w-100 mx-auto gap-4 mt-3">
+                                            <form action=""  class="d-flex flex-grow-1 ">
+                                                <input type="text" class="w-100 p-2">
+                                            </form>
+                                            <button type="button" class="btn btn-secondary bg-light  ms-auto"><i class="fa-solid fa-paper-plane font"></i></button>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- event goes here -->
+
+                                    <div class="event mx-5 p-4 mt-4">
+                                        <!-- component -->
+                                        <div class="feed_header d-flex justify-content-between">
+                                            <div class="userImg d-flex">
+                                                <img src="./imgs/user.webp" alt="">
+                                                <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
+                                            </div>
+
+                                            <!-- component -->
+                                            <div class="dropdown-container position-relative  d-inline-block ">
+                                                <i class="fa-solid fa-ellipsis-vertical w-25" onclick="toggleDropdown(event)"></i>
+                                                <ul class="dropdown ms-0 ps-0 list-unstyled position-absolute top-0 bg-light z-3">
+                                                    <li class="edit mb-1 w-100 text-start p-2">Edit</li>
+                                                    <li class="delete w-100 text-start p-2">Delete</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="feed_content">
+                                            <div class="event_component d-flex mx-5 my-4 h-100">
+                                                <div class="date d-flex justify-content-center align-items-center fs-3 bg-body-secondary">
+                                                    { event.startDate }
+                                                </div>
+                                                <div class="description d-flex flex-column justify-content-around ms-4">
+                                                    <div class="event_title fs-4">
+                                                        <h2>{ event.title } </h2>
+                                                    </div>
+                                                    <div class="event_description ps-4 fs-5 ">
+                                                        <h4>{ event.description }</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- component -->
+                                        <div class="like_comment_component bg-body  d-flex row">
+                                            <div class="like col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto">
+                                                <i class="fa-regular fa-thumbs-up pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">like</p>
+                                            </div>
+                                            <div class="comment col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto ">
+                                                <i class="fa-solid fa-comment pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">comment</p>
+                                            </div>
+                                        </div>
+                                        <!-- comment component -->
+                                        <div class="comment-component d-flex w-100 mx-auto gap-4 mt-3">
+                                            <form action=""  class="d-flex flex-grow-1 ">
+                                                <input type="text" class="w-100 p-2">
+                                            </form>
+                                            <button type="button" class="btn btn-secondary bg-light  ms-auto"><i class="fa-solid fa-paper-plane font"></i></button>
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- lists goes here -->
+
+                                    <div class="lists mx-5 p-4 mt-4">
+                                        <!-- component -->
+                                        <div class="feed_header d-flex justify-content-between">
+                                            <div class="userImg d-flex">
+                                                <img src="./imgs/user.webp" alt="">
+                                                <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
+                                            </div>
+
+                                            <!-- component -->
+                                            <div class="dropdown-container position-relative  d-inline-block ">
+                                                <i class="fa-solid fa-ellipsis-vertical w-25" onclick="toggleDropdown(event)"></i>
+                                                <ul class="dropdown ms-0 ps-0 list-unstyled position-absolute top-0 bg-light z-3">
+                                                    <li class="edit mb-1 w-100 text-start p-2">Edit</li>
+                                                    <li class="delete w-100 text-start p-2">Delete</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="feed_content">
+                                            <h3 class="mx-5 my-3 fs-4"> Added to { list.name } these new items </h3>
+                                            <form action="" class="mx-5 my-3 d-flex">
+                                              <label class="check-list">
+                                                <input checked="checked" type="checkbox">
+                                                <div class="checkmark"></div>
+                                                { listItem.name }
+                                              </label>
+                                            </form>
+                                        </div>
+                                        <!-- component -->
+                                        <div class="like_comment_component bg-body  d-flex row">
+                                            <div class="like col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto">
+                                                <i class="fa-regular fa-thumbs-up pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">like</p>
+                                            </div>
+                                            <div class="comment col-md-5 d-flex fs-5 justify-content-center my-auto mx-auto ">
+                                                <i class="fa-solid fa-comment pt-1"></i>
+                                                <p class="mb-0 ms-2 fs-5">comment</p>
+                                            </div>
+                                        </div>
+                                        <!-- comment component -->
+                                        <div class="comment-component d-flex w-100 mx-auto gap-4 mt-3">
+                                            <form action=""  class="d-flex flex-grow-1 ">
+                                                <input type="text" class="w-100 p-2">
+                                            </form>
+                                            <button type="button" class="btn btn-secondary bg-light  ms-auto"><i class="fa-solid fa-paper-plane font"></i></button>
+                                        </div>
+
+
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section -->
+                    <div class=" col-md-4 d-none d-sm-block" id="mianContainer">
+                        <div class="card widget">
+                            <div class="card-body">
+                                <div class="inner w-75 m-auto d-flex flex-column ">
+                                    <h3 class="fs-3">Our Vision Will Go Here</h3>
+                                    <img src="./imgs/aside.png"  class="w-100 mx-auto p-auto" alt="">
+                                    <p class="text-center ">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque ea explicabo ut recusandae accusantium quibusdam nemo, fuga culpa atque nisi non iste reiciendis aliquam numquam, ab vero maiores officia! A!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./scripts/aside.js"></script>
+</body>
+
+</html>

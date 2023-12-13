@@ -1,0 +1,360 @@
+.main-body {
+    border: 0 !important;
+}
+
+
+.widget {
+    height: 100vh !important;
+    border-radius: 0% !important;
+}
+
+.post_box {
+    border-bottom: 3px solid #ddd;
+    border-top: 3px solid #ddd;
+    border-radius: 20px;
+    background-color: white !important;
+
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow, transform;
+    transition-property: box-shadow, transform;
+}
+
+.post_box:hover, .post_box:focus, .post_box:active {
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+.post_box input {
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 35px !important;
+    width: 100% !important;
+}
+.post_box input:focus {
+    outline: none !important;
+    box-shadow: 15px #666666 !important;
+}
+
+.post_box img{
+    border-radius: 50%;
+    height: 60px;
+}
+
+.post_box .shareBtn {
+    width: fit-content !important;
+}
+
+
+.feedBtns button {
+    height: min-content;
+}
+
+/* ====================== */
+
+.feed-body {
+    background-color: #f2f2f2 !important;
+}
+
+.post, .photo, .event, .lists {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white !important;
+    border-radius: 5px;
+}
+
+/* =============================== */
+.check-list {
+    display: flex;
+    align-items: center; /* Align items vertically in the flex container */
+    gap: 10px;
+}
+  
+.checkmark {
+position: relative;
+box-shadow: rgb(0, 174, 255) 0px 0px 0px 2px;
+background-color: #66b0ff;
+height: 20px;
+width: 20px;
+flex-shrink: 0;
+transition: all 0.2s ease 0s;
+cursor: pointer;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+.check-list input {
+display: none;
+}
+
+
+.check-list input:checked + .checkmark {
+box-shadow: rgb(0, 174, 255) 0px 0px 0px 2px;
+background-color: #66b0ff;
+}
+
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+
+.check-list input:checked + .checkmark:after {
+display: block;
+}
+
+.check-list .checkmark:after {
+content: "";
+left: 7px;
+top: 3px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 3px 3px 0;
+transform: rotate(45deg);
+transition: all 500ms ease-in-out;
+}
+  
+
+/* =============================== */
+
+.dropdown {
+    cursor: pointer;
+}
+
+.userImg img {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.edit {
+    border-bottom: 1px solid #ddd; 
+}
+
+.edit:hover {
+    color: green;
+}
+
+.delete:hover {
+    color: red;
+}
+
+
+ul.dropdown {
+    display: none; 
+    box-shadow: 0px 3px 5px -1px #ccc;
+    border-radius: 5px;
+}
+
+
+ul.dropdown.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ################################### */
+
+.like_comment_component {
+    border-top: 1px solid #d3d2d28a;
+    padding: 7px;
+}
+
+.like , .comment{
+    background-color: white !important;
+    border: 1px solid #d3d2d221;
+}
+
+.like:hover,
+.comment:hover {
+    color: #66b0ff;
+}
+
+
+.comment-component form input{
+    height: 45px;
+    border-radius: 15px;
+}
+
+.comment-component button {
+    background-color: transparent !important;
+}
+
+.comment-component i {
+    color: #000;
+}
+.comment-component i:hover {
+    color: #66b0ff;
+    transform: rotate(45deg);
+}
+
+.comment-component button {
+    border: 0 !important;
+}
+
+.comment-component input {
+    border: 1px solid #d9d9d9 !important;
+}
+
+.comment-component input:focus {
+    outline: none !important;
+    border: 1px solid #66b0ff !important;
+    box-shadow: 3px #66b0ff !important;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    .card-body {
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+
+    .post_box {
+        width: 100%;
+        margin: 0px !important;
+    }
+
+    .post_box button p {
+        display: none;
+    }
+
+    .post_box button i {
+        font-size: 0.8rem !important;
+        padding: 1px !important;
+    }
+
+    .post_box img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .post_box .shareBtn {
+        width: 80% !important;
+        font-size: smaller !important;
+    }
+
+    .post, .photo, .event, .lists {
+        box-shadow: none;
+        width: 100%;
+        margin: 1rem 0px !important;
+        padding: 0.4rem !important;
+    }
+
+    /* components first */
+    .feed_header {
+        width: 100%;
+        margin: 0px !important;
+    }
+
+    .feed_header h3 {
+        font-size: 0.7rem !important;
+    }
+
+    .feed_header img {
+        width: 30px !important;
+        height: 35px !important;    
+    }
+
+    .feed_header i {
+        font-size: 0.7rem !important;
+    }
+
+    .dropdown li {
+        font-size: 0.8rem !important;
+    }
+
+    .like_comment_component {
+        width: 100%;
+        margin: 1rem 0px !important;
+        flex-direction: row !important;
+    }
+
+    .like, .comment {
+        width: 40% !important;
+        margin: 0px 10px !important;
+    }
+
+    .like i, .comment i {
+        font-size: 0.8rem !important;
+    }
+
+    .like p, .comment p {
+        font-size: 0.8rem !important;
+    }
+
+    .comment-component {
+        width: 100% !important;
+        margin: 10px 0px !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: safe center !important;
+    }
+
+    .comment-component form {
+        width: 70% !important;
+        margin: 0px !important;
+    }
+
+    .comment-component form input {
+        width: 100% !important;
+        margin: 0px !important;
+        height: 30px !important;
+    }
+
+    .comment-component button {
+        width: 30% !important;
+        margin: 0px !important;
+        font-size: 0.5rem !important;
+        height: 30px !important;
+        
+    }
+
+    /* end components */
+
+    .post .post_content p {
+        font-size: 0.7rem !important;
+        margin: 0% !important;
+    }
+
+    .event_component , .post_content, .feed_content img, .feed_content h3, .feed_content form {
+        margin: 0.5rem 0px !important;
+    }
+
+    .event .date {
+        font-size: 1rem !important;
+    }
+
+    .event .description .event_title h2 {
+        font-size: 0.8rem !important;
+    }
+
+    .event .description .event_description h4{
+        font-size: 0.6rem !important;
+    }
+
+    .feed_content h3 {
+        font-size: 0.8rem !important;
+    }
+
+    .feed_content form {
+        font-size: 0.6rem !important;
+    }
+
+    .checkmark {
+        height: 10px !important;
+        width: 10px !important;
+    }
+
+    .check-list input:checked + .checkmark:after {
+        left: 3px !important;
+        top: 1px !important;
+        width: 3px !important;
+        height: 6px !important;
+    }
+}
