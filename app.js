@@ -37,6 +37,8 @@ app.use('/api/v1/circles', listsRouter);
 app.use('/api/v1/circles', listItemsRouter);
 app.use('/api/v1/circles', postsRouter);
 app.use('/api/v1/circles', usersRouter);
+app.use('/api/v1/users', inviteNewUserRouter);
+app.use('/api/v1', validateEmail);
 
 // auth routes
 app.use('/api/v1/auth', authRouter);

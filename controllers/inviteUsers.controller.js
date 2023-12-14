@@ -35,13 +35,13 @@ class InvitationController {
                                     secret,
                                     { expiresIn: "15m",}
                                 );
-            const link = `http://localhost:5000/api/v1/auth/signup/${user.circleId}/${token}`;
+            const link = `http://localhost:3000/signup/${user.circleId}/${token}`;
 
             const transporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
-                    user: user.email,
-                    pass: user.password,
+                    user: process.env.USER_EMAIL,
+                    pass: process.env.USER_PASS,
                 }
             });
             const mailOptions = {
@@ -59,7 +59,7 @@ class InvitationController {
                     console.log(error);
                     res.status(500).json({message: "something went wrong"});
                 } else {
-                    console.log("Email sent: " + success.response);
+                    res.status(201).json({ message: `Email sent: ${success.response}` });
                 }
             });
         }

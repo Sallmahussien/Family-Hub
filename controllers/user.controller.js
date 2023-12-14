@@ -123,8 +123,22 @@ class UsersController {
         }
     });
 
+    static validateUserEmail = asyncHandler(async (req, res) => {
+        const userDto = new UsersDto(req.body);
 
+        const userDao = new UsersDao();
+        try {
+            const user = await userDao.getUserByEmail(userDto);
+            console.log(user)
+            res.status(200).json({ message: "This Email already has an acount" }); ;
+        } catch (err) {
+            if (err.message === 'Invalid email or password.') {
+                return res.status(409).json({ message: err.message });
+            }
 
+            res.status(500).json({ message: 'Internal Server Error' });   
+        }
+    });
 }
 
 module.exports = { UsersController };
