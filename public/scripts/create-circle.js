@@ -8,8 +8,6 @@ const createCircleErrorDisplay = {
     coverPhoto: getElement('cover-photo')
 }
 
-const formDataObject = {};
-
 submitBtn.addEventListener('click', handleSubmit);
 
 async function handleSubmit() {
@@ -46,6 +44,8 @@ function updateStoredData(circleData) {
     const storedDataString = sessionStorage.getItem('formData');
     const storedData = JSON.parse(storedDataString) || {};
     storedData.circleId = circleData.id;
+
+    sessionStorage.removeItem('formData');
     return storedData;
 }
 
