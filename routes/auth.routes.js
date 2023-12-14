@@ -6,7 +6,7 @@ const { upload } = require('../middlewares/uploads');
 
 
 router
-    .route('/signup/:circleId?/:token?')
+    .route('/signup')
     .post(upload.single('profilePhoto'), AuthController.register)
 
 router
@@ -19,3 +19,4 @@ router
 
 
 module.exports = { router };
+

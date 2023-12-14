@@ -115,9 +115,9 @@ class UsersController {
             res.status(201).json({ message: 'User deleted successfully' }); ;
         } catch (err) {
             if (err.message === 'Circle Id is invalid.') {
-                res.status(409).json({ message: err.message });
+                return res.status(409).json({ message: err.message });
             } else if (err.code === 'P2025' && err.meta?.cause === 'Record to update not found.') {
-                res.status(409).json({ message: 'User Id is invalid.' });
+                return res.status(409).json({ message: 'User Id is invalid.' });
             }
             res.status(500).json({ message: 'Internal Server Error' });   
         }
