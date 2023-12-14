@@ -23,7 +23,7 @@ model Users {
   circleId     String
   firstName    String
   lastName     String
-  role         Role       @default(MEMEBER)
+  role         Role       @default(MEMBER)
   email        String     @unique
   password     String
   profilePhoto String?
@@ -100,6 +100,7 @@ model ListItems {
   listId  String
   name    String
   deleted Boolean @default(false)
+  checked Boolean @default(false)
   list    Lists   @relation(fields: [listId], references: [id], onDelete: NoAction)
 }
 
@@ -135,7 +136,7 @@ model Likes {
 
 enum Role {
   CREATOR
-  MEMEBER
+  MEMBER
 }
 
 enum Position {
