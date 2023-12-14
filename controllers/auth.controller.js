@@ -79,6 +79,11 @@ class AuthController {
       res.status(500).json({message: err.message});
     }
   });
+
+  static logout = asyncHandler(async (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.redirect('/');
+  });
 }
 
 
