@@ -37,13 +37,18 @@ class AuthController {
     try {
       const user = await userDao.createUser(userDto);
       const token = AuthController.createToken(user);
+
+      res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
+
       const { password, ...other } = user;
-      res.status(201).json({ ...other, token });
+
+      res.status(201).json(other);
     } catch (err) {
       if (err.message === 'Email is already in use.') {
         return res.status(409).json({ message: err.message });
       }
-      res.status(500).json({ message: err.message });
+
+      res.status(500).json({ message: 'error' });
     }
   });
 
@@ -58,7 +63,7 @@ class AuthController {
     const error = UsersValidator.login(userDto);
 
     if (error && error.error && error.error.details && error.error.details[0]) {
-      return res.status(400).json({message: error.error.details[0].message});
+      return res.status(400).json({ message: error.error.details[0].message });
     }
 
     const userDao = new UsersDao();
@@ -70,14 +75,21 @@ class AuthController {
       }
 
       const token = AuthController.createToken(user);
-      const {password, ...other} = user;
-      res.status(200).json({...other, token});
+      res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
+
+      const { password, ...other } = user;
+      res.status(200).json({ ...other });
     } catch (err) {
       if (err.message === 'Invalid email or password.') {
-        return res.status(401).json({message: err.message});
+        return res.status(401).json({ message: err.message });
       }
-      res.status(500).json({message: err.message});
+      res.status(500).json({ message: err.message });
     }
+  });
+
+  static logout = asyncHandler(async (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.redirect('/');
   });
 }
 

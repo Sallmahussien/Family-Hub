@@ -28,7 +28,7 @@ class CircleController {
         const circleDao = new CirclesDao();
         try {
             const circle = await circleDao.createCircle(circleDto);
-            res.status(200).json(circle);
+            res.status(201).json(circle);
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
