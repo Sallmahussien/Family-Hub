@@ -32,6 +32,14 @@ class PasswordController {
         const userDto = new UsersDto(req.body);
         const userDao = new UsersDao();
 
+        console.log(req.body)
+
+        const error = UsersValidator.forgrtPassword(userDto);
+
+        if (error && error.error && error.error.details && error.error.details[0]) {
+            return res.status(400).json({ message: error.error.details[0].message });
+        }
+
         try {
             const user = await userDao.getUserByEmail(userDto);
 
@@ -41,7 +49,7 @@ class PasswordController {
                                     { expiresIn: "15m",}
                                 );
 
-            const link = `http://localhost:5000/api/v1/password/reset-password/${user.id}/${token}`;
+            const link = `http://localhost:3000/api/v1/password/reset-password/${user.id}/${token}`;
       
             const transporter = nodemailer.createTransport({
                 service: "gmail",
@@ -66,12 +74,15 @@ class PasswordController {
                     res.status(500).json({message: "something went wrong"});
                 } else {
                     console.log("Email sent: " + success.response);
-                    res.render("link-send");
+                    res.status(201).json({ message: 'mail is sent' })
                 }
             });
 
         } catch (err) {
-            return res.status(404).json({ message: err.message });
+            if (err.message === 'Invalid email or password.') {
+                return res.status(409).json({ message: 'Invalide email address'});
+            }
+            return res.status(500).json({ message: err.message });
         }
       
     });
@@ -131,12 +142,11 @@ class PasswordController {
 
             await userDao.updateUserById(userDto);
 
-            res.render("success-password");
+            res.status(201).json({ message: 'Password is updated' });
         } catch (error) {
             return res.status(404).json({ message: err.message });
         }
     });
-
 
     /**
      * @desc    change password

@@ -1,56 +1,82 @@
 const router = require('express').Router();
+const { verifyToken } = require('../middlewares/verifyToken');
 
-router.get('/', (req, res) => {
+router
+    .route('/')
+    .get((req, res) => {
+        res.render('index');
+    });
 
-    res.render('index');
-});
+router
+    .route('/about-us')
+    .get((req, res) => {
+        res.render('about-us');
+    });
 
-router.get('/about-us', (req, res) => {
-    res.render('about-us');
-});
+router
+    .route('/signup/:circleId?/:token?')
+    .get((req, res) => {
+        res.render('signup');
+    });
 
-router.get('/signup/:circleId?/:token?', (req, res) => {
-    res.render('signup');
-});
+router
+    .route('/login')
+    .get((req, res) => {
+        res.render('login');
+    });
 
-router.get('/login', (req, res) => {
-    res.render('login');
-});
+router
+    .route('/create-circle')
+    .get((req, res) => {
+        res.render('create-circle');
+    });
 
-router.get('/create-circle', (req, res) => {
-    res.render('create-circle');
-});
+router
+    .route('/forget-password')
+    .get((req, res) => {
+        res.render('forget-password');
+    });
 
-router.get('/forget-password', (req, res) => {
-    res.render('forget-password');
-});
+router.
+    route('/reset-password')
+    .get((req, res) => {
+        res.render('reset-password');
+    });
 
-router.get('/reset-password', (req, res) => {
-    res.render('reset-password');
-});
+router
+    .route('/home')
+    .get(verifyToken, (req, res) => {
+        res.render('home');
+    });
 
-router.get('/home', (req, res) => {
-    res.render('home');
-});
+router
+    .route('/calendar')
+    .get(verifyToken, (req, res) => {
+        res.render('calendar');
+    });
 
-router.get('/calendar', (req, res) => {
-    res.render('calendar');
-});
+router
+    .route('/lists')
+    .get(verifyToken, (req, res) => {
+        res.render('lists');
+    });
 
-router.get('/lists', (req, res) => {
-    res.render('lists');
-});
+router
+    .route('/gallery')
+    .get(verifyToken, (req, res) => {
+        res.render('gallery');
+    });
 
-router.get('/gallery', (req, res) => {
-    res.render('gallery');
-});
+router
+    .route('/contacts-book')
+    .get(verifyToken, (req, res) => {
+        res.render('contacts-book');
+    });
 
-router.get('/contacts-book', (req, res) => {
-    res.render('contacts-book');
-});
-
-router.get('/settings', (req, res) => {
-    res.render('settings');
-});
+router
+    .route('/settings')
+    .get(verifyToken, (req, res) => {
+        res.render('settings');
+    });
 
 module.exports = { router };
