@@ -1,0 +1,153 @@
+
+.settings-body .left {
+    border-right: 1px solid var(--border-color);
+}
+
+.left .main_set div {
+    border-bottom: 2px solid var(--border-color);
+    cursor: pointer;
+}
+
+.members {
+    border-bottom: 0 !important;
+}
+
+
+.privacy_view p {
+    color: var(--border-color);
+}
+
+
+.email_control button {
+    width: 15%;
+    border-radius: 35px;
+    background-color: var(--main-color) !important;
+    color: var(--secondary-color);
+}
+
+
+.option_form input {
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+form button {
+    width: 12%;
+    border-radius: 35px !important;
+    background-color: var(--main-color) !important;
+    color: var(--secondary-color);
+}
+
+
+.info_view .circle-name {
+    color: black;
+}
+
+
+.circle-cover .cover_photo {
+    width: 200px !important;
+    height: 150px !important;
+    background-color: #7777778c !important;
+    background-size: cover !important;
+}
+
+
+.circle-cover button {
+    width: 10%;
+    border-radius: 35px;
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+}
+
+.members button {
+    width: 15%;
+    border-radius: 35px;
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+}
+
+.privacy {
+    display: flex;
+    height: 25%;
+}
+
+.privacy_view p {
+    color: #777;
+}
+
+.privacy_view {
+    display: none;
+}
+
+.info_view {
+    display: none;
+}
+
+.members_view {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .settings-body .privacy_view, .settings-body .info_view, .settings-body .members_view {
+        margin: 5% 0% !important;
+    }
+
+    .settings-body .right .privacy_view h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .settings-body .right .privacy_view h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .settings-body .right .privacy_view p {
+        font-size: 0.8rem !important;
+    }
+
+    .settings-body .right .privacy_view label {
+        font-size: 1rem !important;
+    }
+
+    .settings-body .right .privacy_view input {
+        width: 100%;
+        height: 25px;
+        font-size: x-small !important;
+    }
+
+    .settings-body .right .privacy_view button {
+        font-size: small;
+        width: 50px;
+    }
+
+    .settings-body .right .info_view h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .settings-body .right .info_view h2 {
+        font-size: 1rem !important;
+    }
+
+    .settings-body .right .info_view input {
+        font-size: 1rem !important;
+        width: 80% !important;
+    }
+
+    .settings-body .right .info_view button {
+        font-size: small;
+        width: 50px;
+    }
+
+    .settings-body .right .members_view h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .settings-body .right .members_view h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .settings-body .right .members_view button{
+        font-size: x-small !important;
+        width: 50px;
+    }
+}

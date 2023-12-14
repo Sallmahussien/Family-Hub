@@ -1,0 +1,252 @@
+body {
+    --main-color: #66b0ff;
+    --secondary-color: #f2f2f2;
+    --border-color: #cccccc67;
+    --font-color: #777;
+}
+
+.contact-book-body .contacts-book {
+    border-right: 1px solid var(--border-color);
+    position: relative;
+}
+
+.contact-book-body .contacts-book .header h2 {
+    font-size: 35px;
+}
+
+.contact-book-body .contacts-book .header i {
+    color: var(--main-color);
+}
+
+.contact-book-body .contact-book-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header i {
+    color: var(--border-color);
+}
+
+.AddContact {
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    visibility: hidden;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.AddContact .head {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.AddContact form {
+    border-radius: 15px;
+}
+
+.formOption input,
+.formOption textarea {
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.contact-selector {
+    cursor: pointer;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+}
+
+.contact-selector .name p {
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.contact-selector span {
+    display: block;
+    color: var(--font-color);
+    font-size: 13px;
+    margin-top: -5px;
+}
+
+.contact-selector:hover {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+}
+
+.contact-selector img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+}
+
+.contacts-book button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    background-color: #66b0ff;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 640px;
+    right: 10px;
+}
+
+.contact-book-details .main-header {
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.contact-book-details .main-header .name_job h2 {
+    font-size: 35px;
+    margin: 0;
+}
+
+.contact-book-details .main-header .name_job span {
+    font-size: 13px;
+    color: var(--font-color);
+    display: block;
+    margin-top: -5px;
+}
+
+.contact-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.contact-book-details .contact-details h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.contact-book-details .email,
+.contact-book-details .phone-num {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.contact-book-details .email h3,
+.contact-book-details .phone-num h3 {
+    font-weight: 600;
+}
+
+.contact-book-details .email span,
+.contact-book-details .phone-num span {
+    font-size: 14px;
+    color: var(--font-color);
+}
+
+.note h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.note textarea {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    height: 120px;
+}
+
+.note textarea:focus {
+    outline: none;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .contact-book-body .AddContact {
+        width: 90% !important;
+        padding: 0.5rem !important;
+    }
+
+    .contact-book-body .AddContact .head {
+        padding: 0.2rem !important;
+    }
+
+    .contact-book-body .AddContact .head h3 {
+        font-size: 1rem !important;
+    }
+
+    .contact-book-body .AddContact .head i {
+        font-size: 1.5rem !important;
+    }
+
+    .contact-book-body .AddContact .formOption {
+        padding: 0rem !important;
+    }
+
+    .AddContact .formOption input,
+    .AddContact .formOption textarea {
+        width: 100% !important;
+    }
+
+    .contact-book-body .AddContact .formOption textarea {
+        height: 70px !important;
+    }
+
+    .contact-book-body .AddContact .btn {
+        padding: 5px !important;
+    }
+
+    .contact-book-body .AddContact .formOption label {
+        font-size: 0.8rem !important;
+    }
+
+    .contact-book-body .contacts-book {
+        height: auto !important;
+    }
+
+    .contact-book-body .contact-book-details .email,
+    .contact-book-details .phone-num {
+        width: 100% !important;
+    }
+
+    .contact-book-body .contact-book-details .email i,
+    .contact-book-details .phone-num i {
+        font-size: 1rem !important;
+    }
+
+    .contact-book-body .contact-book-details .email h3,
+    .contact-book-details .phone-num h3 {
+        font-size: 1rem !important;
+    }
+
+    .contact-book-body .contact-book-details h1,
+    .contact-book-details h2,
+    .contact-book-details h3 {
+        font-size: 1.3rem !important;
+    }
+
+    .contact-book-body .contact-book-details p {
+        font-size: 0.8rem !important;
+    }
+
+    .contact-book-details .note textarea {
+        width: 100% !important;
+    }
+
+    .contacts-book .contact-selector {
+        padding: 0.1rem !important;
+    }
+
+    .contacts-book .contact-selector img {
+        width: 20% !important;
+    }
+
+    .contacts-book .contact-selector h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .contact-selector:hover {
+        background-color: var(--main-color);
+        color: var(--secondary-color);
+    }
+}

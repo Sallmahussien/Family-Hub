@@ -1,0 +1,152 @@
+nav {
+    background-color: #bebebe48;
+}
+
+.overlay {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.26);
+    position: absolute;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: azure;
+    height: 300px;
+}
+
+.about-header {
+    margin: 25px 0;
+    background-image: url('../imgs/us2.png');
+    background-size: cover;
+    width: 100%;
+    height: 300px;
+}
+
+.about-header .text {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family:'Kalam', cursive;
+}
+
+.whoWeAre {
+    width: 90%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.whoWeAre .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family:'Kalam', cursive;
+}
+
+.whoWeAre .text h1 {
+    font-weight: 600;
+}
+
+.whoWeAre .text h2 {
+    color: #777;
+    font-weight: 700;
+    border-bottom: 1px solid #77777762;
+}
+
+
+.content {
+    display: flex;
+}
+
+.heros {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.heros .contact {
+    display: flex;
+}
+
+.heros .contact i {
+    margin: 5px;
+    font-size: 20px;
+    color: black;
+}
+
+.heros .contact a .fa-whatsapp:hover{
+    color: 	#25D366;
+}
+
+.heros .contact a .fa-linkedin:hover{
+    color: 	#0077B5;
+}
+
+.heros .contact a .fa-github:hover{
+    color: rgba(44, 45, 46, 0.849);
+}
+
+.heros .contact a  .fa-x-twitter:hover{
+    color: rgba(15, 15, 15, 0.849);
+}
+
+footer {
+    margin-top: 35px;
+    padding: 10px;
+    height: 60px;
+    background-color: #adadad34;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer p {
+    margin-bottom: 5px;
+}
+
+
+/* ======================== */
+
+@media (max-width: 768px) {
+    .text h1 {
+        font-size: large;
+    }
+    .text p {
+        font-size: x-small;
+
+    }
+
+    .about-header {
+        background-image: url('../imgs/us.small.png');
+        background-size: cover;
+    }
+
+    .whoWeAre h1 {
+        font-size: 1rem;
+    }
+    .content p {
+        font-size: 0.5rem;
+    }
+
+    .content .contact i {
+        font-size: 0.5rem;
+    }
+
+    footer {
+        height: 35px;
+    }
+
+    footer p {
+        font-size: 0.4rem;
+        margin-bottom: 5px;
+    }
+}

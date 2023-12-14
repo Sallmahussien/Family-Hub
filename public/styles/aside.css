@@ -1,0 +1,136 @@
+nav {
+    background-color: #66b0ff;
+    height: 65px !important;
+    position: sticky !important;
+    top: 0;
+    z-index: 100;
+}
+
+nav .firstLetter {
+    font-size: 45px;
+    font-weight: 900;
+    color: white;
+    background-color: #d9d9d923;
+    border-bottom: 1px solid #d9d9d9;
+    font-family: 'Times New Roman', Times, sans-serif;
+}
+
+.circle-name {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.logo {
+    font-weight: 900;
+    font-size: 35px;
+    color: white !important;
+}
+
+.logo .hub-span {
+    font-weight: 100;
+}
+
+.row {
+    background-color: #f2f2f2;
+}
+
+aside {
+    height: calc(100vh - 65px);
+    box-shadow: 10px 0 10px -5px #ddd;
+    padding: 0 !important;
+    background-color: white;
+    position: sticky;
+    top: 65px;
+    z-index: 9;
+}
+
+.profile-container {
+    width: 100%;
+    position: relative;
+}
+
+.profile-container::before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-top: 65%;
+}
+
+.cover-photo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+.profile-container::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.name-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+}
+
+.profile-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+aside h2 {
+    font-size: 20px;
+    margin-top: 7px;
+    color: white;
+}
+
+ul .nav-item {
+    padding: 10px 0;
+    margin: 0 20px 15px;
+}
+
+ul .nav-item:not(:last-of-type) {
+    border-bottom: 1px solid #d9d9d9;
+}
+
+ul .nav-link {
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+ul .nav-link:hover,
+ul .active {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    color: #66b0ff;
+}
+
+ul .nav-link i {
+    font-size: 20px;
+}
+
+main {
+    background-color: #f2f2f2;
+}
