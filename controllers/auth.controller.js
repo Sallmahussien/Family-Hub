@@ -60,6 +60,8 @@ class AuthController {
    */
   static login = asyncHandler(async (req, res) => {
     const userDto = new UsersDto(req.body);
+
+    console.log(req.body)
     const error = UsersValidator.login(userDto);
 
     if (error && error.error && error.error.details && error.error.details[0]) {
@@ -78,7 +80,7 @@ class AuthController {
       res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
 
       const { password, ...other } = user;
-      res.status(200).json({ ...other });
+      res.status(201).json({ ...other });
     } catch (err) {
       if (err.message === 'Invalid email or password.') {
         return res.status(401).json({ message: err.message });

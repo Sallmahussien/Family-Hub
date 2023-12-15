@@ -34,7 +34,7 @@ main .row {
     border: none;
     outline: none;
     position: absolute;
-    bottom: 75px;
+    top: 640px;
     right: 10px;
 }
 

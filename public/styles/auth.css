@@ -14,7 +14,7 @@ body {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 768px) {
     .auth {
         width: 85%;
         padding: 0 !important;
@@ -58,4 +58,16 @@ h1 {
     width: 100% !important;
     outline: none !important;
     transition: all 0.3s ease-in-out !important;
+}
+
+.form-group span {
+    font-size: 13px;
+    color: rgba(255, 0, 0, 0.8);
+    ;
+    display: block;
+    margin-top: -15px;
+}
+
+.message-container {
+    display: none;           
 }

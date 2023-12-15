@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creat Circle</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <link rel="stylesheet" href="/styles/auth.css">
+
+</head>
+
+<body>
+    <div class="auth p-4">
+        <div class="m-2">
+            <div class="mb-3 mt-3 main-text">
+                <h1>Create Your Circle</h1>
+                <p>Join and Share Your Family Your Best Moments</p>
+            </div>
+            <form class="mb-auto" method="post" id="myForm">
+                <div class="form-group form-input">
+                    <label for="name" class="mb-2">Circle Name</label>
+                    <input type="text" class="mb-3 form-control" id="name" name="name" placeholder="Your Circle Name">
+                    <span></span>
+                </div>
+                <div class="form-group form-input">
+                    <label for="cover-photo" class="mb-2">Cover Photo</label>
+                    <input type="file" class="form-control" id="cover-photo" name="coverPhoto">
+                    <span></span>
+                    <small class="form-text text-muted mt-3 ">Upload your Cover photo.</small>
+                </div>
+                <div class="confirm_cancel_btn">
+                    <button type="button" class="col-md-3 btn btn-primary " id="submitBtn">Submit</button>
+                    <button type="button" class="col-md-3 btn btn-light mx-2 " id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    <script src="/scripts/create-circle.js"></script>
+
+</body>
+
+</html>

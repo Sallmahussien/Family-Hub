@@ -1,6 +1,9 @@
 nav {
     background-color: #66b0ff;
     height: 65px !important;
+    position: sticky !important;
+    top: 0;
+    z-index: 100;
 }
 
 nav .firstLetter {
@@ -33,10 +36,13 @@ nav .firstLetter {
 }
 
 aside {
-    height: 100vh;
+    height: calc(100vh - 65px);
     box-shadow: 10px 0 10px -5px #ddd;
     padding: 0 !important;
     background-color: white;
+    position: sticky;
+    top: 65px;
+    z-index: 9;
 }
 
 .profile-container {
@@ -90,11 +96,6 @@ aside {
     border-radius: 50%;
     object-fit: cover;
 }
-
-aside {
-    z-index: 1 !important;
-}
-
 
 aside h2 {
     font-size: 20px;

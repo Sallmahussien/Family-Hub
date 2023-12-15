@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 function verifyToken(req, res, next) {
-  const token = req.headers.token;
+  const token = req.cookies.jwt;
   if (token) {
     try {
       const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
@@ -11,7 +11,7 @@ function verifyToken(req, res, next) {
       res.status(401).json({ message: "invalid token" });
     }
   } else {
-    res.status(401).json({ message: "no token provided" });
+    res.render('index');
   }
 }
 

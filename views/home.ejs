@@ -7,9 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link rel="stylesheet" href="./styles/shared.css">
-    <link rel="stylesheet" href="./styles/aside.css">
-    <link rel="stylesheet" href="./styles/home.css">
+    <link rel="stylesheet" href="/styles/shared.css">
+    <link rel="stylesheet" href="/styles/aside.css">
+    <link rel="stylesheet" href="/styles/home.css">
     <title>FamilyHub Circle</title>
     <style>
         
@@ -21,7 +21,7 @@
         <div class="container-fluid ">
 
             <div class="logo-container col-md-2 d-flex justify-content-between align-items-center">
-                <a class="navbar-brand d-none d-sm-block" href="#intro">
+                <a class="navbar-brand d-none d-sm-block" href="/home">
                     <span class="text-primary logo"> <span class="firstLetter" >F</span>amily<span class="hub-span">Hub</span></span>
                 </a>
 
@@ -43,13 +43,13 @@
         <div class="row">
 
             <!-- Sidebar (Aside) -->
-            <aside class="col-12 col-md-2 d-none d-sm-block sticky-top" id="sidebar">
+            <aside class="col-12 col-md-2 d-none d-sm-block" id="sidebar">
                 <div class="profile-container">
 
-                    <img class="cover-photo" src="./imgs/cover.png" alt="Cover Photo">
+                    <img class="cover-photo" src="/imgs/cover.png" alt="Cover Photo">
 
                     <div class="name-container">
-                        <img class="profile-photo" src="./imgs/profilePhoto.png" alt="Profile Photo">
+                        <img class="profile-photo" src="/imgs/profilePhoto.png" alt="Profile Photo">
 
                         <h2>Salma</h2>
                     </div>
@@ -57,37 +57,37 @@
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" href="/home">
                             <i class="fas fa-chart-line"></i> Activity
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/lists">
                             <i class="fas fa-list"></i> Lists
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/calendar">
                             <i class="fas fa-calendar-alt"></i> Calendar
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/gallery">
                             <i class="fas fa-images"></i> Gallery
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/contacts-book">
                             <i class="fas fa-address-book"></i> Contact Book
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/settings">
                             <i class="fas fa-cogs"></i> Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/api/v1/auth/logout">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>
                     </li>
@@ -106,7 +106,7 @@
                                 <div class="post_box mx-5 my-3 p-2">
                                     <form action="" class="d-flex flex-column ">
                                         <div class="input p-4 d-flex">
-                                            <img src="./imgs/user.webp" alt="">
+                                            <img src="/imgs/user.webp" alt="">
                                             <input type="text" class="ms-3 border-0 fs-6 p-3" placeholder="Let's share it together..">
                                         </div>
                                         <div class="feedBtns mb-2 d-flex justify-content-evenly p-auto">
@@ -136,7 +136,7 @@
                                         <!-- component -->
                                         <div class="feed_header d-flex justify-content-between">
                                             <div class="userImg d-flex ">
-                                                <img src="./imgs/user.webp" alt="">
+                                                <img src="/imgs/user.webp" alt="">
                                                 <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
                                             </div>
                             
@@ -182,7 +182,7 @@
             
                                         <div class="feed_header d-flex justify-content-between">
                                             <div class="userImg d-flex">
-                                                <img src="./imgs/user.webp" alt="">
+                                                <img src="/imgs/user.webp" alt="">
                                                 <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
                                             </div>
                             
@@ -196,7 +196,7 @@
                                             </div>
                                         </div>
                                         <div class="feed_content">
-                                            <img src="./imgs/Family_Hub.png" alt="" class="w-100 mx-3 my-3 ">
+                                            <img src="/imgs/Family_Hub.png" alt="" class="w-100 mx-3 my-3 ">
                                         </div>
                             
                                         <!-- component -->
@@ -226,7 +226,7 @@
                                         <!-- component -->
                                         <div class="feed_header d-flex justify-content-between">
                                             <div class="userImg d-flex">
-                                                <img src="./imgs/user.webp" alt="">
+                                                <img src="/imgs/user.webp" alt="">
                                                 <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
                                             </div>
 
@@ -286,7 +286,7 @@
                                         <!-- component -->
                                         <div class="feed_header d-flex justify-content-between">
                                             <div class="userImg d-flex">
-                                                <img src="./imgs/user.webp" alt="">
+                                                <img src="/imgs/user.webp" alt="">
                                                 <h3 class="mt-auto mb-auto ms-3 fs-4">{ user.firstName } has posted</h3>
                                             </div>
 
@@ -342,7 +342,7 @@
                             <div class="card-body">
                                 <div class="inner w-75 m-auto d-flex flex-column ">
                                     <h3 class="fs-3">Our Vision Will Go Here</h3>
-                                    <img src="./imgs/aside.png"  class="w-100 mx-auto p-auto" alt="">
+                                    <img src="/imgs/aside.png"  class="w-100 mx-auto p-auto" alt="">
                                     <p class="text-center ">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque ea explicabo ut recusandae accusantium quibusdam nemo, fuga culpa atque nisi non iste reiciendis aliquam numquam, ab vero maiores officia! A!</p>
                                 </div>
                             </div>
@@ -356,7 +356,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./scripts/aside.js"></script>
+    <script src="/scripts/aside.js"></script>
 </body>
 
 </html>
