@@ -82,7 +82,7 @@ class UsersController {
 
         try {
             await userDao.updateUserById(userDto);
-            res.status(201).json({ message: 'User updated successfully' }); ;
+            res.status(200).json({ message: 'User updated successfully' }); ;
         } catch (err) {
             if (err.message === 'Circle Id is invalid.') {
                 res.status(409).json({ message: err.message });
@@ -112,7 +112,7 @@ class UsersController {
         const userDao = new UsersDao();
         try {
             await userDao.deleteUserById(userDto);
-            res.status(201).json({ message: 'User deleted successfully' }); ;
+            res.status(200).json({ message: 'User deleted successfully' }); ;
         } catch (err) {
             if (err.message === 'Circle Id is invalid.') {
                 return res.status(409).json({ message: err.message });

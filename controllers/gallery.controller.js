@@ -61,7 +61,7 @@ class GalleryController {
         const photoDao = new GalleryDao();
         try {
             const photos = await photoDao.getPhotoByCircleId(feedDto);
-            res.status(201).json(photos);
+            res.status(200).json(photos);
         } catch (err) {
             if (err.message === 'Circle Id is invalid.') {
               res.status(409).json({ message: err.message });
@@ -86,7 +86,7 @@ class GalleryController {
         const photoDao = new GalleryDao();
         try {
             const photos = await photoDao.getPhotosByUserId(feedDto);
-            res.status(201).json(photos);
+            res.status(200).json(photos);
         } catch (err) {
             const prefixes = ['Circle', 'User'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
@@ -118,7 +118,7 @@ class GalleryController {
         const photoDao = new GalleryDao();
         try {
             const photo = await photoDao.getPhotoById(photoDto, feedDto);
-            res.status(201).json(photo);
+            res.status(200).json(photo);
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'Photo'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
@@ -169,7 +169,7 @@ class GalleryController {
 
         try {
                 await photoDao.updatePhotoById(photoDto, feedDto);
-            res.status(201).json({ message: 'Photo is updated.'});
+            res.status(200).json({ message: 'Photo is updated.'});
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'Photo'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {

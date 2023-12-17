@@ -89,7 +89,7 @@ class LikesController {
         const likeDao = new LikesDao();
         try {
             await likeDao.deleteLikeById(feedDto, likeDto);
-            res.status(201).json({ message: 'Like deleted successfully' });
+            res.status(200).json({ message: 'Like deleted successfully' });
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'Like'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
