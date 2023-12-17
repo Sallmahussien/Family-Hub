@@ -32,7 +32,7 @@ class EventsController {
             const event = await eventDao.createEvent(eventDto, feedDto);
             res.status(201).json(event);
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             const prefixes = ['Circle', 'User'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
               res.status(409).json({ message: err.message });
