@@ -85,7 +85,7 @@ class PostsController {
         const postDao = new PostsDao();
         try {
             await postDao.updatePostById(postDto, feedDto);
-            res.status(201).json({ message: 'Post updated successfully' }); ;
+            res.status(200).json({ message: 'Post updated successfully' }); ;
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'Post'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {

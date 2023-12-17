@@ -11,7 +11,7 @@ class EventsController {
     /**
      * @desc create a new event
      * @route /api/v1/circles/:circle_id/users/:userId/events
-     * @method event
+     * @method POST
      * @access public
      */
     static createEvent = asyncHandler(async (req, res) => {
@@ -121,7 +121,7 @@ class EventsController {
         const eventDao = new EventsDao();
         try {
             await eventDao.updateEventById(eventDto, feedDto);
-            res.status(201).json({ message: 'event updated successfully' }); ;
+            res.status(200).json({ message: 'event updated successfully' }); ;
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'Event'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {

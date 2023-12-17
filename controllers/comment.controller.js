@@ -94,7 +94,7 @@ class CommentsController {
 
         try {
             await commentDao.updateCommentById(commentDto, feedDto);
-            res.status(201).json({ message: 'Comment updated successfully' });
+            res.status(200).json({ message: 'Comment updated successfully' });
         } catch (err) {
             const prefixes = ['User', 'Comment', 'Circle', 'Feed'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
@@ -122,7 +122,7 @@ class CommentsController {
         const commentDao = new CommentsDao();
         try {
             await commentDao.deleteCommentById(commentDto, feedDto);
-            res.status(201).json({ message: 'Comment deleted successfully' });
+            res.status(200).json({ message: 'Comment deleted successfully' });
         } catch (err) {
             const prefixes = ['User', 'Comment', 'Circle', 'Feed'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {

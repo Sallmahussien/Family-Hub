@@ -72,7 +72,7 @@ class FeedsController {
         const feedDao = new FeedsDao();
         try {
             await feedDao.deleteFeedById(feedDto);
-            res.status(201).json({ message: 'Feed deleted successfully' }); ;
+            res.status(200).json({ message: 'Feed deleted successfully' }); ;
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {

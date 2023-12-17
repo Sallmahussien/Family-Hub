@@ -53,7 +53,7 @@ class ContactBooksController {
 
         try {
             const contacts = await contactDao.getContactBooksByCircleId(contactDto);
-            res.status(201).json(contacts);
+            res.status(200).json(contacts);
         } catch (err) {
             if (err.message === 'Circle Id is invalid.') {
                 res.status(409).json({ message: err.message });
@@ -122,7 +122,7 @@ class ContactBooksController {
 
         try {
             await contactDao.updateContactBookById(contactDto);
-            res.status(201).json({ message: 'Contact updated successfully' }); ;
+            res.status(200).json({ message: 'Contact updated successfully' }); ;
         } catch (err) {
             const prefixes = ['Circle', 'Contact'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
@@ -147,7 +147,7 @@ class ContactBooksController {
         const contactDao = new ContactBooksDao();
         try {
             await contactDao.deleteContactBookById(contactDto);
-            res.status(201).json({ message: 'Contact deleted successfully' }); ;
+            res.status(200).json({ message: 'Contact deleted successfully' }); ;
         } catch (err) {
             const prefixes = ['Circle', 'Contact'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {

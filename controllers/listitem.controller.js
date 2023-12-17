@@ -83,7 +83,7 @@ class ListItemsController {
             await validateListId(listDto);
 
             const listItems = await listItemsDao.getListItemsByListId(listItemDto, feedDto);
-            res.status(201).json(listItems);
+            res.status(200).json(listItems);
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'List'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
@@ -127,7 +127,7 @@ class ListItemsController {
             await validateListId(listDto);
 
             await listItemsDao.updateListItemById(listItemDto, feedDto);
-            res.status(201).json({ message: "List Item is Updated"});
+            res.status(200).json({ message: "List Item is Updated"});
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'List'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
@@ -166,7 +166,7 @@ class ListItemsController {
             await validateListId(listDto);
 
             await listItemsDao.deleteListItemById(listItemDto, feedDto);
-            res.status(201).json({ message: "List Item is Deleted"});
+            res.status(200).json({ message: "List Item is Deleted"});
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'List'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {

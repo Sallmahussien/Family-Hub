@@ -13,7 +13,7 @@ function verifyToken(req, res, next) {
   } else {
     res.render('index');
   }
-}
+} 
 
 function verifyTokenAndAuthorization(req, res, next) {
   verifyToken(req, res, () => {
