@@ -23,6 +23,7 @@ submitBtn.addEventListener('click', async function (event) {
                 formData.append('circleId', circleId);
                 await submitFormData('/api/v1/auth/signup', formData);
             } else {
+                formDataObject.role = "CREATOR";
                 sessionStorage.setItem('formData', JSON.stringify(formDataObject));
                 location.assign('/create-circle');
             }
