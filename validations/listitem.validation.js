@@ -6,6 +6,7 @@ class ListItemValidator {
             id: joi.string(),
             listId: joi.string().required(),
             name: joi.string().trim().min(2).required(),
+            checked: joi.boolean().default(false),
             deleted: joi.boolean().default(false),
         });
 
@@ -17,6 +18,7 @@ class ListItemValidator {
             id: joi.string().required(),
             listId: joi.string().required(),
             name: joi.string().trim().min(2),
+            checked: joi.boolean(),
             deleted: joi.boolean()
         });
 
