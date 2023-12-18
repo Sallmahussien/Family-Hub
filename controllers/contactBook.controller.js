@@ -8,13 +8,13 @@ const { ContactBooksValidator } = require('../validations/contactBook.validation
 
 class ContactBooksController {
 
-     /**
-     * @desc create a new contactbook
-     * @route /api/v1/circles/:circleId/contactbooks
-     * @method POST
-     * @access public
-     */
-     static createContact = asyncHandler(async (req, res) => {
+    /**
+    * @desc create a new contactbook
+    * @route /api/v1/circles/:circleId/contactbooks
+    * @method POST
+    * @access public
+    */
+    static createContact = asyncHandler(async (req, res) => {
 
         const contactDto = new ContactBooksDto(req.body);
         contactDto.circleId = req.params.circleId;
@@ -26,7 +26,7 @@ class ContactBooksController {
         if (error && error.error && error.error.details && error.error.details[0]) {
             return res.status(400).json({ message: error.error.details[0].message });
         }
-  
+
         const contactDao = new ContactBooksDao();
         try {
             const contact = await contactDao.createContactBook(contactDto);
@@ -72,16 +72,16 @@ class ContactBooksController {
         const contactDto = new ContactBooksDto(req.body);
         contactDto.circleId = req.params.circleId;
         contactDto.id = req.params.contactId;
-    
+
         const contactDao = new ContactBooksDao();
         try {
             const contact = await contactDao.getContactBookById(contactDto);
-            if (!contact) res.status(400).json({ message: 'Contact Id is invalid.'});
+            if (!contact) res.status(400).json({ message: 'Contact Id is invalid.' });
             res.status(200).json(contact);
         } catch (err) {
             const prefixes = ['Circle', 'Contact'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
-              res.status(409).json({ message: err.message });
+                res.status(409).json({ message: err.message });
             }
 
             res.status(500).json({ message: err.message });
@@ -107,7 +107,7 @@ class ContactBooksController {
                     const filePath = path.join(__dirname, `../images/${contactBook.profilePhoto}`);
                     await fs.unlink(filePath);
                 }
-            } catch(err) {
+            } catch (err) {
                 if (err.message === 'Contact Id is invalid.') return res.status(404).json({ message: err.message });
             }
 
@@ -122,11 +122,11 @@ class ContactBooksController {
 
         try {
             await contactDao.updateContactBookById(contactDto);
-            res.status(200).json({ message: 'Contact updated successfully' }); ;
+            res.status(200).json({ message: 'Contact updated successfully' });;
         } catch (err) {
             const prefixes = ['Circle', 'Contact'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
-              res.status(409).json({ message: err.message });
+                res.status(409).json({ message: err.message });
             }
 
             res.status(500).json({ message: err.message });
@@ -147,11 +147,11 @@ class ContactBooksController {
         const contactDao = new ContactBooksDao();
         try {
             await contactDao.deleteContactBookById(contactDto);
-            res.status(200).json({ message: 'Contact deleted successfully' }); ;
+            res.status(200).json({ message: 'Contact deleted successfully' });;
         } catch (err) {
             const prefixes = ['Circle', 'Contact'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
-              res.status(409).json({ message: err.message });
+                res.status(409).json({ message: err.message });
             }
 
             res.status(500).json({ message: err.message });

@@ -87,7 +87,7 @@ class ListsController {
         } catch (err) {
             const prefixes = ['Circle', 'User', 'Feed', 'List'];
             if (prefixes.some(prefix => err.message.startsWith(prefix))) {
-              res.status(409).json({ message: err.message });
+              return res.status(409).json({ message: err.message });
             }
 
             res.status(500).json({ message: 'Internal Server Error' });   
