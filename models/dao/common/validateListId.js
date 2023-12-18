@@ -4,7 +4,6 @@ async function validateListId(listDto) {
     const list = await prisma.lists.findUnique({
         where: {
             id: listDto.id,
-            deleted: false
         }
     });
 
