@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+
 
 const { router: circleRouter } = require('./routes/circle.routes');
 const { router: contactBooksRouter } = require('./routes/contactBook.routes');
@@ -22,6 +24,8 @@ const { router: passRouter } = require('./routes/password.routes');
 const { router: pagesRouter } = require('./routes/page.routes')
 
 const app = express();
+
+app.use(cors());
 
 app.use(cookieParser());
 

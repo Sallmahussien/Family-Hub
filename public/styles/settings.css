@@ -1,4 +1,8 @@
-
+* {
+    --border-color : #777777c0;
+    --main-color : #4da3ff;
+    --secondary-color : #fff;
+}
 .settings-body .left {
     border-right: 1px solid var(--border-color);
 }

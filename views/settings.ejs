@@ -34,8 +34,8 @@
                 </div>
             </div>
     
-            <div class="circle-name col-md-10 text-center">
-                my-circle
+            <div class="circle-name col-md-10 text-center" id="circleName">
+                
             </div>
     
         </div>
@@ -47,14 +47,15 @@
 
             <aside class="col-sm-12 col-md-2 d-none d-sm-block sticky-top" id="sidebar">
                 <div class="profile-container">
-                    <img class="cover-photo" src="/imgs/cover.png" alt="Cover Photo">
+                    <img class="cover-photo" id="circleCoverPic" src="/imgs/cover.png" alt="Cover Photo">
 
-                    <div class="name-container">
-                        <img class="profile-photo" src="/imgs/profilePhoto.png" alt="Profile Photo">
+                        <div class="name-container">
+                            <img class="profile-photo" src="/imgs/profilePhoto.png" alt="Profile Photo" id="userMainPhoto">
 
-                        <h2>Salma</h2>
+                            <h2 id='userFName'></h2>
+                        </div>
                     </div>
-                </div>
+
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -129,12 +130,47 @@
                                 <h1 class="fs-1 fw-bold">Security & Privacy</h1>
                                 <p class="fs-6">feel free to manage your FamilyHub account</p>
                             </div>
+
+
+                            <!-- form for email changing -->
+                            <div class="modal fade" id="changeEmailModal" tabindex="-1" role="dialog" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="changeEmailModalLabel">Change Email</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" onclick="closeChangeEmailModal()">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="changeEmailForm">
+                                                <label for="newEmail">New Email:</label>
+                                                <input type="email" class="form-control" id="newEmail" required>
+                                                <span id="errorSpan" style="color: red;"></span>
+                                                <br>
+                                                <button type="button" class="btn btn-dark mt-3 w-25" onclick="changeUserEmail()">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
         
                             <div class="email_control d-flex flex-column gap-2">
                                 <h3 class="fs-2 fw-bold ">Email Identifier</h3>
-                                <h2 class="fs-4"> {user.email} </h2>
-                                <button type="submit" class="btn btn-primary p-1 border-0 ">change</button>
+                                <h2 class="fs-4 ms-2" id="userEmail" > {user.email} </h2>
+                                <button type="button" class="btn btn-primary p-1 border-0" onclick="openChangeEmailModal()">Change</button>
+                                <span></span>
                             </div>
+
+                            <!-- // form for profilePhoto changing -->
+                            <div class="profilePic_control d-flex flex-column gap-2">
+                                <h3 class="fs-2 fw-bold ">Profile Picture</h3>
+                                <img class="fs-4 ms-2" id="userPhoto" style="width: 250px;" src="">
+                                <input type="file" name="profilePhoto" id="profilePhoto">
+                                <button type="button" id="changeUserPhoto" class="btn btn-primary p-1 border-0 w-25" onclick="changeProfilePic()">Change Photo</button>
+                                <span></span>
+                            </div>
+
         
                             <div class="password_control d-flex flex-column gap-4">
                                 <div class="pass_head d-flex flex-column gap-1">
@@ -145,16 +181,18 @@
         
                                 <form action="" class="d-flex flex-column gap-4">
                                     <div class="option_form d-flex flex-column gap-2">
-                                        <label  class="fs-5" for="currPass">Current Password</label>
-                                        <input class="h-75 p-2 w-50" type="password" name="currPassword" placeholder="Enter your current password">
+                                        <label class="fs-5" for="currPass">Current Password</label>
+                                        <input class="h-75 p-2 w-50" type="password" name="password" id="password" placeholder="Enter your current password">
                                     </div>
-        
+                                    <span id="currPasswordError" style="color: red;"></span>
+                                
                                     <div class="option_form d-flex flex-column gap-2">
                                         <label class="fs-5" for="newPass">New Password</label>
-                                        <input class="h-75 p-2 w-50" type="password" name="newPassword" placeholder="Enter the new password">
+                                        <input class="h-75 p-2 w-50" type="password" name="newPassword" id="newPassword" placeholder="Enter the new password">
                                     </div>
-        
-                                    <button type="submit" class="btn btn-primary p-1 border-0 ">Save</button>
+                                    <span id="newPasswordError" style="color: red;"></span>
+                                
+                                    <button type="button" class="btn btn-primary p-1 border-0 " onclick="changeUserPassword()">Save</button>
                                 </form>
         
                             </div>
@@ -168,17 +206,19 @@
                             <div class="circle-name d-flex justify-content-between ">
                                 <h2 class="fs-4">Circle Name</h2>
                                 <form action="">
-                                    <input class="w-75" type="text" name="circleName" id="" placeholder="{ Circle.name }">
+                                    <input class="w-75" type="text" name="circleName" id="circleNameInput" placeholder="{ Circle.name }">
                                 </form>
+                                <span></span>
                             </div>
         
                             <div class="circle-cover d-flex flex-column gap-4">
                                 <h2 class="fs-4">Cover Photo</h2>
                                 <div class="cover_photo">
-                                    
+                                    <img src="" alt="" style="width: 250px;" id="circleCoverPhoto">
                                 </div>
-                                <input type="file" name="cover" id="coverPhoto">
-                                <button type="submit" class="btn btn-primary p-1 border-0">save</button>
+                                <span></span>
+                                <input type="file" class="mt-5 pt-5"  name="cover" id="coverPhoto">
+                                <button type="button" class="btn btn-primary p-1 mt-5 border-0" onclick="changeCircleInfo()" >save</button>
                             </div>
                         </div>
 
@@ -188,13 +228,20 @@
                             <div class="member_header">
                                 <h1 class="fs-1 fw-bold">Family Members</h1>
                             </div>
-        
-                            <div class="members d-flex gap-2 flex-column">
-                                <div class="member d-flex justify-content-between ">
-                                    <h3 class="fs-4"> {user.name} </h3>
-                                    <button type="submit" class="btn btn-primary p-1 border-0">Remove</button>
-                                </div>
+                        
+                            <div class="members d-flex gap-2 flex-column" id="membersContainer">
+                                <!-- added by js -->
                             </div>
+                        
+                            <div class="invite_member d-flex gap-2 flex-column">
+                                <h2 class="fs-4">Invite Member</h2>
+                                <div class="d-flex gap-2">
+                                    <input type="email" class="form-control w-50" id="inviteEmail" placeholder="Enter email">
+                                    <button type="button" class="btn btn-primary p-1 border-0" onclick="sendInvitation()">Send Invitation</button>
+                                </div>
+                                <span></span>
+                            </div>
+                        </div>
                         </div>
             
                     </div>
@@ -209,6 +256,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/scripts/settings.js"></script>
     <script src="/scripts/aside.js"></script>
+    <script src="/scripts/shared.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </body>
 
 </html>

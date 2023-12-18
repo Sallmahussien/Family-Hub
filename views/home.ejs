@@ -6,54 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <link rel="stylesheet" href="/styles/shared.css">
     <link rel="stylesheet" href="/styles/aside.css">
     <link rel="stylesheet" href="/styles/home.css">
     <title>FamilyHub Circle</title>
-    <style>
-        
-    </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md">
         <div class="container-fluid ">
-
+    
             <div class="logo-container col-md-2 d-flex justify-content-between align-items-center">
                 <a class="navbar-brand d-none d-sm-block" href="/home">
                     <span class="text-primary logo"> <span class="firstLetter" >F</span>amily<span class="hub-span">Hub</span></span>
                 </a>
-
+    
                 <div class="d-sm-none">
                     <button class="btn btn-outline-light" id="toggleSidebar">
                         <span class="navbar-toggler-icon" style="color: white;"></span>
                     </button>
                 </div>
             </div>
-
-            <div class="circle-name col-md-10 text-center">
-                my-circle
+    
+            <div class="circle-name col-md-10 text-center" id="circleName">
+                
             </div>
-
+    
         </div>
     </nav>
+    
 
-    <div class="container-fluid ">
+    <div class="container-fluid">
         <div class="row">
 
-            <!-- Sidebar (Aside) -->
-            <aside class="col-12 col-md-2 d-none d-sm-block" id="sidebar">
+            <aside class="col-sm-12 col-md-2 d-none d-sm-block sticky-top" id="sidebar">
                 <div class="profile-container">
+                    <img class="cover-photo" id="circleCoverPic" src="/imgs/cover.png" alt="Cover Photo">
 
-                    <img class="cover-photo" src="/imgs/cover.png" alt="Cover Photo">
+                        <div class="name-container">
+                            <img class="profile-photo" src="/imgs/profilePhoto.png" alt="Profile Photo" id="userMainPhoto">
 
-                    <div class="name-container">
-                        <img class="profile-photo" src="/imgs/profilePhoto.png" alt="Profile Photo">
-
-                        <h2>Salma</h2>
+                            <h2 id='userFName'></h2>
+                        </div>
                     </div>
-                </div>
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -104,34 +99,161 @@
 
                                 <!-- posting new feeds -->
                                 <div class="post_box mx-5 my-3 p-2">
-                                    <form action="" class="d-flex flex-column ">
+                                    <form action="" class="d-flex flex-column" id="postForm">
                                         <div class="input p-4 d-flex">
                                             <img src="/imgs/user.webp" alt="">
-                                            <input type="text" class="ms-3 border-0 fs-6 p-3" placeholder="Let's share it together..">
+                                            <span></span>
+                                            <input type="text" class="ms-3 border-0 fs-6 p-3" name="content" id="content" placeholder="Let's share it together..">
+                                            <span></span>
                                         </div>
                                         <div class="feedBtns mb-2 d-flex justify-content-evenly p-auto">
-                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex" onclick="openPhotoModal()">
                                                 <i class="fa-solid fa-camera pt-1"></i>
                                                 <p class="ms-1 mb-1">Add Photo</p>
                                             </button>
-                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+                                            
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex" onclick="openEventModal()">
                                                 <i class="fa-regular fa-calendar-days pt-1"></i>
                                                 <p class="ms-1 mb-1">Add Event</p>
                                             </button>
-                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+                                            
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex" onclick="openListModal()">
                                                 <i class="fa-solid fa-list-ol pt-1"></i>
                                                 <p class="ms-1 mb-1">Add List</p>
                                             </button>
-                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex">
+
+                                            <button type="button" class="btn btn-outline-secondary pt-1 pb-0 d-flex" onclick="openContactModal()">
                                                 <i class="fa-regular fa-id-badge pt-1"></i>
                                                 <p class="ms-1 mb-1">Add Contact</p>
                                             </button>
                                         </div>
-                                        <button type="button" class="btn btn-primary ms-auto sharebtn" >Share</button>
+                                        <button type="button" class="btn btn-primary ms-auto sharebtn" id="sharebtn" onclick="createPost()" >Share</button>
                                     </form>
                                 </div>
 
 
+                                <!-- feeds options -->
+                                <div class="modal modal-container fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="photoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="photoModalLabel">Add Photo</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="text" class="form-control" id="caption" name="caption">
+                                                <input type="file" class="form-control" id="photoInput">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onclick="uploadPhoto()">Upload Photo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="eventModalLabel">Add Event</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label for="startDate">Start Date:</label>
+                                                <input type="date" class="form-control" id="startDate">
+                                                <label for="endDate">End Date:</label>
+                                                <input type="date" class="form-control" id="endDate">
+                                                <label for="eventTitle">Title:</label>
+                                                <input type="text" class="form-control" id="eventTitle">
+                                                <label for="eventDescription">Description:</label>
+                                                <textarea class="form-control" id="eventDescription"></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onclick="createEvents()">Create Event</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="listModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="listModalLabel">Add List</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <label for="listName">List Name:</label>
+                                                <input type="text" class="form-control" id="listName">
+                                                <label for="listItems">List Items (comma-separated):</label>
+                                                <input type="text" class="form-control" id="listItems">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onclick="createList()">Create List</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="contactModalLabel">Add Contact</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="firstName">First Name:</label>
+                                                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="lastName">Last Name:</label>
+                                                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="title">Title:</label>
+                                                    <input type="text" class="form-control" id="title" placeholder="Enter title">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="phoneNumber">Phone Number:</label>
+                                                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="email">Email:</label>
+                                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="photoInput">Photo:</label>
+                                                    <input type="file" class="form-control" id="photoInput">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="note">Note:</label>
+                                                    <textarea class="form-control" id="note" placeholder="Enter note"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onclick="addContact()">Add Contact</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <!-- feeeeeeeeeeeedddddddddd body -->
+                                <div id="feedBody">
                                     <div class="post mx-5 p-4 mt-4">
                                         <!-- component -->
                                         <div class="feed_header d-flex justify-content-between">
@@ -335,6 +457,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
 
                     <!-- Section -->
                     <div class=" col-md-4 d-none d-sm-block" id="mianContainer">
@@ -357,6 +480,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/scripts/aside.js"></script>
+    <script src="/scripts/shared.js"></script>
+    <script src="/scripts/home.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </body>
 
 </html>
