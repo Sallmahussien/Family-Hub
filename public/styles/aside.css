@@ -43,6 +43,7 @@ aside {
     position: sticky;
     top: 65px;
     z-index: 9;
+    overflow-y: auto;
 }
 
 .profile-container {
@@ -133,4 +134,5 @@ ul .nav-link i {
 
 main {
     background-color: #f2f2f2;
+    min-height: calc(100vh - 65px);
 }
