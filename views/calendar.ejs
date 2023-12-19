@@ -21,40 +21,41 @@
 <body>
     <nav class="navbar navbar-expand-md">
         <div class="container-fluid ">
-    
+
             <div class="logo-container col-md-2 d-flex justify-content-between align-items-center">
                 <a class="navbar-brand d-none d-sm-block" href="/home">
-                    <span class="text-primary logo"> <span class="firstLetter" >F</span>amily<span class="hub-span">Hub</span></span>
+                    <span class="text-primary logo"> <span class="firstLetter">F</span>amily<span
+                            class="hub-span">Hub</span></span>
                 </a>
-    
+
                 <div class="d-sm-none">
                     <button class="btn btn-outline-light" id="toggleSidebar">
                         <span class="navbar-toggler-icon" style="color: white;"></span>
                     </button>
                 </div>
             </div>
-    
+
             <div class="circle-name col-md-10 text-center" id="circleName">
-                
+
             </div>
-    
+
         </div>
     </nav>
-    
+
 
     <div class="container-fluid">
         <div class="row">
 
-            <aside class="col-sm-12 col-md-2 d-none d-sm-block sticky-top" id="sidebar">
+            <aside class="col-sm-12 col-md-2 d-none d-sm-block" id="sidebar">
                 <div class="profile-container">
                     <img class="cover-photo" id="circleCoverPic" src="/imgs/cover.png" alt="Cover Photo">
 
-                        <div class="name-container">
-                            <img class="profile-photo" src="/imgs/profilePhoto.png" alt="Profile Photo" id="userMainPhoto">
+                    <div class="name-container">
+                        <img class="profile-photo" src="/imgs/profilePhoto.png" alt="Profile Photo" id="userMainPhoto">
 
-                            <h2 id='userFName'></h2>
-                        </div>
+                        <h2 id='userFName'></h2>
                     </div>
+                </div>
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -99,14 +100,47 @@
 
             <main class="col-md-10">
                 <div id="calendar"></div>
+
+                <button id="addEventBtn">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
             </main>
+
+            <div class="modal-container" id="modalContainer">
+                <div id="createEditModal" class="modal">
+                    <h2 id="modalTitle">Create a New Event</h2>
+                    <form action="" class="w-100">
+                        <div>
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" placeholder="Event Title"/>
+                            <span id="errMsg"></span>
+                        </div>
+                        <div>
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" name="startDate"/>
+                            <span id="errMsg"></span>
+                        </div>
+                        <div>
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate" name="endDate"/>
+                            <span id="errMsg"></span>
+                        </div>
+                        <div>
+                            <label for="reminder">Reminder</label>
+                            <input type="date" id="reminder" name="reminder"/>
+                            <span id="errMsg"></span>
+                        </div>
+                        <button type="button" id="modalSubmit">Submit</button>
+                    </form>
+                </div>
+                <span id="closeModal" onclick="closeModal()">&times;</span>
+            </div>
 
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/scripts/aside.js"></script>
-    <script src="/scripts/shared.js"></script>
     <script src="/scripts/calendar.js"></script>
 
 </body>
