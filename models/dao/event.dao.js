@@ -15,8 +15,10 @@ class EventsDao {
         const feed = await createFeed(feedDto);
 
         eventDto.feedId = feed.id;
+        const formattedDto = this.formatEventDtoDates(eventDto);
+
         const event = await prisma.events.create({
-            data: eventDto
+            data: formattedDto
         });
 
         return event;
@@ -24,7 +26,7 @@ class EventsDao {
 
     async getEventsByCircleId(feedDto) {
         await validateCircleId(feedDto.circleId);
-        
+
         const feeds = await getFeedsBytype({ circleId: feedDto.circleId, type: 'EVENT' });
 
         return feeds;
@@ -60,7 +62,7 @@ class EventsDao {
         });
     }
 
-    async validateEventById (eventDto) {
+    async validateEventById(eventDto) {
         const event = await prisma.events.findUnique({
             where: {
                 id: eventDto.id
@@ -69,6 +71,26 @@ class EventsDao {
 
         if (!event) throw Error('Event Id is invalide.');
     }
+
+    formatEventDtoDates = (eventDto) => {
+        const formattedDto = {
+            ...eventDto,
+        };
+
+        if (eventDto.startDate) {
+            formattedDto.startDate = new Date(eventDto.startDate).toISOString();
+        }
+
+        if (eventDto.endDate) {
+            formattedDto.endDate = new Date(eventDto.endDate).toISOString();
+        }
+
+        if (eventDto.reminder) {
+            formattedDto.reminder = new Date(eventDto.reminder).toISOString();
+        }
+
+        return formattedDto;
+    };
 
 }
 
