@@ -119,9 +119,8 @@ main .row {
 }
 
 .list-items #listItemErrMsg {
-    color: red;
+    color: rgba(255, 0, 0, 0.7);
     font-size: 13px;
-    display: none;
 }
 
 .list-items .free-list {
@@ -132,7 +131,6 @@ main .row {
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-
 }
 
 .list-items .free-list img {
@@ -170,6 +168,24 @@ main .row {
     cursor: pointer;
 }
 
+.free-list-items {
+    display: none;
+}
+
+.free-list-items h2,
+.free-list-items p {
+    margin: 0;
+}
+
+.free-list-items h2 {
+    font-weight: 900;
+}
+
+.free-list-items p {
+    color: #777;
+    font-size: 16px;
+}
+
 .modal-container {
     align-items: center;
     background-color: rgba(0, 0, 0, .5);
@@ -182,7 +198,7 @@ main .row {
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 1000;
+    z-index: 1150;
 }
 
 .modal {
@@ -223,9 +239,9 @@ main .row {
 
 .modal #errMsg {
     font-size: 13px;
-    color: red;
+    color: rgba(255, 0, 0, 0.7);
     margin-top: -8px;
-    display: none;
+    display: block;
 }
 
 .modal button {
@@ -247,7 +263,7 @@ main .row {
 }
 
 #deleteModal #confirmDelete {
-    background-color: rgba(255, 0, 0, 0.8);
+    background-color: rgba(255, 0, 0, 0.7);
 }
 
 #deleteModal #cancelDelete {
@@ -284,11 +300,12 @@ main .row {
     z-index: 100;
     position: absolute;
     right: 10px;
-    top: 149px;
+    top: 133px;
 }
 
-.list-modal-edit-delete .modal-content .delete {
-    color: red;
+.list-modal-edit-delete .modal-content .delete,
+.list-modal-edit-delete .modal-content .delete i {
+    color: rgba(255, 0, 0, 0.7);
 }
 
 #deleteListButton,
