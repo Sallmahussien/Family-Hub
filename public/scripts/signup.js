@@ -47,14 +47,11 @@ async function validateEmail() {
             const spanToDisplayERr = emailElement.nextElementSibling;
             const data = await response.json();
 
-            console.log(data)
-
             spanToDisplayERr.textContent = data.message;
 
             return true;
         }
         else {
-            console.log('in else')
             return false;
         }
 

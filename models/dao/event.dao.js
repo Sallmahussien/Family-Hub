@@ -54,11 +54,13 @@ class EventsDao {
         await validateFeedId(feedDto);
         await this.validateEventById(eventDto);
 
+        const formattedDto = this.formatEventDtoDates(eventDto);
+
         await prisma.events.update({
             where: {
                 id: eventDto.id,
             },
-            data: eventDto
+            data: formattedDto
         });
     }
 
