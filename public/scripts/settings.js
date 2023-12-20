@@ -12,6 +12,13 @@ async function getCircleInput() {
     circleNameSettings.placeholder = await getCircleName();
 }
 
+async function getCircleName() {
+    const response = await fetch(`/api/v1/circles/${circleId}`);
+    const data = await response.json();
+    const circleName = data.name;
+    return circleName;
+}
+
 getCircleInput();
 
 async function getCircleCoverPhoto() {
