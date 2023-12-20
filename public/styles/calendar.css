@@ -1,10 +1,15 @@
+body {
+    height: 100vh;
+    margin: 0;
+}
 
 main {
-    padding: 20px;
+    padding: 20px 20px 0;
 }
 
 div#calendar {
-    margin: 10px;
+    height: calc(100vh - 110px);
+    margin: 10px 10px 0;
 }
 
 .fc .fc-toolbar-title {
@@ -18,4 +23,119 @@ div#calendar {
 .fc .fc-col-header-cell-cushion,
 .fc-daygrid-day-number {
     color: #66b0ff;
+}
+
+.fc .fc-view-harness {
+    flex: 1;
+}
+
+#addEventBtn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: white;
+    background-color: #66b0ff;
+    border: none;
+    outline: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1100;
+}
+
+.modal-container {
+    align-items: center;
+    background-color: rgba(0, 0, 0, .5);
+    bottom: 0;
+    display: none;
+    justify-content: center;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1150;
+}
+
+.modal {
+    width: 40%;
+    height: fit-content;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+form input:focus {
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .modal {
+        width: 80%;
+    }
+}
+
+.modal h2 {
+    font-size: 25px;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+}
+
+.modal #errMsg {
+    font-size: 13px;
+    color: rgba(255, 0, 0, 0.7);
+    margin-top: -8px;
+    display: block;
+}
+
+.modal button {
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: #66b0ff;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    margin-top: 13px;
+
+}
+
+#closeModal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+@media (max-width: 767px) {
+    .fc .fc-toolbar.fc-header-toolbar {
+        flex-direction: column;
+    }
+
+    .fc-toolbar-chunk:last-child {
+        display: none;
+    }
 }
