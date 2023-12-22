@@ -45,7 +45,7 @@
     <div class="container-fluid">
         <div class="row">
 
-            <aside class="col-sm-12 col-md-2 d-none d-sm-block" id="sidebar">
+            <aside class="col-sm-12 col-md-2 d-none d-sm-block sticky-top" id="sidebar">
                 <div class="profile-container">
                     <img class="cover-photo" id="circleCoverPic" src="/imgs/cover.png" alt="Cover Photo">
 
@@ -84,12 +84,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/settings">
+                        <a class="nav-link active" href="/settings">
                             <i class="fas fa-cogs"></i> Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/api/v1/auth/logout">
+                        <a class="nav-link" href="/api/v1/auth/logout">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>
                     </li>
@@ -100,29 +100,31 @@
 
             <main class="col-md-10 container-fluid">
                 <div class="h-100 settings-body d-flex row p-2">
-                    <div class="left h-100 col-md-4 bg-light d-flex flex-column p-3">
+                    <div class="left h-100 col-md-3 bg-light d-flex flex-column p-3">
                         <div class="main_set d-flex flex-column h-100 ">
-                            <div class="Prefrences d-flex justify-content-center h-25">
-                                <h1 class="my-auto fs-1 fw-bold">Prefrences</h1>
+                            <div class="Prefrences d-flex justify-content-center">
+                                <h1 class="my-auto fs-2 fw-bold pb-5">Prefrences</h1>
                             </div>
-                            
-                            <div class="privacy justify-content-center h-25">
-                                <h1 class="my-auto fs-1">Privacy and Security</h1>
-                            </div>
-        
-                            <div class="info d-flex justify-content-center h-25">
-                                <h1 class="my-auto fs-1" >Circle Info</h1>
+
+                            <div class="my-auto h-50 d-flex flex-column justify-content-between ">
+                            <div class="privacy d-flex justify-content-center text-center h-100">
+                                <h1 class="my-auto fs-3"> <i class="fa-solid fa-user-shield"></i> Privacy and Security</h1>
                             </div>
         
-                            <div class="members d-flex justify-content-center h-25">
-                                <h1 class="my-auto fs-1">Family Members</h1>
+                            <div class="info d-flex justify-content-center h-100 ">
+                                <h1 class="my-auto fs-3" > <i class="fa-solid fa-circle-info"></i> Circle Info</h1>
                             </div>
+        
+                            <div class="members d-flex justify-content-center h-100">
+                                <h1 class="my-auto fs-3"> <i class="fa-solid fa-users"></i> Family Members</h1>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 
 
 
-                    <div class="right h-100 col-md-8 p-3 d-flex flex-column gap-3">
+                    <div class="right h-100 col-md-9 p-3 d-flex flex-column gap-3 bg-body ">
                         
                         
                         <div class="privacy_view m-5 flex-column justify-content-center gap-5">
@@ -146,7 +148,7 @@
                                             <form id="changeEmailForm">
                                                 <label for="newEmail">New Email:</label>
                                                 <input type="email" class="form-control" id="newEmail" required>
-                                                <span id="errorSpan" style="color: red;"></span>
+                                                <span id="EmailerrorSpan" style="color: red;"></span>
                                                 <br>
                                                 <button type="button" class="btn btn-dark mt-3 w-25" onclick="changeUserEmail()">Submit</button>
                                             </form>
@@ -167,19 +169,20 @@
                                 <h3 class="fs-2 fw-bold ">Profile Picture</h3>
                                 <img class="fs-4 ms-2" id="userPhoto" style="width: 250px;" src="">
                                 <input type="file" name="profilePhoto" id="profilePhoto">
+                                <span id="profilePhotoError" style="color: red;"></span>
                                 <button type="button" id="changeUserPhoto" class="btn btn-primary p-1 border-0 w-25" onclick="changeProfilePic()">Change Photo</button>
                                 <span></span>
                             </div>
 
         
-                            <div class="password_control d-flex flex-column gap-4">
+                            <div class="password_control d-flex flex-column gap-1">
                                 <div class="pass_head d-flex flex-column gap-1">
                                     <h3 class="fs-2 fw-bold ">Password</h3>
                                     <p class="fs-6">Strong Password is your best way to be safe</p>
                             
                                 </div>
         
-                                <form action="" class="d-flex flex-column gap-4">
+                                <form action="" class="d-flex flex-column gap-1">
                                     <div class="option_form d-flex flex-column gap-2">
                                         <label class="fs-5" for="currPass">Current Password</label>
                                         <input class="h-75 p-2 w-50" type="password" name="password" id="password" placeholder="Enter your current password">
@@ -205,24 +208,50 @@
         
                             <div class="circle-name d-flex justify-content-between ">
                                 <h2 class="fs-4">Circle Name</h2>
+                                <span></span>
                                 <form action="">
                                     <input class="w-75" type="text" name="circleName" id="circleNameInput" placeholder="{ Circle.name }">
                                 </form>
-                                <span></span>
                             </div>
         
-                            <div class="circle-cover d-flex flex-column gap-4">
+                            <div class="circle-cover d-flex flex-column gap-2">
                                 <h2 class="fs-4">Cover Photo</h2>
                                 <div class="cover_photo">
                                     <img src="" alt="" style="width: 250px;" id="circleCoverPhoto">
                                 </div>
                                 <span></span>
-                                <input type="file" class="mt-5 pt-5"  name="cover" id="coverPhoto">
+                                <input type="file" class="mt-2 pt-5"  name="cover" id="coverPhoto">
+                                <span id="coverPhotoError" style="color: red;"></span>
                                 <button type="button" class="btn btn-primary p-1 mt-5 border-0" onclick="changeCircleInfo()" >save</button>
                             </div>
+
+                            <div class="circle-delete d-flex flex-column gap-2">
+                                <h2 class="fs-4">Delete Circle</h2>
+                                <p>Remove permanently this Circle and all related content.</p>
+                                <button type="button" class="btn btn-danger p-1 border-0" onclick="openConfirmDeleteCircleModal()">Delete</button>
+                                <span></span>
+                            </div>
+
+                            <div class="modal fade" id="confirmDeleteCircleModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteCircleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="confirmDeleteCircleModalLabel">Confirm Delete Circle</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this circle?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-danger" onclick="confirmDeleteCircle()">Confirm Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-
 
                         <div class="members_view flex-column justify-content-center m-4 gap-5">
                             <div class="member_header">
@@ -239,7 +268,7 @@
                                     <input type="email" class="form-control w-50" id="inviteEmail" placeholder="Enter email">
                                     <button type="button" class="btn btn-primary p-1 border-0" onclick="sendInvitation()">Send Invitation</button>
                                 </div>
-                                <span></span>
+                                <span id="inviteEmailError" style="color: red;"></span>
                             </div>
                         </div>
                         </div>
@@ -254,9 +283,10 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/scripts/aside.js"></script>
     <script src="/scripts/settings.js"></script>
+    <!-- <script src="/scripts/shared.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </body>
 
