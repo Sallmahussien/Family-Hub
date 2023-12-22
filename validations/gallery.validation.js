@@ -6,7 +6,7 @@ class GalleryValidator {
             id: joi.string(),
             feedId: joi.string(),
             caption: joi.string().min(2),
-            photo: joi.string().trim().min(2),
+            photo: joi.string().trim().min(2).required(),
         });
 
         return schema.validate(galleryDto);

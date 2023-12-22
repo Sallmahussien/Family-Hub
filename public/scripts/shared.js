@@ -1,8 +1,5 @@
-const getElement = (id) => document.getElementById(id);
-
 const userDataFromSession = sessionStorage.getItem('userData');
 const userData = JSON.parse(userDataFromSession);
-// console.log(userData);
 const userId = userData.id;
 const circleId = userData.circleId;
 const userEmail = userData.email;
