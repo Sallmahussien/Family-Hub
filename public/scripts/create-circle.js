@@ -60,7 +60,7 @@ async function signup(storedData) {
 
     if (signupResponse.status === 201) {
         const responseData = await signupResponse.json();
-        sessionStorage.setItem('createdUser', JSON.stringify(responseData));
+        sessionStorage.setItem('userData', JSON.stringify(responseData));
         location.assign('/home');
     } else if (signupResponse.status === 400) {
         console.log(await signupResponse.json());
