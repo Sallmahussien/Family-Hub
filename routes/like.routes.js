@@ -1,13 +1,12 @@
 const router = require('express').Router();
 const { LikesController } = require('../controllers/like.controller');
 
-const { verifyToken,
-    verifyTokenAndAuthorizationForCreatorParamFree } = require('../middlewares/verifyToken');
+const { verifyToken } = require('../middlewares/verifyToken');
 
 router
     .route('/:circleId/feeds/:feedId/likes')
-    .post(verifyTokenAndAuthorizationForCreatorParamFree, LikesController.createLike)
+    .post(verifyToken, LikesController.createLike)
     .get(verifyToken, LikesController.getLikesByFeedId)
-    .delete(verifyTokenAndAuthorizationForCreatorParamFree, LikesController.deleteLikeById);
+    .delete(verifyToken, LikesController.deleteLikeById);
 
 module.exports = { router };

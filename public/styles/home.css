@@ -122,15 +122,85 @@ transition: all 500ms ease-in-out;
 }
   
 
-/* =============================== */
 
-.dropdown {
-    cursor: pointer;
+/* ============================= */
+
+/* comments */
+
+.LikeNums {
+    font-size: 1rem !important;
+    color: #66b0ff;
 }
+
+.event_component h1 {
+    font-size: 2rem !important;
+}
+
+.event_component h2 {
+    font-size: 1.5rem !important;
+}
+
+.event_component h4 {
+    font-size: 1.2rem !important;
+}
+
+.event_component h4 {
+    font-size: 1rem !important;
+}
+
+.userCommentImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+}
+
+.comment_content {
+    margin-left: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* =============================== */
 
 .userImg img {
     height: 50px;
     border-radius: 50%;
+}
+
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown li {
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdown li:hover {
+    background-color: #f0f0f0;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .edit {
@@ -173,6 +243,7 @@ ul.dropdown.active {
 .like:hover,
 .comment:hover {
     color: #66b0ff;
+    cursor: pointer;
 }
 
 

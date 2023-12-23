@@ -16,6 +16,16 @@
     border-bottom: 0 !important;
 }
 
+/* .main_set i {
+    color: #080808de ;
+} */
+
+.privacy:hover, .info:hover, .members:hover {
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+}
+
+
 
 .privacy_view p {
     color: var(--border-color);
@@ -63,16 +73,24 @@ form button {
     color: var(--secondary-color);
 }
 
-.members button {
+.members button, .circle-delete button {
     width: 15%;
     border-radius: 35px;
-    background-color: var(--main-color);
-    color: var(--secondary-color);
+    /* background-color: var(--main-color); */
+    /* color: var(--secondary-color); */
+}
+
+.main_set h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.circle-delete p {
+    color: var(--border-color);
 }
 
 .privacy {
     display: flex;
-    height: 25%;
 }
 
 .privacy_view p {
