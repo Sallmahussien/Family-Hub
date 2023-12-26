@@ -274,6 +274,22 @@ img {
     object-position: center;
 }
 
+.featheader , .section-heading{
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-family: kalam, cursive;
+    color: #4da3ffd7;
+}
+
+.subSection h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 .header-wrapper {
     display: flex;
     flex-direction: column;
@@ -290,7 +306,7 @@ img {
     position: relative;
     bottom: 0;
     height: 300px;
-    color: #ccccccbe;
+    color: #222222c5;
     font-size: 80px;
     font-family: Oswald;
     text-transform: uppercase;

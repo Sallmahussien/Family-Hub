@@ -702,6 +702,11 @@ getCircle();
             newPhotoDiv.innerHTML = `
                 ${ PhotosFeedHeader }
 
+                <div class="feed_content">
+                    <p class="pt-3 pb-0 mb-0 ms-5 fs-5" id="photoCaption">${photoCaption}</p>
+                    <img src="../../images/${uploadedPhoto}" alt="" class="w-100 mx-3 my-1">
+                </div>
+
                 <!-- component -->
                 <div class="like_comments bg-body d-flex flex-column">
                     <span class="mx-3 fs-5 LikeNums"></span>
@@ -1328,6 +1333,7 @@ getCircle();
         const elements = document.querySelectorAll(`[data-feed-id="${feedId}"].likeCreated`);
     
         elements.forEach(element => {
+            location.reload();
             element.style.color = isLiked ? '#0dcaf0' : 'black';
         });
     }

@@ -278,6 +278,9 @@ ul.dropdown.active {
     box-shadow: 3px #66b0ff !important;
 }
 
+.inner h4 {
+    font-size: 1.5rem !important;
+}
 
 @media only screen and (max-width: 768px) {
 
