@@ -8,12 +8,7 @@ const formDataObject = {};
 // user and circle Ids => session storage 
 document.addEventListener("DOMContentLoaded", function () {
 
-    
-document.getElementById('userFName').textContent = userFirstName;
-
-document.getElementById('userMainPhoto').src = `../../images/${userProfile}`? `../../images/${userProfile}` : `/imgs/user.webp`;
-document.getElementById('userPostingPhoto').src = `../../images/${userProfile}`? `../../images/${userProfile}` : `/imgs/user.webp`;
-
+document.getElementById('userPostingPhoto').src = userProfile? `/images/${userProfile}` : `/imgs/user.jpg`;
 
 async function getCircleName() {
     const response = await fetch(`/api/v1/circles/${circleId}`);
@@ -22,8 +17,6 @@ async function getCircleName() {
     document.getElementById('circleName').textContent = circleName;
 }
 
-getCircleName();
-
 async function getCircleCover() {
     const response = await fetch(`/api/v1/circles/${circleId}`);
     const data = await response.json();
@@ -31,10 +24,6 @@ async function getCircleCover() {
     document.getElementById('circleCoverPic').src = `../../images/${circleCover}`? `../../images/${circleCover}` : `/imgs/cover.png`;
     return circleCover;
 }
-
-getCircleCover();
-
-
 
 function getCommentsByFeedId(feed, type) {
     const url = `/api/v1/circles/${circleId}/feeds/${feed}/comments/`;

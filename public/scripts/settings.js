@@ -2,8 +2,7 @@ document.getElementById('userEmail').textContent = userEmail;
 
 document.getElementById('userFName').textContent = userFirstName;
 
-document.getElementById('userMainPhoto').src = `../../images/${userProfile}`;
-document.getElementById('userPhoto').src = `../../images/${userProfile}`;
+document.getElementById('userPhoto').src = userProfile ? `/images/${userProfile}` : '/imgs/user.jpg';
 
 
 async function getCircleName() {
@@ -14,36 +13,30 @@ async function getCircleName() {
     return circleName;
 }
 
-getCircleName();
-
-
 async function getCircleCover() {
     const response = await fetch(`/api/v1/circles/${circleId}`);
     const data = await response.json();
     const circleCover = data.coverPhoto;
-    document.getElementById('circleCoverPic').src = `../../images/${circleCover}`? `../../images/${circleCover}` : `/imgs/cover.png`;
+    document.getElementById('circleCoverPic').src = `../../images/${circleCover}` ? `../../images/${circleCover}` : `/imgs/cover.png`;
     return circleCover;
 }
-
-getCircleCover();
-
 
 async function getCircleInput() {
 
     const circleNameSettings = document.getElementById('circleNameInput');
 
-    circleNameSettings.placeholder = await getCircleName() ;
+    circleNameSettings.placeholder = await getCircleName();
 }
 
 getCircleInput();
 
 
 
-async function getCircleCoverPhoto () {
+async function getCircleCoverPhoto() {
     const response = await fetch(`/api/v1/circles/${circleId}`);
     const data = await response.json();
     const circleCoverPhoto = data.coverPhoto;
-    document.getElementById('circleCoverPhoto').src = `../../images/${circleCoverPhoto}`;
+    document.getElementById('circleCoverPhoto').src = circleCoverPhoto ? `/images/${circleCoverPhoto}` : 'imgs/cover.png';
     return circleCoverPhoto;
 }
 
@@ -52,12 +45,12 @@ getCircleCoverPhoto();
 
 function validateEmail(Email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(Email);
+    return emailRegex.test(Email);
 }
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var privacyView = document.querySelector('.privacy_view');
     var infoView = document.querySelector('.info_view');
     var membersView = document.querySelector('.members_view');
@@ -70,15 +63,15 @@ document.addEventListener('DOMContentLoaded', function() {
     infoView.style.display = 'none';
     membersView.style.display = 'none';
 
-    privacyOption.addEventListener('click', function() {
+    privacyOption.addEventListener('click', function () {
         showView(privacyView);
     });
 
-    infoOption.addEventListener('click', function() {
+    infoOption.addEventListener('click', function () {
         showView(infoView);
     });
 
-    membersOption.addEventListener('click', function() {
+    membersOption.addEventListener('click', function () {
         showView(membersView);
     });
 
@@ -114,12 +107,12 @@ document.addEventListener('DOMContentLoaded', function() {
             errorSpan.textContent = 'Please enter a valid email.';
             return;
         }
-    
+
         const url = `/api/v1/circles/${circleId}/users/${userId}`;
         const userUpdateData = {
             email: newEmail,
         };
-    
+
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -127,23 +120,23 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(userUpdateData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            document.getElementById('userEmail').textContent = newEmail;
-            $('#changeEmailModal').modal('hide');
-        })
-        .catch(error => {
-            console.error('Error changing email:', error);
-            errorSpan.textContent = 'Error changing email. Please try again.';
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('userEmail').textContent = newEmail;
+                $('#changeEmailModal').modal('hide');
+            })
+            .catch(error => {
+                console.error('Error changing email:', error);
+                errorSpan.textContent = 'Error changing email. Please try again.';
+            });
     }
 
-   
+
     async function changeProfilePic() {
         const profilePhotoInput = document.getElementById('profilePhoto');
         const newProfilePhoto = profilePhotoInput.files[0];
@@ -165,16 +158,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const formData = new FormData();
-        formData.append('profilePhoto', newProfilePhoto); 
-    
+        formData.append('profilePhoto', newProfilePhoto);
+
         const url = `/api/v1/circles/${circleId}/users/${userId}`;
-    
+
         try {
             const response = await fetch(url, {
                 method: 'PUT',
                 body: formData,
             });
-    
+
             if (response.ok) {
                 const data = await response.json();
                 console.log('Success:', data);
@@ -212,16 +205,16 @@ document.addEventListener('DOMContentLoaded', function() {
             newPasswordError.textContent = 'Password must be at least 6 characters.';
             return;
         }
-    
+
         const url = `/api/v1/password/change-password/${userId}`;
-    
+
         const userUpdateData = {
             circleId: circleId,
             userId: userId,
             password: currPassword,
             newPassword: newPassword,
         };
-    
+
         fetch(url, {
             method: 'POST',
             headers: {
@@ -229,29 +222,29 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify(userUpdateData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-            currPasswordError.textContent = data.message;
-            newPasswordError.textContent = data.message;
-        })
-        .catch(error => {
-            console.error('Error changing password:', error);
-        
-            if (error.message.includes('404')) {
-                currPasswordError.textContent = "Incorrect password. Please try again.";
-                newPasswordError.textContent = '';
-            } else {
-                currPasswordError.textContent = "Error changing password. Please try again.";
-                newPasswordError.textContent = '';
-            }
-        });
-        
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                currPasswordError.textContent = data.message;
+                newPasswordError.textContent = data.message;
+            })
+            .catch(error => {
+                console.error('Error changing password:', error);
+
+                if (error.message.includes('404')) {
+                    currPasswordError.textContent = "Incorrect password. Please try again.";
+                    newPasswordError.textContent = '';
+                } else {
+                    currPasswordError.textContent = "Error changing password. Please try again.";
+                    newPasswordError.textContent = '';
+                }
+            });
+
     }
 
     async function changeCircleInfo() {
@@ -275,36 +268,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const formData = new FormData();
-    
-        formData.append('name', newCircleName ? newCircleName : await getCircleName()); 
-    
+
+        formData.append('name', newCircleName ? newCircleName : await getCircleName());
+
         if (newCoverPhoto) {
-            formData.append('coverPhoto', newCoverPhoto); 
+            formData.append('coverPhoto', newCoverPhoto);
         }
-        
+
         const url = `/api/v1/circles/${circleId}`;
-    
+
         fetch(url, {
             method: 'PUT',
             body: formData,
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-    
-            if (newCircleName) {
-                document.getElementById('circleName').textContent = newCircleName;
-            }
-    
-            if (newCoverPhoto) {
-                const coverPhotoElement = document.getElementById('circleCoverPhoto');
-                coverPhotoElement.src = URL.createObjectURL(newCoverPhoto);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            console.error('Error changing circle info:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+
+                if (newCircleName) {
+                    document.getElementById('circleName').textContent = newCircleName;
+                }
+
+                if (newCoverPhoto) {
+                    const coverPhotoElement = document.getElementById('circleCoverPhoto');
+                    coverPhotoElement.src = URL.createObjectURL(newCoverPhoto);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                console.error('Error changing circle info:', error);
+            });
     }
 
     // members view
@@ -313,9 +306,9 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch(`/api/v1/circles/${circleId}/users/`);
             const users = await response.json();
-    
+
             const membersContainer = document.getElementById('membersContainer');
-    
+
             users.forEach(user => {
                 const memberDiv = document.createElement('div');
                 memberDiv.id = `user-${user.id}`;
@@ -327,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <button type="button" class="btn btn-danger p-1 border-0" onclick="deleteUser('${user.id}')" >Remove</button>
                 `;
-    
+
                 membersContainer.appendChild(memberDiv);
             });
         } catch (error) {
@@ -384,11 +377,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function deleteUser(userId) {
         const confirmDeletion = confirm('Are you sure you want to remove this user?');
-    
+
         if (!confirmDeletion) {
             return;
         }
-    
+
         try {
             const url = `/api/v1/circles/${circleId}/users/${userId}`;
             const response = await fetch(url, {
@@ -397,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json',
                 }
             });
-    
+
             if (response.ok) {
                 const userElement = document.getElementById(`user-${userId}`);
                 if (userElement) {
@@ -417,37 +410,37 @@ document.addEventListener('DOMContentLoaded', function() {
         $('#confirmDeleteCircleModal').modal('show');
     }
 
-    $(document).ready(function() {
-        $('#confirmDeleteCircleModal .close, #confirmDeleteCircleModal .cancel').click(function() {
+    $(document).ready(function () {
+        $('#confirmDeleteCircleModal .close, #confirmDeleteCircleModal .cancel').click(function () {
             $('#confirmDeleteCircleModal').modal('hide');
         });
     });
 
     function confirmDeleteCircle() {
         const url = `/api/v1/circles/${circleId}`;
-    
+
         fetch(url, {
             method: 'DELETE',
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-            window.location.href = '/circles';
-        })
-        .catch(error => {
-            console.error('Error deleting circle:', error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                window.location.href = '/circles';
+            })
+            .catch(error => {
+                console.error('Error deleting circle:', error);
+            });
     }
 
     window.changeUserEmail = changeUserEmail;
     window.closeChangeEmailModal = closeChangeEmailModal;
-    window.openChangeEmailModal = openChangeEmailModal;  
-    window.changeProfilePic = changeProfilePic; 
+    window.openChangeEmailModal = openChangeEmailModal;
+    window.changeProfilePic = changeProfilePic;
     window.changeUserPassword = changeUserPassword;
     window.changeCircleInfo = changeCircleInfo;
     window.sendInvitation = sendInvitation;
