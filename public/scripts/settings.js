@@ -154,8 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (newProfilePhoto.size > 1000000) {
-            errorSpan.textContent = 'Please choose a photo smaller than 1MB.';
+        if (newProfilePhoto.size > 3000000) {
+            errorSpan.textContent = 'Please choose a photo smaller than 3MB.';
             return;
         }
 
@@ -163,16 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
             errorSpan.textContent = 'Please choose an image file.';
             return;
         }
-
-        // if (newProfilePhoto) {
-        //     const allowedExtensions = ['.png', '.jpg', '.jpeg', '.webp']; 
-        //     const fileExtension = newProfilePhoto.slice(((newProfilePhoto.lastIndexOf(".") - 1) >>> 0) + 2);
-            
-        //     if (!allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
-        //         errorSpan.textContent = 'Please choose a .png, .jpg, or .jpeg file.';
-        //         return;
-        //     }
-        // }
 
         const formData = new FormData();
         formData.append('profilePhoto', newProfilePhoto); 
@@ -188,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Success:', data);
-
             } else {
                 const errorSpan = document.querySelector('.profilePic_control span');
                 errorSpan.textContent = 'Error changing profile photo. Please try again.';
@@ -275,8 +264,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (newCoverPhoto && newCoverPhoto.size > 1000000) {
-            errorSpan.textContent = 'Please choose a photo smaller than 1MB.';
+        if (newCoverPhoto && newCoverPhoto.size > 3000000) {
+            errorSpan.textContent = 'Please choose a photo smaller than 3MB.';
             return;
         }
 
@@ -284,18 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
             errorSpan.textContent = 'Please choose an image file.';
             return;
         }
-
-        // if (newCoverPhoto) {
-        //     const allowedExtensions = ['.png', '.jpg', '.jpeg', '.webp'];
-        //     const filename = newCoverPhoto;
-        //     const fileExtension = filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
-
-        //     if (!allowedExtensions.includes('.' + fileExtension.toLowerCase())) {
-        //         errorSpan.textContent = 'Please choose a .png, .jpg, or .jpeg file.';
-        //         return;
-        //     }
-        // }
-
 
         const formData = new FormData();
     
