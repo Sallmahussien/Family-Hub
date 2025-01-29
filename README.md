@@ -32,6 +32,55 @@ To set up and run the FamilyHub application, follow these steps:
 - Run the app in development mode: `npm run dev`
 - access the app from browser through: `http://localhost:3000/`
 
+## Snapshots
+
+### Homepage
+![Homepage](./images/landpage.png)
+
+---
+### Registration
+
+![Signup](./images/signup.png)
+![Login](./images/login.png)
+![Forget Password](./images/forget-password.png)
+![Token Sent](./images/sent-token.png)
+
+---
+### Circle
+![Create New Circle](./images/create-new-circle.png)
+
+---
+### News Feed
+
+![News Feed](./images/news-feed.png)
+
+---
+### Lists
+
+![List View](./images/lists-view.png)
+![Create New List](./images/create-new-list.png)
+
+---
+### Calendar
+
+![Create New Event](./images/create-event.png)
+![Calendar View](./images/calendar-events.png)
+
+---
+### Gallery
+
+![Gallery View](./images/gallery-view.png)
+![All Photos](./images/all-photos.png)
+![Open Image](./images/open-image.png)
+
+---
+### Contact Book
+
+![Create New Contact](./images/create-new-contact.png)
+![Contact View](./images/contact-created.png)
+![Edit or Delete Contact](./images/edit-or-delete-contact.png)
+![Edit Contact](./images/edit-contact.png)
+
 ## Authors
 - [Kholoud Fattem](https://github.com/Kholoudxs55kh)
 - [Salma Hussien](https://github.com/Sallmahussien)
